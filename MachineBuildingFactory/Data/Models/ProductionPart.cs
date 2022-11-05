@@ -1,6 +1,6 @@
 ﻿using MachineBuildingFactory.Data.Enums;
-using Microsoft.EntityFrameworkCore.Storage;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MachineBuildingFactory.Data.Models
 {
@@ -49,7 +49,11 @@ namespace MachineBuildingFactory.Data.Models
 
         public double? LaserCutLength { get; set; }
 
+        public int? MaterialId { get; set; }
+
+
         [Required]
+        [ForeignKey(nameof(MaterialId))]
         public Material Material { get; set; } = null!;
 
 
