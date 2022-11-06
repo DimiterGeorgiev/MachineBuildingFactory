@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MachineBuildingFactory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221101151908_Initial-2")]
-    partial class Initial2
+    [Migration("20221106104116_ititial-3")]
+    partial class ititial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,8 @@ namespace MachineBuildingFactory.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Department")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Department")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -90,10 +90,11 @@ namespace MachineBuildingFactory.Migrations
 
                     b.Property<string>("Signature")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
 
-                    b.Property<byte>("Title")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Title")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -116,6 +117,21 @@ namespace MachineBuildingFactory.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUserAssembly", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AssemblyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "AssemblyId");
+
+                    b.HasIndex("AssemblyId");
+
+                    b.ToTable("ApplicationUserAssemblies");
+                });
+
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.Assembly", b =>
                 {
                     b.Property<int>("Id")
@@ -123,11 +139,6 @@ namespace MachineBuildingFactory.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -138,7 +149,7 @@ namespace MachineBuildingFactory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -211,6 +222,51 @@ namespace MachineBuildingFactory.Migrations
                     b.ToTable("Manufacturers");
                 });
 
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("MaterialNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaterialNumber = "1.0038"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MaterialNumber = "1.8714"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MaterialNumber = "1.5786"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MaterialNumber = "1.4302"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MaterialNumber = "1.7025"
+                        });
+                });
+
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.ProductionPart", b =>
                 {
                     b.Property<int>("Id")
@@ -219,14 +275,12 @@ namespace MachineBuildingFactory.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ColorOfPaint")
+                    b.Property<string>("AuthorSignature")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ColorOfPaintRal")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -247,30 +301,76 @@ namespace MachineBuildingFactory.Migrations
                     b.Property<double>("LaserCutLength")
                         .HasColumnType("float");
 
-                    b.Property<string>("OwnerId")
+                    b.Property<int?>("MaterialId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
 
-                    b.Property<double>("Surface")
-                        .HasColumnType("float");
-
-                    b.Property<byte>("SurfaceTreatment")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<byte>("TypeOfProductionPart")
-                        .HasColumnType("tinyint");
+                    b.Property<double>("SurfaceArea")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("SurfaceTreatment")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TypeOfPaint")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TypeOfProductionPartId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MaterialId");
+
+                    b.HasIndex("TypeOfProductionPartId");
+
                     b.ToTable("ProductionParts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 5,
+                            AuthorSignature = "PP",
+                            ColorOfPaintRal = 3,
+                            CreatedOn = new DateTime(2022, 11, 6, 11, 41, 16, 587, DateTimeKind.Local).AddTicks(6557),
+                            Description = "This is just a probe part.",
+                            DrawingNumber = "CL-025-001",
+                            Image = "Picture",
+                            LaserCutLength = 4.2999999999999998,
+                            MaterialId = 2,
+                            Name = "Consol",
+                            SurfaceArea = 2.2999999999999998,
+                            SurfaceTreatment = 1,
+                            TypeOfPaint = 2,
+                            TypeOfProductionPartId = 1,
+                            Weight = 5.5999999999999996
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorSignature = "TT",
+                            ColorOfPaintRal = 1,
+                            CreatedOn = new DateTime(2022, 11, 6, 11, 41, 16, 587, DateTimeKind.Local).AddTicks(6564),
+                            Description = "Shaft for all target.",
+                            DrawingNumber = "CL-025-002",
+                            Image = "Picture",
+                            LaserCutLength = 5.9000000000000004,
+                            MaterialId = 3,
+                            Name = "Shaft",
+                            SurfaceArea = 1.3,
+                            SurfaceTreatment = 2,
+                            TypeOfPaint = 3,
+                            TypeOfProductionPartId = 2,
+                            Weight = 8.5999999999999996
+                        });
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.PurchasedPart", b =>
@@ -289,6 +389,11 @@ namespace MachineBuildingFactory.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ManufacturerId")
                         .HasColumnType("int");
@@ -342,6 +447,51 @@ namespace MachineBuildingFactory.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.TypeOfProductionPart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfProductionParts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "MechanicallyProcessed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sheetmetal"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Weldconstruction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Lasercut"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Cast"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -481,6 +631,25 @@ namespace MachineBuildingFactory.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUserAssembly", b =>
+                {
+                    b.HasOne("MachineBuildingFactory.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("ApplicationUserAssemblys")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MachineBuildingFactory.Data.Models.Assembly", "Assembly")
+                        .WithMany()
+                        .HasForeignKey("AssemblyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Assembly");
+                });
+
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.AssemblyProductionPart", b =>
                 {
                     b.HasOne("MachineBuildingFactory.Data.Models.Assembly", "Assembly")
@@ -517,6 +686,25 @@ namespace MachineBuildingFactory.Migrations
                     b.Navigation("Assembly");
 
                     b.Navigation("PurchasedPart");
+                });
+
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ProductionPart", b =>
+                {
+                    b.HasOne("MachineBuildingFactory.Data.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MachineBuildingFactory.Data.Models.TypeOfProductionPart", "TypeOfProductionPart")
+                        .WithMany()
+                        .HasForeignKey("TypeOfProductionPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
+
+                    b.Navigation("TypeOfProductionPart");
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.PurchasedPart", b =>
@@ -587,6 +775,11 @@ namespace MachineBuildingFactory.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("ApplicationUserAssemblys");
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.Assembly", b =>

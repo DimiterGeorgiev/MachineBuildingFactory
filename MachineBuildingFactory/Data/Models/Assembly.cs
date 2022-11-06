@@ -9,22 +9,22 @@ namespace MachineBuildingFactory.Data.Models
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public string Title { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string SecondTitle { get; set; } = null!;
+        //[Required]
+        //[StringLength(50, MinimumLength = 3)]
+        //public string SecondTitle { get; set; } = null!;
 
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string ProjectNummber { get; set; } = null!;
+        //[Required]
+        //[StringLength(50, MinimumLength = 3)]
+        //public string ProjectNummber { get; set; } = null!;
 
         [Required]
         [StringLength(5000, MinimumLength = 5)]
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; }
 
         [Required]
-        public string Image { get; set; } = null!;
+        public string? Image { get; set; }
 
         [Required]
         public List<AssemblyProductionPart> AssemblyProductionParts { get; set; } = null!;

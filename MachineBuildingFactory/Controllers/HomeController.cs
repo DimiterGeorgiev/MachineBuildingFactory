@@ -13,6 +13,11 @@ namespace MachineBuildingFactory.Controllers
 
         public IActionResult Index()
         {
+            //ако потребителя е регистри ще виждаме директно всичк ProductionParts иначе HomePage
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("AllProductionPart", "ProductionPart");
+            }
             return View();
         }
 

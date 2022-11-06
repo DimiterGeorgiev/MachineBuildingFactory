@@ -147,17 +147,7 @@ namespace MachineBuildingFactory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProjectNummber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("SecondTitle")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -238,13 +228,41 @@ namespace MachineBuildingFactory.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("MaterialNumber")
+                    b.Property<string>("MaterialNumber")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaterialNumber = "1.0038"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MaterialNumber = "1.8714"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MaterialNumber = "1.5786"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MaterialNumber = "1.4302"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MaterialNumber = "1.7025"
+                        });
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.ProductionPart", b =>
@@ -278,32 +296,28 @@ namespace MachineBuildingFactory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("LaserCutLength")
+                    b.Property<double>("LaserCutLength")
                         .HasColumnType("float");
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int?>("MaterialId")
+                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<string>("SecondTitle")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<double>("Surface")
+                    b.Property<double>("SurfaceArea")
                         .HasColumnType("float");
 
                     b.Property<int?>("SurfaceTreatment")
                         .HasColumnType("int");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<int?>("TypeOfPaint")
                         .HasColumnType("int");
 
-                    b.Property<int>("TypeOfProductionPart")
+                    b.Property<int>("TypeOfProductionPartId")
                         .HasColumnType("int");
 
                     b.Property<double>("Weight")
@@ -313,7 +327,47 @@ namespace MachineBuildingFactory.Migrations
 
                     b.HasIndex("MaterialId");
 
+                    b.HasIndex("TypeOfProductionPartId");
+
                     b.ToTable("ProductionParts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 5,
+                            AuthorSignature = "PP",
+                            ColorOfPaintRal = 3,
+                            CreatedOn = new DateTime(2022, 11, 6, 21, 43, 23, 969, DateTimeKind.Local).AddTicks(7696),
+                            Description = "This is just a probe part.",
+                            DrawingNumber = "CL-025-001",
+                            Image = "Picture",
+                            LaserCutLength = 4.2999999999999998,
+                            MaterialId = 2,
+                            Name = "Consol",
+                            SurfaceArea = 2.2999999999999998,
+                            SurfaceTreatment = 1,
+                            TypeOfPaint = 2,
+                            TypeOfProductionPartId = 1,
+                            Weight = 5.5999999999999996
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AuthorSignature = "TT",
+                            ColorOfPaintRal = 1,
+                            CreatedOn = new DateTime(2022, 11, 6, 21, 43, 23, 969, DateTimeKind.Local).AddTicks(7713),
+                            Description = "Shaft for all target.",
+                            DrawingNumber = "CL-025-002",
+                            Image = "Picture",
+                            LaserCutLength = 5.9000000000000004,
+                            MaterialId = 3,
+                            Name = "Shaft",
+                            SurfaceArea = 1.3,
+                            SurfaceTreatment = 2,
+                            TypeOfPaint = 3,
+                            TypeOfProductionPartId = 2,
+                            Weight = 8.5999999999999996
+                        });
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.PurchasedPart", b =>
@@ -332,6 +386,11 @@ namespace MachineBuildingFactory.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ManufacturerId")
                         .HasColumnType("int");
@@ -385,6 +444,51 @@ namespace MachineBuildingFactory.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("MachineBuildingFactory.Data.Models.TypeOfProductionPart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfProductionParts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "MechanicallyProcessed"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sheetmetal"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Weldconstruction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Lasercut"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Cast"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -589,7 +693,15 @@ namespace MachineBuildingFactory.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MachineBuildingFactory.Data.Models.TypeOfProductionPart", "TypeOfProductionPart")
+                        .WithMany()
+                        .HasForeignKey("TypeOfProductionPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Material");
+
+                    b.Navigation("TypeOfProductionPart");
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.PurchasedPart", b =>

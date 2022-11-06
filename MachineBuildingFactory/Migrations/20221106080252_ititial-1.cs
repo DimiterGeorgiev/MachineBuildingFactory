@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MachineBuildingFactory.Migrations
 {
-    public partial class Initial1 : Migration
+    public partial class ititial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,8 +60,7 @@ namespace MachineBuildingFactory.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -86,28 +85,16 @@ namespace MachineBuildingFactory.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductionParts",
+                name: "Materials",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeOfProductionPart = table.Column<byte>(type: "tinyint", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surface = table.Column<double>(type: "float", nullable: false),
-                    DrawingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Weight = table.Column<double>(type: "float", nullable: false),
-                    SurfaceTreatment = table.Column<byte>(type: "tinyint", nullable: false),
-                    ColorOfPaint = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LaserCutLength = table.Column<double>(type: "float", nullable: false)
+                    MaterialNumber = table.Column<int>(type: "int", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductionParts", x => x.Id);
+                    table.PrimaryKey("PK_Materials", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,6 +110,19 @@ namespace MachineBuildingFactory.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TypeOfProductionPart",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TypeOfProductionPart", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,26 +232,25 @@ namespace MachineBuildingFactory.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssemblyProductionParts",
+                name: "ApplicationUserAssemblies",
                 columns: table => new
                 {
-                    AssemblyId = table.Column<int>(type: "int", nullable: false),
-                    ProductionPartId = table.Column<int>(type: "int", nullable: false),
-                    Quantaty = table.Column<int>(type: "int", nullable: false)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AssemblyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssemblyProductionParts", x => new { x.AssemblyId, x.ProductionPartId });
+                    table.PrimaryKey("PK_ApplicationUserAssemblies", x => new { x.ApplicationUserId, x.AssemblyId });
                     table.ForeignKey(
-                        name: "FK_AssemblyProductionParts_Assemblies_AssemblyId",
-                        column: x => x.AssemblyId,
-                        principalTable: "Assemblies",
+                        name: "FK_ApplicationUserAssemblies_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AssemblyProductionParts_ProductionParts_ProductionPartId",
-                        column: x => x.ProductionPartId,
-                        principalTable: "ProductionParts",
+                        name: "FK_ApplicationUserAssemblies_Assemblies_AssemblyId",
+                        column: x => x.AssemblyId,
+                        principalTable: "Assemblies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -263,6 +262,7 @@ namespace MachineBuildingFactory.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ItemNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
@@ -283,6 +283,45 @@ namespace MachineBuildingFactory.Migrations
                         name: "FK_PurchasedParts_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductionParts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SecondTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeOfProductionPartId = table.Column<int>(type: "int", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuthorSignature = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surface = table.Column<double>(type: "float", nullable: false),
+                    DrawingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Weight = table.Column<double>(type: "float", nullable: false),
+                    SurfaceTreatment = table.Column<int>(type: "int", nullable: true),
+                    TypeOfPaint = table.Column<int>(type: "int", nullable: true),
+                    ColorOfPaintRal = table.Column<int>(type: "int", nullable: true),
+                    LaserCutLength = table.Column<double>(type: "float", nullable: false),
+                    MaterialId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductionParts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductionParts_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductionParts_TypeOfProductionPart_TypeOfProductionPartId",
+                        column: x => x.TypeOfProductionPartId,
+                        principalTable: "TypeOfProductionPart",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -311,6 +350,36 @@ namespace MachineBuildingFactory.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "AssemblyProductionParts",
+                columns: table => new
+                {
+                    AssemblyId = table.Column<int>(type: "int", nullable: false),
+                    ProductionPartId = table.Column<int>(type: "int", nullable: false),
+                    Quantaty = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssemblyProductionParts", x => new { x.AssemblyId, x.ProductionPartId });
+                    table.ForeignKey(
+                        name: "FK_AssemblyProductionParts_Assemblies_AssemblyId",
+                        column: x => x.AssemblyId,
+                        principalTable: "Assemblies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AssemblyProductionParts_ProductionParts_ProductionPartId",
+                        column: x => x.ProductionPartId,
+                        principalTable: "ProductionParts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserAssemblies_AssemblyId",
+                table: "ApplicationUserAssemblies",
+                column: "AssemblyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -362,6 +431,16 @@ namespace MachineBuildingFactory.Migrations
                 column: "PurchasedPartId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductionParts_MaterialId",
+                table: "ProductionParts",
+                column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductionParts_TypeOfProductionPartId",
+                table: "ProductionParts",
+                column: "TypeOfProductionPartId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PurchasedParts_ManufacturerId",
                 table: "PurchasedParts",
                 column: "ManufacturerId");
@@ -374,6 +453,9 @@ namespace MachineBuildingFactory.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationUserAssemblies");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -409,6 +491,12 @@ namespace MachineBuildingFactory.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchasedParts");
+
+            migrationBuilder.DropTable(
+                name: "Materials");
+
+            migrationBuilder.DropTable(
+                name: "TypeOfProductionPart");
 
             migrationBuilder.DropTable(
                 name: "Manufacturers");

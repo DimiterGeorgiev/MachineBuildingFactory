@@ -1,5 +1,7 @@
+using MachineBuildingFactory.Contracts;
 using MachineBuildingFactory.Data;
 using MachineBuildingFactory.Data.Models;
+using MachineBuildingFactory.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
 });
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProductionPartService, ProductionPartService>();
 
 builder.Services.AddControllersWithViews();
 

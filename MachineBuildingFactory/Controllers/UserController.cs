@@ -83,7 +83,7 @@ namespace MachineBuildingFactory.Controllers
             //не регистрираните потребители не виждат книгите
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Parts");
+                return RedirectToAction("AllProductionPart", "ProductionPart");
             }
 
             var model = new LoginViewModel();

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using MachineBuildingFactory.Data.Enums;
 
 namespace MachineBuildingFactory.Data.Models
 {
@@ -10,6 +9,6 @@ namespace MachineBuildingFactory.Data.Models
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
-        public MaterialNumber MaterialNumber { get; set; }
+        public string MaterialNumber { get; set; } = null!;
     }
 }
