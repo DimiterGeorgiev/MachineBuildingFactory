@@ -109,8 +109,8 @@ namespace MachineBuildingFactory.Controllers
                 if (result.Succeeded)
                 {
                     //TO DO да разменя местата след като създам "All", "Parts"
-                    //return RedirectToAction("All", "Parts");
-                    return RedirectToAction("Index", "Home"); // само за началото
+                    //return RedirectToAction("Index", "Home"); // само за началото
+                    return RedirectToAction("AllProductionPart", "ProductionPart");
                 }
             }
 

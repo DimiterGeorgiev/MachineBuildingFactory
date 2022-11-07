@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace MachineBuildingFactory.Data.Enums
 {
     public enum TypeOfSurfaceTreatment
     {
+        [EnumMember(Value = "Untreated surfase")]
+        UntreatedSurface,
+
         [EnumMember(Value = "Electrogalvanized")]
         Electrogalvanized,
 
@@ -15,3 +17,4 @@ namespace MachineBuildingFactory.Data.Enums
         Paint
     }
 }
+

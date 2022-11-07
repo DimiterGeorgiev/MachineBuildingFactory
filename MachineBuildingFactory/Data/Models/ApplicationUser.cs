@@ -6,8 +6,6 @@ namespace MachineBuildingFactory.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        //[Required]
-        //public string ApplicationUserId { get; set; } = null!;
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
@@ -18,14 +16,14 @@ namespace MachineBuildingFactory.Data.Models
         public string LastName { get; set; } = null!;
 
         [Required]
-        public Title Title { get; set; }
+        public Title? Title { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string Phone { get; set; } = null!;
 
         [Required]
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
 
         [Required]
         [StringLength(5, MinimumLength = 2)]
