@@ -158,6 +158,29 @@ namespace MachineBuildingFactory.Data
               Name = "Cast"
           });
 
+            builder
+                .Entity<Assembly>()
+                .HasData(new Assembly()
+                {
+                    Id = 3,
+                    Name = "Weld construction",
+                    DrawingNumber = "CW-001-00",
+                    Description = "Base support for hole construction",
+                    Image = "link to something that I have no yet",
+                    AuthorSignature = "GG",
+                    CreatedOn = DateTime.Now
+                },
+                new Assembly()
+                {
+                    Id = 4,
+                    Name = "Rotational casting machine",
+                    DrawingNumber = "CF-050-00",
+                    Description = "Rotational casting is the best way to make hollow resin parts",
+                    Image = "link to picture",
+                    AuthorSignature = "PP",
+                    CreatedOn = DateTime.Now
+                }
+                );
 
             //  builder
             //      .Entity<ApplicationUser>()

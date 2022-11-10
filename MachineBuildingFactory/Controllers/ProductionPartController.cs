@@ -44,7 +44,7 @@ namespace MachineBuildingFactory.Controllers
             }
             try
             {
-                await db.CreateProductionPartsAsync(model);
+                await db.CreateProductionPartAsync(model);
                 return RedirectToAction(nameof(AllProductionPart)); // След добавяне на нов ProductionPart отиваме в AllProductionPart
             }
             catch (Exception)
@@ -53,5 +53,27 @@ namespace MachineBuildingFactory.Controllers
                 return View(model);
             }
         }
+
+        public async Task<IActionResult> AddProductionPartToAssembly(int productionPartId, int assemblyId, int quantity)
+        {
+            try
+            {
+                await db.AddProductionPartToAssemblyAsync(productionPartId, assemblyId, quantity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction(nameof(AllProductionPart));
+        }
+
+        //public async Task<IActionResult> AssemblyProductionPartList(int assemblyId)
+        //{
+        //    var model = await db.GetProductionPartListFromAssemblyAsync(assemblyId);
+
+        //    return View(nameof(AssemblyProductionPartList), model);
+        //}
+
     }
 }

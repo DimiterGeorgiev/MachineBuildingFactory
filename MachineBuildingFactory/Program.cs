@@ -28,6 +28,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductionPartService, ProductionPartService>();
 
+builder.Services.AddScoped<IAssemblyService, AssemblyService>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

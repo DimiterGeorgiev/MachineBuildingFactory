@@ -15,7 +15,41 @@ namespace MachineBuildingFactory.Services
             context = _context;
         }
 
-        public async Task CreateProductionPartsAsync(CreateProductionPartViewModel model)
+        public async Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity)
+        {
+            var assembly = await context.Assemblies
+                .Where(a => a.Id == assemblyId)
+                .Include(a => a.AssemblyProductionParts)
+                .FirstOrDefaultAsync();
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
+            var productionPart = await context.ProductionParts.FirstOrDefaultAsync(p => p.Id == productionPartId);
+
+            if (productionPart == null)
+            {
+                throw new ArgumentException("Invalid productionPartId");
+            }
+
+            if (!assembly.AssemblyProductionParts.Any(p => p.ProductionPartId == productionPartId)) // Ако няма такъв Production part го добави
+            {
+                assembly.AssemblyProductionParts.Add(new AssemblyProductionPart()
+                {
+                    ProductionPartId = productionPart.Id,
+                    AssemblyId = assembly.Id,
+                    ProductionPart = productionPart,
+                    Assembly = assembly,
+                    Quantaty = quantity
+                });
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task CreateProductionPartAsync(CreateProductionPartViewModel model)
         {
             var entity = new ProductionPart()
             {
@@ -32,9 +66,8 @@ namespace MachineBuildingFactory.Services
                 ColorOfPaintRal = model.ColorOfPaintRal,
                 LaserCutLength = model.LaserCutLength,
                 MaterialId = model.MaterialId
-
-
             };
+
             await context.ProductionParts.AddAsync(entity);
             await context.SaveChangesAsync();
         }
@@ -64,7 +97,6 @@ namespace MachineBuildingFactory.Services
                     ColorOfPaintRal = p.ColorOfPaintRal.ToString(),
                     LaserCutLength = p.LaserCutLength.ToString(),
                     Material = p.Material.MaterialNumber
-
                 });
         }
 
@@ -72,6 +104,30 @@ namespace MachineBuildingFactory.Services
         {
             return await context.Materials.ToListAsync();
         }
+
+        //public async Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId)
+        //{
+        //    var assembly = await context.Assemblies
+        //        .Where(a => a.Id == assemblyId)
+        //        .Include(a => a.AssemblyProductionParts)
+        //        .ThenInclude(ap => ap.ProductionPart)
+        //        .ThenInclude(a => a.Material)
+        //        .FirstOrDefaultAsync();
+
+        //    if (assembly == null)
+        //    {
+        //        throw new ArgumentException("Invalid assemblyId");
+        //    }
+
+        //    return assembly.AssemblyProductionParts
+        //        .Select(p => new ProductionPartViewModel()
+        //        {
+        //            Name = p.ProductionPart.Name,
+        //            DrawingNumber = p.ProductionPart.DrawingNumber,
+        //            Material = p.ProductionPart.Material.MaterialNumber,
+        //            AuthorSignature = p.ProductionPart.AuthorSignature
+        //        });
+        //}
 
         public async Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync()
         {

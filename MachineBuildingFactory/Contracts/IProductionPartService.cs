@@ -11,7 +11,13 @@ namespace MachineBuildingFactory.Contracts
 
         Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync();
 
-        Task CreateProductionPartsAsync(CreateProductionPartViewModel model);
+        Task CreateProductionPartAsync(CreateProductionPartViewModel model);
+
+        Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity);
+
+        //Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId);
+
+
 
     }
 }

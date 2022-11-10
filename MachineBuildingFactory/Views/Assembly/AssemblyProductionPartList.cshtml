@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProductionPartViewModel>
+@{
+    ViewData["Title"] = "AssemblyProductionPartList";
+}
+
+<div class="container p-3">
+    @*<div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Assembly Production Part List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="ProductionPart" asp-action="CreateNewProductionPart" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create new production part
+            </a>
+        </div>
+    </div>*@
+    <br /><br />
+
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Part Name
+                </th>
+                <th>
+                    Drawing Number
+                </th>
+                <th>
+                    Material
+                </th>
+               @* <th>
+                    Paint Type
+                </th>
+                <th>
+                    Created On
+                </th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td width="15%">
+                        @obj.Name
+                    </td>
+                    <td width="15%">
+                        @obj.DrawingNumber
+                    </td>
+                    <td width="15%">
+                        @obj.Material
+                    </td>
+                    @*<td width="15%">
+                        @obj.TypeOfPaint
+                    </td>
+                    <td width="15%">
+                        @obj.CreatedOn
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

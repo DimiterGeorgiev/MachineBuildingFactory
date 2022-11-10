@@ -11,13 +11,16 @@ namespace MachineBuildingFactory.Data.Models
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; } = null!;
 
-        //[Required]
-        //[StringLength(50, MinimumLength = 3)]
-        //public string SecondTitle { get; set; } = null!;
+        [Required]
+        [StringLength(15, MinimumLength = 5)]
+        public string DrawingNumber { get; set; } = null!;
 
-        //[Required]
-        //[StringLength(50, MinimumLength = 3)]
-        //public string ProjectNummber { get; set; } = null!;
+        [Required]
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+
+        [Required]
+        [StringLength(3, MinimumLength = 2)]
+        public string AuthorSignature { get; set; } = null!;
 
         [Required]
         [StringLength(5000, MinimumLength = 5)]
@@ -26,11 +29,9 @@ namespace MachineBuildingFactory.Data.Models
         [Required]
         public string? Image { get; set; }
 
-        [Required]
-        public List<AssemblyProductionPart> AssemblyProductionParts { get; set; } = null!;
+        public List<AssemblyProductionPart> AssemblyProductionParts { get; set; } = new List<AssemblyProductionPart>();
 
-        [Required]
-        public List<AssemblyPurchasedPart> AssemblyPurchаsedParts { get; set; } = null!;
+        public List<AssemblyPurchasedPart> AssemblyPurchаsedParts { get; set; } = new List<AssemblyPurchasedPart>();
 
     }
 }
