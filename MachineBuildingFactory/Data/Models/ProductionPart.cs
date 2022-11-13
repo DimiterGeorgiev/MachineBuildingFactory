@@ -53,8 +53,8 @@ namespace MachineBuildingFactory.Data.Models
 
         public double LaserCutLength { get; set; } = 0;
 
-        //public int Nu { get; set; }
 
+        [Required]
         public int? MaterialId { get; set; }
 
         [Required]

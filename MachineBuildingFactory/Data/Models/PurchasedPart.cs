@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MachineBuildingFactory.Data.Models
 {
@@ -9,17 +10,25 @@ namespace MachineBuildingFactory.Data.Models
 
         [Required]
         [StringLength(50, MinimumLength = 5)]
-        public string Title { get; set; } = null!;
+        public string Name { get; set; } = null!;
 
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string? ItemNumber { get; set; }
 
         [Required]
-        public Supplier? Supplier { get; set; }
+        public int SupplierId { get; set; }
 
         [Required]
-        public Manufacturer? Manufacturer { get; set; }
+        [ForeignKey(nameof(SupplierId))]
+        public Supplier Supplier { get; set; } = null!;
+
+        [Required]
+        public int ManufacturerId { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(ManufacturerId))]
+        public Manufacturer Manufacturer { get; set; } = null!;
 
         [Required]
         [StringLength(5000, MinimumLength = 5)]
@@ -31,7 +40,6 @@ namespace MachineBuildingFactory.Data.Models
         [Required]
         public double Weight { get; set; }
 
-        [Required]
         public string? Standard { get; set; }
 
 

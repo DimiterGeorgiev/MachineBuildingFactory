@@ -1,16 +1,16 @@
-﻿@model IEnumerable<AssemblyViewModel>
+﻿@model IEnumerable<PurchasedPartViewModel>
 @{
-    ViewData["Title"] = "AllAssembly";
+    ViewData["Title"] = "AllPurchasedPart";
 }
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Assembly List</h2>
+            <h2 class="text-primary">Purchased Part List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Assembly" asp-action="CreateNewAssembly" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> &nbsp; Create new assembly
+            <a asp-controller="PurchasedPart" asp-action="CreateNewPurchasedPart" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create new purchased part
             </a>
         </div>
     </div>
@@ -21,16 +21,19 @@
         <thead>
             <tr>
                 <th>
-                    Assembly Name
+                    Part Name
                 </th>
                 <th>
-                    Drawing Number
+                    Item Number
                 </th>
                 <th>
-                    Author
+                    Supplier
                 </th>
                 <th>
-                    Created On
+                    Manufacturer
+                </th>
+                <th>
+                    Action
                 </th>
             </tr>
         </thead>
@@ -42,24 +45,23 @@
                         @obj.Name
                     </td>
                     <td width="10%">
-                        @obj.DrawingNumber
+                        @obj.ItemNumber
                     </td>
-                    <td width="2%">
-                        @obj.AuthorSignature
+                    <td width="8%">
+                        @obj.Supplier
                     </td>
-                    <td width="10%">
-                        @obj.CreatedOn
+                    <td width="8%">
+                        @obj.Manufacturer
                     </td>
+                   
                     <td width="19%">
                         <div class="w75 btn-group" role="group">
                             <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
                            class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
                             <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
-                           class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edti</a>
-                          @*  <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
-                           class="btn btn-danger mx-2"> <i class="bi bi-dash-square"></i> Remove</a>*@
+                           class="btn btn-info mx-2"> <i class="bi bi-diagram-3"></i> Where Used</a>
                             <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
-                           class="btn btn-primary mx-2"> <i class="bi bi-plus-square"></i> Add Part</a>
+                           class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edti</a>
                             <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
                         </div>

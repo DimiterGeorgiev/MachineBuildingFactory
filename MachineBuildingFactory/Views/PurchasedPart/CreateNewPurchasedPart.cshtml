@@ -1,0 +1,83 @@
+﻿@model CreatePurchasedPartViewModel
+@{
+    ViewData["Title"] = "CreateNewPurchasedPart";
+}
+
+<h1 class="text-primary">Create new purchased part</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="CreateNewPurchasedPart" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Part Name</label>
+                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ItemNumber" class="form-label">Item Number</label>
+                <input asp-for="@Model.ItemNumber" class="form-control" aria-required="true" />
+                <span asp-validation-for="ItemNumber" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.SupplierId" class="form-label">Supplier</label>
+                <select asp-for="@Model.SupplierId" class="form-control">
+                    @foreach (var type in Model.Suppliers)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ManufacturerId" class="form-label">Manufacturer</label>
+                <select asp-for="@Model.ManufacturerId" class="form-control">
+                    @foreach (var type in Model.Manufacturers)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.Description" class="form-label">Description</label>
+                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.Image" class="form-label">Image</label>
+                <input asp-for="@Model.Image" class="form-control" aria-required="true" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="@Model.Weight" class="form-label">Weight in kilograms</label>
+                <input asp-for="@Model.Weight" class="form-control" value="" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.Standard" class="form-label">Standard</label>
+                <input asp-for="@Model.Standard" class="form-control" value="" />
+                <span asp-validation-for="Standard" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Create" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

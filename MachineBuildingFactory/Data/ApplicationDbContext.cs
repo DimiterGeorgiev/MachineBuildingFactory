@@ -94,9 +94,118 @@ namespace MachineBuildingFactory.Data
                    ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
                    LaserCutLength = 5.9,
                    MaterialId = 3
+               },
+               new ProductionPart()
+               {
+                   Id = 7,
+                   Name = "Base plate",
+                   Description = "For all type of construction",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 2,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "DD",
+                   SurfaceArea = 5.3,
+                   DrawingNumber = "BP-080-008",
+                   Weight = 12.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)3,
+                   TypeOfPaint = (Enums.TypeOfPaint?)2,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)3,
+                   LaserCutLength = 8.9,
+                   MaterialId = 5
+               },
+               new ProductionPart()
+               {
+                   Id = 8,
+                   Name = "Gear 34/69",
+                   Description = "Gear for gearbox",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 1,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "TT",
+                   SurfaceArea = 8.3,
+                   DrawingNumber = "GB-200-036",
+                   Weight = 6.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)3,
+                   TypeOfPaint = (Enums.TypeOfPaint?)1,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
+                   LaserCutLength = 0,
+                   MaterialId = 4
+               },
+               new ProductionPart()
+               {
+                   Id = 9,
+                   Name = "Brackets",
+                   Description = "Brackets for Frame",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 2,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "TT",
+                   SurfaceArea = 8.3,
+                   DrawingNumber = "GB-200-036",
+                   Weight = 6.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)3,
+                   TypeOfPaint = (Enums.TypeOfPaint?)1,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
+                   LaserCutLength = 0,
+                   MaterialId = 1
+               },
+               new ProductionPart()
+               {
+                   Id = 10,
+                   Name = "Frame 1000x200",
+                   Description = "Frame big size",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 3,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "GG",
+                   SurfaceArea = 105.3,
+                   DrawingNumber = "FBS-2365-078",
+                   Weight = 6.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)3,
+                   TypeOfPaint = (Enums.TypeOfPaint?)1,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
+                   LaserCutLength = 0,
+                   MaterialId = 1
+               },
+               new ProductionPart()
+               {
+                   Id = 11,
+                   Name = "Rack-Wheel",
+                   Description = "Toot 45, M=7, TRE-89",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 1,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "GG",
+                   SurfaceArea = 1.2,
+                   DrawingNumber = "RW-859-026",
+                   Weight = 5.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)1,
+                   TypeOfPaint = (Enums.TypeOfPaint?)1,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
+                   LaserCutLength = 0,
+                   MaterialId = 1
+               },
+               new ProductionPart()
+               {
+                   Id = 12,
+                   Name = "Sprocket",
+                   Description = "Toot 65, M=4, SPG-05",
+                   Image = "Picture",
+                   TypeOfProductionPartId = 1,
+                   CreatedOn = DateTime.Now,
+                   AuthorSignature = "GG",
+                   SurfaceArea = 1.2,
+                   DrawingNumber = "RW-859-026",
+                   Weight = 5.6,
+                   SurfaceTreatment = (Enums.TypeOfSurfaceTreatment?)1,
+                   TypeOfPaint = (Enums.TypeOfPaint?)1,
+                   ColorOfPaintRal = (Enums.ColorOfPaintRal?)1,
+                   LaserCutLength = 0,
+                   MaterialId = 1
                }
-
                );
+
+
 
 
             builder
@@ -160,7 +269,8 @@ namespace MachineBuildingFactory.Data
 
             builder
                 .Entity<Assembly>()
-                .HasData(new Assembly()
+                .HasData(
+                new Assembly()
                 {
                     Id = 3,
                     Name = "Weld construction",
@@ -179,8 +289,170 @@ namespace MachineBuildingFactory.Data
                     Image = "link to picture",
                     AuthorSignature = "PP",
                     CreatedOn = DateTime.Now
+                },
+                new Assembly()
+                {
+                    Id = 5,
+                    Name = "Steam turbine",
+                    DrawingNumber = "WM-026-100-R",
+                    Description = "Steam turbine 100 kW",
+                    Image = "link to picture",
+                    AuthorSignature = "DD",
+                    CreatedOn = DateTime.Now
+                },
+                new Assembly()
+                {
+                    Id = 6,
+                    Name = "Cooling system",
+                    DrawingNumber = "CS-125-TF58-000",
+                    Description = "Cooling system for industry",
+                    Image = "link to picture",
+                    AuthorSignature = "DD",
+                    CreatedOn = DateTime.Now
+                },
+                new Assembly()
+                {
+                    Id = 7,
+                    Name = "Compressor",
+                    DrawingNumber = "CM-300-RF98-700",
+                    Description = "High pressure reciprocating compressor",
+                    Image = "link to picture",
+                    AuthorSignature = "TT",
+                    CreatedOn = DateTime.Now
                 }
                 );
+
+
+            builder
+                .Entity<Manufacturer>()
+                .HasData(new Manufacturer()
+                {
+                    Id = 5,
+                    Name = "Festo",
+                    Email = "office@festo.com",
+                    UrlAddress = "Festo.com"
+
+                },
+                new Manufacturer
+                {
+                    Id = 6,
+                    Name = "SEW",
+                    Email = "office@sew.com",
+                    UrlAddress = "Sew.com"
+                },
+                new Manufacturer
+                {
+                    Id = 7,
+                    Name = "Siemens",
+                    Email = "office@siemens.com",
+                    UrlAddress = "SEW.com"
+                },
+                new Manufacturer
+                {
+                    Id = 8,
+                    Name = "Valeo",
+                    Email = "office@valeo.com",
+                    UrlAddress = "Valeo.com"
+                });
+
+            builder.Entity<Supplier>()
+                .HasData(
+                new Supplier
+                {
+                    Id = 11,
+                    Name = "Norelem",
+                    Email = "office@norelem.com",
+                    UrlAddress = "Norelem.com"
+                },
+                new Supplier
+                {
+                    Id = 12,
+                    Name = "Misumi",
+                    Email = "office@misumi.com",
+                    UrlAddress = "Misumi.com"
+                },
+                new Supplier
+                {
+                    Id = 13,
+                    Name = "Maedler",
+                    Email = "office@maedler.com",
+                    UrlAddress = "Maedler.com"
+                },
+                new Supplier
+                {
+                    Id = 14,
+                    Name = "Haberkorn",
+                    Email = "office@haberkorn.com",
+                    UrlAddress = "Haberkorn.com"
+                });
+
+
+            builder.Entity<PurchasedPart>()
+                .HasData(
+                new PurchasedPart
+                {
+                    Id = 5,
+                    Name = "Gearbox",
+                    ItemNumber = "GM-100/25-368A",
+                    SupplierId = 12,
+                    ManufacturerId = 5,
+                    Description = "Gear motor of SEW, Supplier: Misumi",
+                    Image = "Picture",
+                    Weight = 56.8,
+                    Standard = "ISO 36264"
+                },
+                new PurchasedPart
+                {
+                    Id = 6,
+                    Name = "Compact cylinders ADN-S",
+                    ItemNumber = "ADN-S-12-25-I-P",
+                    SupplierId = 14,
+                    ManufacturerId = 6,
+                    Description = "Compact cylinders ADN-S, double-acting",
+                    Image = "Picture",
+                    Weight = 2.3,
+                    Standard = "ISO 21287"
+                },
+                new PurchasedPart
+                {
+                    Id = 7,
+                    Name = "Pillow block bearing",
+                    ItemNumber = "SKF SY 35 TR",
+                    SupplierId = 13,
+                    ManufacturerId = 7,
+                    Description = "For material handling applications",
+                    Image = "Picture",
+                    Weight = 1.3,
+                    Standard = "ISO 55629"
+                },
+                 new PurchasedPart
+                 {
+                     Id = 8,
+                     Name = "Variable speed drive",
+                     ItemNumber = "ATV310",
+                     SupplierId = 11,
+                     ManufacturerId = 7,
+                     Description = "Read holding registers (03) 29 words",
+                     Image = "Picture",
+                     Weight = 1.3,
+                     Standard = "ISO 32685"
+                 },
+                 new PurchasedPart
+                 {
+                     Id = 9,
+                     Name = "Linear Bearing",
+                     ItemNumber = "LMF 06UU",
+                     SupplierId = 13,
+                     ManufacturerId = 7,
+                     Description = "Linear Bearing with Round Flange",
+                     Image = "Picture",
+                     Weight = 1.3,
+                     Standard = "ISO 36958"
+                 }
+                );
+
+
+
 
             //  builder
             //      .Entity<ApplicationUser>()

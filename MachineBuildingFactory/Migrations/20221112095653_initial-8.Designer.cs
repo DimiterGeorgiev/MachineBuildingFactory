@@ -4,6 +4,7 @@ using MachineBuildingFactory.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MachineBuildingFactory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221112095653_initial-8")]
+    partial class initial8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,7 +176,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 3,
                             AuthorSignature = "GG",
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7901),
+                            CreatedOn = new DateTime(2022, 11, 12, 10, 56, 53, 178, DateTimeKind.Local).AddTicks(4389),
                             Description = "Base support for hole construction",
                             DrawingNumber = "CW-001-00",
                             Image = "link to something that I have no yet",
@@ -184,41 +186,11 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 4,
                             AuthorSignature = "PP",
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7905),
+                            CreatedOn = new DateTime(2022, 11, 12, 10, 56, 53, 178, DateTimeKind.Local).AddTicks(4393),
                             Description = "Rotational casting is the best way to make hollow resin parts",
                             DrawingNumber = "CF-050-00",
                             Image = "link to picture",
                             Name = "Rotational casting machine"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7909),
-                            Description = "Steam turbine 100 kW",
-                            DrawingNumber = "WM-026-100-R",
-                            Image = "link to picture",
-                            Name = "Steam turbine"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7913),
-                            Description = "Cooling system for industry",
-                            DrawingNumber = "CS-125-TF58-000",
-                            Image = "link to picture",
-                            Name = "Cooling system"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AuthorSignature = "TT",
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7917),
-                            Description = "High pressure reciprocating compressor",
-                            DrawingNumber = "CM-300-RF98-700",
-                            Image = "link to picture",
-                            Name = "Compressor"
                         });
                 });
 
@@ -435,7 +407,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 5,
                             AuthorSignature = "PP",
                             ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7669),
+                            CreatedOn = new DateTime(2022, 11, 12, 10, 56, 53, 178, DateTimeKind.Local).AddTicks(4223),
                             Description = "This is just a probe part.",
                             DrawingNumber = "CL-025-001",
                             Image = "Picture",
@@ -453,7 +425,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 6,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7677),
+                            CreatedOn = new DateTime(2022, 11, 12, 10, 56, 53, 178, DateTimeKind.Local).AddTicks(4230),
                             Description = "Shaft for all target.",
                             DrawingNumber = "CL-025-002",
                             Image = "Picture",
@@ -465,114 +437,6 @@ namespace MachineBuildingFactory.Migrations
                             TypeOfPaint = 3,
                             TypeOfProductionPartId = 2,
                             Weight = 8.5999999999999996
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AuthorSignature = "DD",
-                            ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7681),
-                            Description = "For all type of construction",
-                            DrawingNumber = "BP-080-008",
-                            Image = "Picture",
-                            LaserCutLength = 8.9000000000000004,
-                            MaterialId = 5,
-                            Name = "Base plate",
-                            SurfaceArea = 5.2999999999999998,
-                            SurfaceTreatment = 3,
-                            TypeOfPaint = 2,
-                            TypeOfProductionPartId = 2,
-                            Weight = 12.6
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AuthorSignature = "TT",
-                            ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7686),
-                            Description = "Gear for gearbox",
-                            DrawingNumber = "GB-200-036",
-                            Image = "Picture",
-                            LaserCutLength = 0.0,
-                            MaterialId = 4,
-                            Name = "Gear 34/69",
-                            SurfaceArea = 8.3000000000000007,
-                            SurfaceTreatment = 3,
-                            TypeOfPaint = 1,
-                            TypeOfProductionPartId = 1,
-                            Weight = 6.5999999999999996
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AuthorSignature = "TT",
-                            ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7691),
-                            Description = "Brackets for Frame",
-                            DrawingNumber = "GB-200-036",
-                            Image = "Picture",
-                            LaserCutLength = 0.0,
-                            MaterialId = 1,
-                            Name = "Brackets",
-                            SurfaceArea = 8.3000000000000007,
-                            SurfaceTreatment = 3,
-                            TypeOfPaint = 1,
-                            TypeOfProductionPartId = 2,
-                            Weight = 6.5999999999999996
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AuthorSignature = "GG",
-                            ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7695),
-                            Description = "Frame big size",
-                            DrawingNumber = "FBS-2365-078",
-                            Image = "Picture",
-                            LaserCutLength = 0.0,
-                            MaterialId = 1,
-                            Name = "Frame 1000x200",
-                            SurfaceArea = 105.3,
-                            SurfaceTreatment = 3,
-                            TypeOfPaint = 1,
-                            TypeOfProductionPartId = 3,
-                            Weight = 6.5999999999999996
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AuthorSignature = "GG",
-                            ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7700),
-                            Description = "Toot 45, M=7, TRE-89",
-                            DrawingNumber = "RW-859-026",
-                            Image = "Picture",
-                            LaserCutLength = 0.0,
-                            MaterialId = 1,
-                            Name = "Rack-Wheel",
-                            SurfaceArea = 1.2,
-                            SurfaceTreatment = 1,
-                            TypeOfPaint = 1,
-                            TypeOfProductionPartId = 1,
-                            Weight = 5.5999999999999996
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AuthorSignature = "GG",
-                            ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 13, 10, 25, 37, 458, DateTimeKind.Local).AddTicks(7705),
-                            Description = "Toot 65, M=4, SPG-05",
-                            DrawingNumber = "RW-859-026",
-                            Image = "Picture",
-                            LaserCutLength = 0.0,
-                            MaterialId = 1,
-                            Name = "Sprocket",
-                            SurfaceArea = 1.2,
-                            SurfaceTreatment = 1,
-                            TypeOfPaint = 1,
-                            TypeOfProductionPartId = 1,
-                            Weight = 5.5999999999999996
                         });
                 });
 
@@ -622,68 +486,6 @@ namespace MachineBuildingFactory.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("PurchasedParts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 5,
-                            Description = "Gear motor of SEW, Supplier: Misumi",
-                            Image = "Picture",
-                            ItemNumber = "GM-100/25-368A",
-                            ManufacturerId = 5,
-                            Name = "Gearbox",
-                            Standard = "ISO 36264",
-                            SupplierId = 12,
-                            Weight = 56.799999999999997
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Compact cylinders ADN-S, double-acting",
-                            Image = "Picture",
-                            ItemNumber = "ADN-S-12-25-I-P",
-                            ManufacturerId = 6,
-                            Name = "Compact cylinders ADN-S",
-                            Standard = "ISO 21287",
-                            SupplierId = 14,
-                            Weight = 2.2999999999999998
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "For material handling applications",
-                            Image = "Picture",
-                            ItemNumber = "SKF SY 35 TR",
-                            ManufacturerId = 7,
-                            Name = "Pillow block bearing",
-                            Standard = "ISO 55629",
-                            SupplierId = 13,
-                            Weight = 1.3
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Read holding registers (03) 29 words",
-                            Image = "Picture",
-                            ItemNumber = "ATV310",
-                            ManufacturerId = 7,
-                            Name = "Variable speed drive",
-                            Standard = "ISO 32685",
-                            SupplierId = 11,
-                            Weight = 1.3
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Linear Bearing with Round Flange",
-                            Image = "Picture",
-                            ItemNumber = "LMF 06UU",
-                            ManufacturerId = 7,
-                            Name = "Linear Bearing",
-                            Standard = "ISO 36958",
-                            SupplierId = 13,
-                            Weight = 1.3
-                        });
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.Supplier", b =>

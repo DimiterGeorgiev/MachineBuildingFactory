@@ -2,6 +2,7 @@
 using MachineBuildingFactory.Data;
 using MachineBuildingFactory.Data.Models;
 using MachineBuildingFactory.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MachineBuildingFactory.Services
@@ -49,6 +50,7 @@ namespace MachineBuildingFactory.Services
             }
         }
 
+        [HttpPost]
         public async Task CreateProductionPartAsync(CreateProductionPartViewModel model)
         {
             var entity = new ProductionPart()
@@ -71,6 +73,48 @@ namespace MachineBuildingFactory.Services
             await context.ProductionParts.AddAsync(entity);
             await context.SaveChangesAsync();
         }
+
+        public async Task EditProductionPartAsync(EditProductionPartViewModel model)
+        {
+            var entity = await context.ProductionParts.FindAsync(model.Id);
+
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            entity.Image = model.Image;
+            entity.TypeOfProductionPartId = model.TypeOfProductionPartId;
+            entity.CreatedOn = model.CreatedOn;
+            entity.AuthorSignature = model.AuthorSignature;
+            entity.SurfaceArea = model.SurfaceArea;
+            entity.DrawingNumber = model.DrawingNumber;
+            entity.Weight = model.Weight;
+            entity.SurfaceTreatment = model.SurfaceTreatment;
+            entity.TypeOfPaint = model.TypeOfPaint;
+            entity.ColorOfPaintRal = model.ColorOfPaintRal;
+            entity.LaserCutLength = model.LaserCutLength;
+            entity.MaterialId = model.MaterialId;
+
+            await context.SaveChangesAsync();
+
+
+        }
+
+        //public async Task<ProductionPartViewModel> DetailsAsync(int productionPartId)
+        //{
+        //    //if(productionPartId == null || context.ProductionParts == null)
+        //    //{
+        //    //    return NotFoundObjectResult();
+        //    //}
+
+        //    var part = await context.ProductionParts.FindAsync(productionPartId);
+        //        //.FirstOrDefaultAsync(p => p.Id == productionPartId);
+
+        //    if (part == null)
+        //    {
+        //        throw new ArgumentException("Invalid productionPartId");
+        //    }
+
+        //    return entity
+        //}
 
         public async Task<IEnumerable<ProductionPartViewModel>> GetAllProductionPartsAsync()
         {
@@ -103,6 +147,36 @@ namespace MachineBuildingFactory.Services
         public async Task<IEnumerable<Material>> GetMaterialsAsync()
         {
             return await context.Materials.ToListAsync();
+        }
+
+        public async Task<EditProductionPartViewModel> GetProductionPartForEditAsync(int id)
+        {
+            var productionPart = await context.ProductionParts.FindAsync(id); //когато търсим по PrimaryKey търсим с FindAsync
+
+            var model = new EditProductionPartViewModel()
+            {
+                Id = id,
+                Name = productionPart.Name,
+                Description = productionPart.Description,
+                Image = productionPart.Image,
+                TypeOfProductionPartId = productionPart.TypeOfProductionPartId,    // ?? -1, // ако CateglryId e null тук ще бъде записано -1 ако не е null ще бъде записана стойността
+                CreatedOn = productionPart.CreatedOn,
+                AuthorSignature = productionPart.AuthorSignature,
+                SurfaceArea = productionPart.SurfaceArea,
+                DrawingNumber = productionPart.DrawingNumber,
+                Weight = productionPart.Weight,
+                SurfaceTreatment = productionPart.SurfaceTreatment,
+                TypeOfPaint = productionPart.TypeOfPaint,
+                ColorOfPaintRal = productionPart.ColorOfPaintRal,
+                LaserCutLength = productionPart.LaserCutLength,
+                MaterialId = productionPart.MaterialId
+            };
+
+            model.TypeOfProductionParts = await GetTypeOfProductionPartAsync();
+            model.Materials = await GetMaterialsAsync();
+
+            return model;
+
         }
 
         //public async Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId)

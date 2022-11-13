@@ -28,6 +28,7 @@ namespace MachineBuildingFactory.Models
 
         [Required]
         [StringLength(3, MinimumLength = 2, ErrorMessage = "Author signature must be between 2 and 3 characters")]
+        [DisplayName("Author signature")]
         public string AuthorSignature { get; set; } = null!;
 
         [Required]

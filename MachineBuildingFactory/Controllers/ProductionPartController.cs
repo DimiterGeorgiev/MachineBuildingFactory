@@ -75,5 +75,30 @@ namespace MachineBuildingFactory.Controllers
         //    return View(nameof(AssemblyProductionPartList), model);
         //}
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditProductionPart(int id)
+        {
+            var model = await db.GetProductionPartForEditAsync(id);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditProductionPart(EditProductionPartViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await db.EditProductionPartAsync(model);
+
+            return RedirectToAction(nameof(AllProductionPart));
+
+        }
+
     }
 }
