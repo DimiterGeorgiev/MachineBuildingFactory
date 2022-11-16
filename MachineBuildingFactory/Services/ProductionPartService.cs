@@ -74,6 +74,19 @@ namespace MachineBuildingFactory.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int productionPartId)
+        {
+            var productionPart = await context.ProductionParts
+                .Where(b => b.Id == productionPartId)
+                .FirstOrDefaultAsync();
+
+            if (productionPart != null)
+            {
+                context.ProductionParts.Remove(productionPart);
+                await context.SaveChangesAsync();
+            }
+        }
+
         public async Task EditProductionPartAsync(EditProductionPartViewModel model)
         {
             var entity = await context.ProductionParts.FindAsync(model.Id);
@@ -159,7 +172,7 @@ namespace MachineBuildingFactory.Services
                 Name = productionPart.Name,
                 Description = productionPart.Description,
                 Image = productionPart.Image,
-                TypeOfProductionPartId = productionPart.TypeOfProductionPartId,    // ?? -1, // ако CateglryId e null тук ще бъде записано -1 ако не е null ще бъде записана стойността
+                TypeOfProductionPartId = productionPart.TypeOfProductionPartId,    // ?? -1, // ако TypeOfProductionPartId e null тук ще бъде записано -1 ако не е null ще бъде записана стойността
                 CreatedOn = productionPart.CreatedOn,
                 AuthorSignature = productionPart.AuthorSignature,
                 SurfaceArea = productionPart.SurfaceArea,
@@ -171,6 +184,7 @@ namespace MachineBuildingFactory.Services
                 LaserCutLength = productionPart.LaserCutLength,
                 MaterialId = productionPart.MaterialId
             };
+
 
             model.TypeOfProductionParts = await GetTypeOfProductionPartAsync();
             model.Materials = await GetMaterialsAsync();

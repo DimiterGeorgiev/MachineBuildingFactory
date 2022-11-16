@@ -19,10 +19,6 @@ namespace MachineBuildingFactory.Controllers
             var model = await db.GetAllProductionPartsAsync();
 
             return View(model);
-
-            //IEnumerable<ProductionPart> objProductionPartList = _db.ProductionParts
-            //    .Include(p => p.Material);
-            //return View(objProductionPartList);
         }
 
         [HttpGet]
@@ -36,6 +32,7 @@ namespace MachineBuildingFactory.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> CreateNewProductionPart(CreateProductionPartViewModel model)
         {
             if (!ModelState.IsValid)
@@ -97,8 +94,48 @@ namespace MachineBuildingFactory.Controllers
             await db.EditProductionPartAsync(model);
 
             return RedirectToAction(nameof(AllProductionPart));
-
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await db.GetProductionPartForEditAsync(id);
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(AllProductionPart));
+            }
+
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = db.GetProductionPartForEditAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            await db.DeleteAsync(id);
+            return RedirectToAction(nameof(AllProductionPart));
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Delete(EditProductionPartViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    var id = model.Id;
+
+        //    await db.DeleteAsync(id);
+        //    return RedirectToAction(nameof(AllProductionPart));
+
+        //}
 
     }
 }

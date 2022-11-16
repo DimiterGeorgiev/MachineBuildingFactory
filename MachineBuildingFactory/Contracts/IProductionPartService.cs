@@ -17,13 +17,8 @@ namespace MachineBuildingFactory.Contracts
 
         Task EditProductionPartAsync(EditProductionPartViewModel model);
 
+        Task DeleteAsync(int productionPartId);
 
-
-
-
-
-
-        //Task<ProductionPart> DetailsAsync(int productionPartId);
 
 
 
