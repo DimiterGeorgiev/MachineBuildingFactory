@@ -33,7 +33,8 @@ builder.Services.AddScoped<IPurchasedPartService, PurchasedPartService>();
 
 builder.Services.AddScoped<IAssemblyService, AssemblyService>();
 
-builder.Services.AddControllersWithViews();
+
+//builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

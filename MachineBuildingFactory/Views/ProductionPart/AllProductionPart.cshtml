@@ -52,12 +52,12 @@
             <tr>
                 <td width="2%">
                     <img class="card-img-top" style="width: 3rem;"
-                 src="@obj.Image" alt="Image Part">
+                    src="@obj.Image" alt="Image Part">
                 </td>
                 <td width="11%">
                     @obj.Name
                 </td>
-                <td width="11%">
+                <td width="10%">
                     @obj.DrawingNumber
                 </td>
                 <td width="5%">
@@ -66,22 +66,22 @@
                 <td width="8%">
                     @obj.TypeOfPaint
                 </td>
-                <td width="10%">
+                <td width="8%">
                     @obj.CreatedOn
                 </td>
                 <td width="2%">
                     @obj.AuthorSignature
                 </td>
-                <td width="28%">
+                <td width="32%">
                     <div class="w75 btn-group" role="group">
-                            <a asp-controller="ProductionPart" asp-action="Details" asp-route-id="@obj.Id"
+                        <a asp-controller="ProductionPart" asp-action="Details" asp-route-id="@obj.Id"
                        class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
                         <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
                        class="btn btn-info mx-2"> <i class="bi bi-diagram-3"></i> Where Used</a>
                         <a asp-controller="ProductionPart" asp-action="EditProductionPart" asp-route-id="@obj.Id"
-                       class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edti</a>
-                        @*<a asp-controller="ProductionPart" asp-action="Delete" asp-route-id="@obj.Id"
-                       class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
+                       class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-controller="ProductionPart" asp-action="AddProductionPartToAssembly" asp-route-id="@obj.Id"
+                       class="btn btn-success mx-2"> <i class="bi bi-node-plus"></i> Add</a>
                     </div>
                 </td>
             </tr>

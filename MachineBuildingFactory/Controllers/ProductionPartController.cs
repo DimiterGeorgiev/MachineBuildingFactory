@@ -1,6 +1,7 @@
 ﻿using MachineBuildingFactory.Contracts;
 using MachineBuildingFactory.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MachineBuildingFactory.Controllers
 {
@@ -51,8 +52,14 @@ namespace MachineBuildingFactory.Controllers
             }
         }
 
-        public async Task<IActionResult> AddProductionPartToAssembly(int productionPartId, int assemblyId, int quantity)
+
+        //не работи
+        public async Task<IActionResult> AddProductionPartToAssembly(int productionPartId, int quantity)
         {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var assemblyId = 0; // трябва да намеря WorkingAssembly на User
+
             try
             {
                 await db.AddProductionPartToAssemblyAsync(productionPartId, assemblyId, quantity);
@@ -64,6 +71,9 @@ namespace MachineBuildingFactory.Controllers
 
             return RedirectToAction(nameof(AllProductionPart));
         }
+
+
+
 
         //public async Task<IActionResult> AssemblyProductionPartList(int assemblyId)
         //{

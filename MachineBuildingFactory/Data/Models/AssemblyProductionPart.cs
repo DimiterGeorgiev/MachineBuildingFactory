@@ -18,6 +18,6 @@ namespace MachineBuildingFactory.Data.Models
         public ProductionPart ProductionPart { get; set; } = null!;
 
         [Required]
-        public int Quantaty { get; set; }
+        public int Quantity { get; set; }
     }
 }

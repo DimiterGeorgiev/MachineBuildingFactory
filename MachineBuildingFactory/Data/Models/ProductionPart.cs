@@ -18,6 +18,7 @@ namespace MachineBuildingFactory.Data.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        [Url]
         [StringLength(200, MinimumLength = 5)]
         public string Image { get; set; } = null!;
 

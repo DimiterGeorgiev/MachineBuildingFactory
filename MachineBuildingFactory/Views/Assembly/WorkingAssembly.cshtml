@@ -1,51 +1,67 @@
-﻿@model CreateAssemblyViewModel
+﻿@model AssemblyViewModel
 @{
-    ViewData["Title"] = "CreateNewAssembly";
+    ViewData["Title"] = "WorkingAssembly";
 }
 
-
-<h1 class="text-primary">Create new assembly</h1>
-
+<h1 class="text-primary">Working Assembly</h1>
 <hr />
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="CreateNewAssembly" method="post">
+
+        <div class="mb-3">
+             <img class="card-img-top" style="width: 18rem;"
+             src="@Model.Image" alt="Image Assembly">
+        </div>
+       
+
+        @Html.HiddenFor(m => m.Id)
+
+        <form asp-action="Details" method="get">
+
+            <div class="mb-3">
+                <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
+                    Back to List
+                </a>
+            </div>
+
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label">Assembly Name</label>
-                <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                <input asp-for="@Model.Name" disabled class="form-control" aria-required="true" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="@Model.DrawingNumber" class="form-label">Drawing Number</label>
-                <input asp-for="@Model.DrawingNumber" class="form-control" value="" />
+                <input asp-for="@Model.DrawingNumber" disabled class="form-control" aria-required="true" />
                 <span asp-validation-for="DrawingNumber" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
-                <textarea asp-for="@Model.Description" class="form-control" aria-required="true" rows="5"></textarea>
+                <textarea asp-for="@Model.Description" disabled class="form-control" aria-required="true" rows="5"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="@Model.Image" class="form-label">Image</label>
-                <input asp-for="@Model.Image" class="form-control" aria-required="true" value="https://files.fm/thumb_show.php?i=wzjth76ag" />
+                <input asp-for="@Model.Image" disabled class="form-control" aria-required="true" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="@Model.AuthorSignature" class="form-label">Author signature</label>
-                <input asp-for="@Model.AuthorSignature" class="form-control" aria-required="true" value="" />
+                <input asp-for="@Model.AuthorSignature" disabled class="form-control" aria-required="true" />
                 <span asp-validation-for="AuthorSignature" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="Create" />
+                @*<input class="btn btn-warning" type="submit" value="Save Changes" />*@
                 <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
-                    Cancel
+                    Back to List
                 </a>
+                @*<a asp-controller="Assembly" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
             </div>
 
         </form>

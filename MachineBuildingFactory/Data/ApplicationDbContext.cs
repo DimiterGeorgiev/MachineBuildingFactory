@@ -20,6 +20,8 @@ namespace MachineBuildingFactory.Data
 
         public DbSet<ApplicationUserAssembly> ApplicationUserAssemblies { get; set; } = null!;
 
+        public DbSet<ApplicationUserWorkingAssembly> ApplicationUserWorkingAssemblies { get; set; } = null!;
+
         public DbSet<Manufacturer> Manufacturers { get; set; } = null!;
 
         public DbSet<Material> Materials { get; set; } = null!;
@@ -38,6 +40,9 @@ namespace MachineBuildingFactory.Data
             base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUserAssembly>()
+                .HasKey(x => new { x.ApplicationUserId, x.AssemblyId });
+
+            builder.Entity<ApplicationUserWorkingAssembly>()
                 .HasKey(x => new { x.ApplicationUserId, x.AssemblyId });
 
             builder.Entity<AssemblyProductionPart>()
@@ -208,7 +213,7 @@ namespace MachineBuildingFactory.Data
                    Id = 13,
                    Name = "Break Details",
                    Description = "Thsi Part breaks the DetailView",
-                   Image = "Picture",
+                   Image = "https://files.fm/thumb_show.php?i=wzjth76ag",
                    TypeOfProductionPartId = 2,
                    CreatedOn = DateTime.Now,
                    AuthorSignature = "DD",
@@ -415,7 +420,7 @@ namespace MachineBuildingFactory.Data
                     SupplierId = 12,
                     ManufacturerId = 5,
                     Description = "Gear motor of SEW, Supplier: Misumi",
-                    Image = "Picture",
+                    Image = "https://files.fm/thumb_show.php?i=zbkja84dh",
                     Weight = 56.8,
                     Standard = "ISO 36264"
                 },
@@ -427,7 +432,7 @@ namespace MachineBuildingFactory.Data
                     SupplierId = 14,
                     ManufacturerId = 6,
                     Description = "Compact cylinders ADN-S, double-acting",
-                    Image = "Picture",
+                    Image = "https://files.fm/thumb_show.php?i=bduy24ra6",
                     Weight = 2.3,
                     Standard = "ISO 21287"
                 },
@@ -439,7 +444,7 @@ namespace MachineBuildingFactory.Data
                     SupplierId = 13,
                     ManufacturerId = 7,
                     Description = "For material handling applications",
-                    Image = "Picture",
+                    Image = "https://files.fm/thumb_show.php?i=a62t5h3r2",
                     Weight = 1.3,
                     Standard = "ISO 55629"
                 },
@@ -451,7 +456,7 @@ namespace MachineBuildingFactory.Data
                      SupplierId = 11,
                      ManufacturerId = 7,
                      Description = "Read holding registers (03) 29 words",
-                     Image = "Picture",
+                     Image = "https://files.fm/thumb_show.php?i=sh76p8cgu",
                      Weight = 1.3,
                      Standard = "ISO 32685"
                  },
@@ -463,7 +468,7 @@ namespace MachineBuildingFactory.Data
                      SupplierId = 13,
                      ManufacturerId = 7,
                      Description = "Linear Bearing with Round Flange",
-                     Image = "Picture",
+                     Image = "https://files.fm/thumb_show.php?i=thrgt2tfr",
                      Weight = 1.3,
                      Standard = "ISO 36958"
                  }

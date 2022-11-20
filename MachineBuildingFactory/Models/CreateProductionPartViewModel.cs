@@ -16,6 +16,7 @@ namespace MachineBuildingFactory.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        [Url]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "Image link must be between 5 and 200 characters")]
         public string Image { get; set; } = null!;
 

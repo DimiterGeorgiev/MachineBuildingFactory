@@ -31,6 +31,7 @@ namespace MachineBuildingFactory.Data.Models
 
         public List<ApplicationUserAssembly> ApplicationUserAssemblys { get; set; } = new List<ApplicationUserAssembly>();
 
+        public List<ApplicationUserWorkingAssembly> WorkingAssembly { get; set; } = new List<ApplicationUserWorkingAssembly>();
 
     }
 }

@@ -4,6 +4,7 @@ using MachineBuildingFactory.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MachineBuildingFactory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221120084407_WorkingAssembly")]
+    partial class WorkingAssembly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,21 +132,6 @@ namespace MachineBuildingFactory.Migrations
                     b.ToTable("ApplicationUserAssemblies");
                 });
 
-            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUserWorkingAssembly", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AssemblyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicationUserId", "AssemblyId");
-
-                    b.HasIndex("AssemblyId");
-
-                    b.ToTable("ApplicationUserWorkingAssemblies");
-                });
-
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.Assembly", b =>
                 {
                     b.Property<int>("Id")
@@ -189,7 +176,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 3,
                             AuthorSignature = "GG",
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(1787),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 81, DateTimeKind.Local).AddTicks(218),
                             Description = "Base support for hole construction",
                             DrawingNumber = "CW-001-00",
                             Image = "https://files.fm/thumb_show.php?i=e3en9mxbj",
@@ -199,7 +186,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 4,
                             AuthorSignature = "PP",
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(1795),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 81, DateTimeKind.Local).AddTicks(227),
                             Description = "Rotational casting is the best way to make hollow resin parts",
                             DrawingNumber = "CF-050-00",
                             Image = "https://files.fm/thumb_show.php?i=rcgp3g9nf",
@@ -209,7 +196,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 5,
                             AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(1804),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 81, DateTimeKind.Local).AddTicks(236),
                             Description = "Steam turbine 100 kW",
                             DrawingNumber = "WM-026-100-R",
                             Image = "https://files.fm/thumb_show.php?i=rafszmvtu",
@@ -219,7 +206,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 6,
                             AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(1812),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 81, DateTimeKind.Local).AddTicks(250),
                             Description = "Cooling system for industry",
                             DrawingNumber = "CS-125-TF58-000",
                             Image = "https://files.fm/thumb_show.php?i=zqg8235n3",
@@ -229,7 +216,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 7,
                             AuthorSignature = "TT",
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(1821),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 81, DateTimeKind.Local).AddTicks(262),
                             Description = "High pressure reciprocating compressor",
                             DrawingNumber = "CM-300-RF98-700",
                             Image = "https://files.fm/thumb_show.php?i=8ug7rbkqh",
@@ -450,7 +437,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 5,
                             AuthorSignature = "PP",
                             ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(886),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9746),
                             Description = "This is just a probe part.",
                             DrawingNumber = "CL-025-001",
                             Image = "https://files.fm/thumb_show.php?i=wuvwwvyyu",
@@ -468,7 +455,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 6,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(901),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9761),
                             Description = "Shaft for all target.",
                             DrawingNumber = "CL-025-002",
                             Image = "https://files.fm/thumb_show.php?i=yanftmubg",
@@ -486,7 +473,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 7,
                             AuthorSignature = "DD",
                             ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(911),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9772),
                             Description = "For all type of construction",
                             DrawingNumber = "BP-080-008",
                             Image = "https://files.fm/thumb_show.php?i=avqbb8jgk",
@@ -504,7 +491,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 8,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(922),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9784),
                             Description = "Gear for gearbox",
                             DrawingNumber = "GB-200-036",
                             Image = "https://files.fm/thumb_show.php?i=n62awsh2s",
@@ -522,7 +509,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 9,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(932),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9794),
                             Description = "Brackets for Frame",
                             DrawingNumber = "GB-200-036",
                             Image = "https://files.fm/thumb_show.php?i=qjugekfuf",
@@ -540,7 +527,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 10,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(942),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9804),
                             Description = "Frame big size",
                             DrawingNumber = "FBS-2365-078",
                             Image = "https://files.fm/thumb_show.php?i=2y4zzx6pb",
@@ -558,7 +545,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 11,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(953),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9814),
                             Description = "Toot 45, M=7, TRE-89",
                             DrawingNumber = "RW-859-026",
                             Image = "https://files.fm/thumb_show.php?i=8a2t5t9z9",
@@ -576,7 +563,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 12,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(963),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9824),
                             Description = "Toot 65, M=4, SPG-05",
                             DrawingNumber = "RW-859-026",
                             Image = "https://files.fm/thumb_show.php?i=2gqgfmt48",
@@ -594,10 +581,10 @@ namespace MachineBuildingFactory.Migrations
                             Id = 13,
                             AuthorSignature = "DD",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 20, 10, 34, 57, 405, DateTimeKind.Local).AddTicks(973),
+                            CreatedOn = new DateTime(2022, 11, 20, 9, 44, 6, 80, DateTimeKind.Local).AddTicks(9834),
                             Description = "Thsi Part breaks the DetailView",
                             DrawingNumber = "BV-000-001",
-                            Image = "https://files.fm/thumb_show.php?i=wzjth76ag",
+                            Image = "Picture",
                             LaserCutLength = 0.0,
                             MaterialId = 1,
                             Name = "Break Details",
@@ -977,25 +964,6 @@ namespace MachineBuildingFactory.Migrations
                     b.Navigation("Assembly");
                 });
 
-            modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUserWorkingAssembly", b =>
-                {
-                    b.HasOne("MachineBuildingFactory.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("WorkingAssembly")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MachineBuildingFactory.Data.Models.Assembly", "Assembly")
-                        .WithMany()
-                        .HasForeignKey("AssemblyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Assembly");
-                });
-
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.AssemblyProductionPart", b =>
                 {
                     b.HasOne("MachineBuildingFactory.Data.Models.Assembly", "Assembly")
@@ -1126,8 +1094,6 @@ namespace MachineBuildingFactory.Migrations
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("ApplicationUserAssemblys");
-
-                    b.Navigation("WorkingAssembly");
                 });
 
             modelBuilder.Entity("MachineBuildingFactory.Data.Models.Assembly", b =>

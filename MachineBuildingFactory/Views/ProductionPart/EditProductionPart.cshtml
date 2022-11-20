@@ -11,8 +11,8 @@
         <form asp-action="EditProductionPart" method="post">
             @Html.HiddenFor(m => m.Id)
 
-            @*<img class="card-img-top" style="width: 18rem;"
-                 src="@Model.Image" alt="Image Part">*@
+            <img class="card-img-top" style="width: 18rem;"
+                 src="@Model.Image" alt="Image Part">
 
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label">Part Name</label>

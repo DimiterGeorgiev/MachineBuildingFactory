@@ -1,13 +1,22 @@
 ﻿@model IEnumerable<AssemblyViewModel>
 @{
-    ViewData["Title"] = "AllAssembly";
+    ViewData["Title"] = "MineAssemblies";
 }
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Assembly List</h2>
+            @if(Model.Any())
+            {
+                <h2 class="text-primary">Mine Assembly List</h2>
+            }
+            else
+            {
+                <h2 class="text-primary">You have no items in your Assembly List</h2>
+            }
+            
         </div>
+        
         <div class="col-6 text-end">
             <a asp-controller="Assembly" asp-action="CreateNewAssembly" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> &nbsp; Create new assembly
@@ -16,8 +25,9 @@
     </div>
     <br /><br />
 
-
-    <table class="table table-bordered table-striped" style="width:100%">
+    @if (Model.Any())
+    {
+         <table class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>
@@ -46,7 +56,7 @@
                 <tr>
                     <td width="3%">
                         <img class="card-img-top" style="width: 3rem;"
-                        src="@obj.Image" alt="Image Part">
+                         src="@obj.Image" alt="Image Part">
                     </td>
                     <td width="10%">
                         @obj.Name
@@ -66,11 +76,15 @@
                            class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
                             <a asp-controller="Assembly" asp-action="EditAssembly" asp-route-id="@obj.Id"
                            class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edti</a>
+                            @*  <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
+                        class="btn btn-danger mx-2"> <i class="bi bi-dash-square"></i> Remove</a>*@
                             @*<a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
                            class="btn btn-primary mx-2"> <i class="bi bi-plus-square"></i> Add Part</a>*@
-                            <a asp-controller="Assembly" asp-action="AddAssemblyToMineCollection" asp-route-id="@obj.Id"
-                           class="btn btn-primary mx-2"> <i class="bi bi-plus-square"></i> Add Mine</a>
-                          @*  <a asp-controller="Assembly" asp-action="Delete" asp-route-id="@obj.Id"
+                            <a asp-controller="Assembly" asp-action="RemoveAssemblyFromMineCollection" asp-route-id="@obj.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-dash-square"></i> Remove</a>
+                                <a asp-controller="Assembly" asp-action="SetAssemblyAsWorking" asp-route-id="@obj.Id"
+                           class="btn btn-success mx-2"> <i class="bi bi-hammer"></i> Set to Work</a>
+                           @* <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
                            class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
                         </div>
                     </td>
@@ -78,4 +92,8 @@
             }
         </tbody>
     </table>
+    }
 </div>
+   
+
+

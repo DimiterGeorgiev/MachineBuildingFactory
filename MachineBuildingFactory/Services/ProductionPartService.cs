@@ -16,6 +16,9 @@ namespace MachineBuildingFactory.Services
             context = _context;
         }
 
+
+        //още не работи
+        [HttpPost]
         public async Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity)
         {
             var assembly = await context.Assemblies
@@ -43,7 +46,7 @@ namespace MachineBuildingFactory.Services
                     AssemblyId = assembly.Id,
                     ProductionPart = productionPart,
                     Assembly = assembly,
-                    Quantaty = quantity
+                    Quantity = quantity
                 });
 
                 await context.SaveChangesAsync();
@@ -107,27 +110,9 @@ namespace MachineBuildingFactory.Services
             entity.MaterialId = model.MaterialId;
 
             await context.SaveChangesAsync();
-
-
         }
 
-        //public async Task<ProductionPartViewModel> DetailsAsync(int productionPartId)
-        //{
-        //    //if(productionPartId == null || context.ProductionParts == null)
-        //    //{
-        //    //    return NotFoundObjectResult();
-        //    //}
 
-        //    var part = await context.ProductionParts.FindAsync(productionPartId);
-        //        //.FirstOrDefaultAsync(p => p.Id == productionPartId);
-
-        //    if (part == null)
-        //    {
-        //        throw new ArgumentException("Invalid productionPartId");
-        //    }
-
-        //    return entity
-        //}
 
         public async Task<IEnumerable<ProductionPartViewModel>> GetAllProductionPartsAsync()
         {
@@ -185,7 +170,6 @@ namespace MachineBuildingFactory.Services
                 MaterialId = productionPart.MaterialId
             };
 
-
             model.TypeOfProductionParts = await GetTypeOfProductionPartAsync();
             model.Materials = await GetMaterialsAsync();
 
@@ -193,29 +177,7 @@ namespace MachineBuildingFactory.Services
 
         }
 
-        //public async Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId)
-        //{
-        //    var assembly = await context.Assemblies
-        //        .Where(a => a.Id == assemblyId)
-        //        .Include(a => a.AssemblyProductionParts)
-        //        .ThenInclude(ap => ap.ProductionPart)
-        //        .ThenInclude(a => a.Material)
-        //        .FirstOrDefaultAsync();
 
-        //    if (assembly == null)
-        //    {
-        //        throw new ArgumentException("Invalid assemblyId");
-        //    }
-
-        //    return assembly.AssemblyProductionParts
-        //        .Select(p => new ProductionPartViewModel()
-        //        {
-        //            Name = p.ProductionPart.Name,
-        //            DrawingNumber = p.ProductionPart.DrawingNumber,
-        //            Material = p.ProductionPart.Material.MaterialNumber,
-        //            AuthorSignature = p.ProductionPart.AuthorSignature
-        //        });
-        //}
 
         public async Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync()
         {
