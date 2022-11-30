@@ -1,4 +1,5 @@
 ﻿using MachineBuildingFactory.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,6 +39,14 @@ namespace MachineBuildingFactory.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+
+            this.SeedUsers(builder);
+            this.SeedRoles(builder);
+            this.SeedUserRoles(builder);
+
+
+
 
             builder.Entity<ApplicationUserAssembly>()
                 .HasKey(x => new { x.ApplicationUserId, x.AssemblyId });
@@ -211,7 +220,7 @@ namespace MachineBuildingFactory.Data
                new ProductionPart()
                {
                    Id = 13,
-                   Name = "Break Details",
+                   Name = "Just Details",
                    Description = "Thsi Part breaks the DetailView",
                    Image = "https://files.fm/thumb_show.php?i=wzjth76ag",
                    TypeOfProductionPartId = 2,
@@ -475,34 +484,102 @@ namespace MachineBuildingFactory.Data
                 );
 
 
+            //  builder.Entity<IdentityRole>().HasData(new List<IdentityRole>
+            //  {
+            //      new IdentityRole
+            //      {
+            //          Id = "1",
+            //          Name = "Management",
+            //          NormalizedName = "MANAGEMENT"
+            //      },
 
+            //      new IdentityRole
+            //      {
+            //          Id = "2",
+            //          Name = "IT",
+            //          NormalizedName = "IT"
+            //      }
+            //  });
+
+
+            //  var hasher = new PasswordHasher<ApplicationUser>();
 
             //  builder
             //      .Entity<ApplicationUser>()
-            //.HasData(new ApplicationUser()
-            //{
-            //    FirstName = "Peter",
-            //    LastName = "Petrov",
-            //    Title = Enums.Title.DI,
-            //    Phone = "+3596598665",
-            //    Department = Enums.Department.Engineering,
-            //    Signature = "PP",
-            //    UserName = "peter",
-            //    Email = "peter@abv.bg"
+            //.HasData(
+            //    new ApplicationUser()
+            //    {
+            //        FirstName = "Peter",
+            //        LastName = "Petrov",
+            //        Title = Enums.Title.DI,
+            //        Phone = "+3596598665",
+            //        Department = Enums.Department.Engineering,
+            //        Signature = "PP",
+            //        UserName = "peter",
+            //        Email = "peter@abv.bg",
+            //        PasswordHash = hasher.HashPassword(null, "123aA!")
+            //    },
+
+            //    new ApplicationUser()
+            //    {
+            //        FirstName = "Todor",
+            //        LastName = "Todorv",
+            //        Title = Enums.Title.FU,
+            //        Phone = "+35963256584",
+            //        Department = Enums.Department.Production,
+            //        Signature = "TT",
+            //        UserName = "todor",
+            //        Email = "todor@abv.bg",
+            //        PasswordHash = hasher.HashPassword(null, "123aA!")
+            //    });
+
+            //  builder.Entity<IdentityUserRole>().HasData(
+            //      new IdentityRole
+            //      {
+
+            //      });
+
+        }
+
+        private void SeedUsers(ModelBuilder builder)
+        {
+            ApplicationUser user = new ApplicationUser()
+            {
+                Id = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b",
+                FirstName = "Peter",
+                LastName = "Petrov",
+                Title = Enums.Title.DI,
+                Phone = "+3596598665",
+                Department = Enums.Department.Management,
+                Signature = "PP",
+                UserName = "peter",
+                NormalizedUserName = "PETER",
+                Email = "peter@abv.bg",
+                NormalizedEmail = "PETER@ABV.BG",
+                LockoutEnabled = true,
+            };
+
+            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+
+            user.PasswordHash = passwordHasher.HashPassword(user, "123aA!");
+
+            builder.Entity<ApplicationUser>().HasData(user);
+        }
 
 
-            //},
-            //new ApplicationUser()
-            //{
-            //    FirstName = "Todor",
-            //    LastName = "Todorv",
-            //    Title = Enums.Title.FU,
-            //    Phone = "+35963256584",
-            //    Department = Enums.Department.Production,
-            //    Signature = "TT",
-            //    UserName = "todor",
-            //    Email = "todor@abv.bg"
-            //});
+        private void SeedRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityRole>().HasData(
+            new IdentityRole() { Id = "236787a2-4edc-492e-acb2-5f4a00ade9e3", Name = "Management", ConcurrencyStamp = "1", NormalizedName = "Management" },
+            new IdentityRole() { Id = "cadc8910-5d74-4791-aad9-3523e2fd2468", Name = "IT", ConcurrencyStamp = "2", NormalizedName = "IT" }
+            );
+        }
+
+        private void SeedUserRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityUserRole<string>>().HasData(
+            new IdentityUserRole<string>() { RoleId = "236787a2-4edc-492e-acb2-5f4a00ade9e3", UserId = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b" }
+            );
         }
 
     }

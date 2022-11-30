@@ -22,19 +22,15 @@ namespace MachineBuildingFactory.Contracts
 
 
 
-
-
-        //Task<AddProducitonPartToAssemblyViewModel> GetProductionPartAndAssemblyAsync(int productionPartId, int assemblyId, int quantity);
-
-        //Task AddProductionPartToAssemblyAsync(AddProducitonPartToAssemblyViewModel model);
-
-
         Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity);
 
+        Task<AddProducitonPartToAssemblyViewModel> GetForEditQuantityAsync(int productionPartId, int assemblyId);
+
+        Task EditQuantityOfProductionPartInAssemblyAsync(int productionPartId, int assemblyId, int quantity);
+
+        Task RemoveProductionPartFromAssemblyAsync(int productionPartId, int assemblyId);
 
 
-
-        //Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId);
 
 
 

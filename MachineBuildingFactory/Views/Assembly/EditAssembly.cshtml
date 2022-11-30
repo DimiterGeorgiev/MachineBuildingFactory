@@ -5,7 +5,7 @@
 
 <h1 class="text-primary">Edit assembly</h1>
 <hr />
-
+<partial name="_Notification" />
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form asp-action="EditAssembly" method="post">
@@ -40,14 +40,14 @@
 
             <div class="mb-3">
                 <label asp-for="@Model.AuthorSignature" class="form-label">Author signature</label>
-                <input asp-for="@Model.AuthorSignature" class="form-control" aria-required="true" />
+                <input asp-for="@Model.AuthorSignature" class="form-control" aria-required="true" value="@Model.AuthorSignature"/>
                 <span asp-validation-for="AuthorSignature" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <input class="btn btn-warning" type="submit" value="Save Changes" />
                 <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
-                    Back to List
+                    Cancel
                 </a>
             </div>
 

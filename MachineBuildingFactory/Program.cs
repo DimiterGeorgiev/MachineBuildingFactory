@@ -2,6 +2,7 @@ using MachineBuildingFactory.Contracts;
 using MachineBuildingFactory.Data;
 using MachineBuildingFactory.Data.Models;
 using MachineBuildingFactory.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequiredLength = 4;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>

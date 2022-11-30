@@ -3,9 +3,9 @@
     ViewData["Title"] = "WorkingAssembly";
 }
 
-<h1 class="text-primary">Working Assembly</h1>
-<hr />
-
+    <h1 class="text-primary">Working Assembly</h1>
+    <hr />
+<partial name="_Notification" />
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
 
@@ -13,15 +13,14 @@
              <img class="card-img-top" style="width: 18rem;"
              src="@Model.Image" alt="Image Assembly">
         </div>
-       
 
         @Html.HiddenFor(m => m.Id)
 
         <form asp-action="Details" method="get">
 
             <div class="mb-3">
-                <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
-                    Back to List
+                <a asp-controller="Assembly" asp-action="MineAssemblies" class="btn btn-secondary" style="width:150px">
+                    Mine Assemblies
                 </a>
             </div>
 
@@ -39,7 +38,7 @@
 
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
-                <textarea asp-for="@Model.Description" disabled class="form-control" aria-required="true" rows="5"></textarea>
+                <textarea asp-for="@Model.Description" disabled class="form-control" aria-required="true" rows="3"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
@@ -55,10 +54,113 @@
                 <span asp-validation-for="AuthorSignature" class="text-danger"></span>
             </div>
 
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Pic
+                        </th>
+                        <th>
+                            Parameter
+                        </th>
+                        <th>
+                            Value
+                        </th>
+                        <th>
+                            Dimension
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td width="3%">
+                            <img class="card-img-top" style="width: 3rem;"
+                            src="https://files.fm/thumb_show.php?i=ap8zbj723" alt="Image Part">
+                        </td>
+                        <td width="30%">
+                            Full Painted Surface
+                        </td>
+                        <td width="20%">
+                            @Model.PaintSurface
+                        </td>
+                        <td width="20%">
+                            Square meters
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="3%">
+                            <img class="card-img-top" style="width: 3rem;"
+                            src="https://files.fm/thumb_show.php?i=6f8hjfhvs" alt="Image Part">
+                        </td>
+                        <td width="30%">
+                            Full Oxidized Surface
+                        </td>
+                        <td width="20%">
+                            @Model.OxidizeSurface
+                        </td>
+                        <td width="20%">
+                            Square meters
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="3%">
+                            <img class="card-img-top" style="width: 3rem;"
+                            src="https://files.fm/thumb_show.php?i=eafmm59er" alt="Image Part">
+                        </td>
+                        <td width="30%">
+                            Full Electrogalvanized Surface
+                        </td>
+                        <td width="20%">
+                            @Model.ElectrogalvanizedSurface
+                        </td>
+                        <td width="20%">
+                            Square meters
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="3%">
+                            <img class="card-img-top" style="width: 3rem;"
+                            src="https://files.fm/thumb_show.php?i=hp4hkjkas" alt="Image Part">
+                        </td>
+                        <td width="30%">
+                            Full Untreated Surface
+                        </td>
+                        <td width="20%">
+                            @Model.UntreatedSurface
+                        </td>
+                        <td width="20%">
+                            Square meters
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="3%">
+                            <img class="card-img-top" style="width: 3rem;"
+                            src="https://files.fm/thumb_show.php?i=85558wj63" alt="Image Part">
+                        </td>
+                        <td width="30%">
+                            Full Laser Cut Length
+                        </td>
+                        <td width="20%">
+                            @Model.LaserCutLength
+                        </td>
+                        <td width="20%">
+                            Meters
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+
             <div class="mb-3">
-                @*<input class="btn btn-warning" type="submit" value="Save Changes" />*@
-                <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
-                    Back to List
+                <a asp-controller="Assembly" asp-action="WorkingAssemblyProductionPartList" asp-route-id="@Model.Id"
+                   class="btn btn-success mx-2">
+                    <i class="bi bi-list"></i> Show list of Productin Parts
+                </a>
+                <a asp-controller="Assembly" asp-action="AssemblyPurchasedPartList" asp-route-id="@Model.Id"
+                   class="btn btn-success mx-2">
+                    <i class="bi bi-list"></i> Show list of Purchased Parts
                 </a>
                 @*<a asp-controller="Assembly" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
@@ -67,6 +169,7 @@
         </form>
     </div>
 </div>
+
 
 
 @section Scripts {

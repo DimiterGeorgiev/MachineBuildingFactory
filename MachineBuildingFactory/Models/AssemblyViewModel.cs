@@ -16,5 +16,15 @@
 
         public string? Image { get; set; }
 
+        public string PaintSurface { get; set; } = null!;
+
+        public string OxidizeSurface { get; set; } = null!;
+
+        public string ElectrogalvanizedSurface { get; set; } = null!;
+
+        public string UntreatedSurface { get; set; } = null!;
+
+        public string LaserCutLength { get; set; } = null!;
+
     }
 }

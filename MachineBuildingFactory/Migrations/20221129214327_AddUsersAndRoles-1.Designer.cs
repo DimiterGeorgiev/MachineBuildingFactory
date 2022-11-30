@@ -4,6 +4,7 @@ using MachineBuildingFactory.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MachineBuildingFactory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129214327_AddUsersAndRoles-1")]
+    partial class AddUsersAndRoles1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,19 +121,17 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d23a098f-0065-438a-b40d-0ed9e4d319f7",
+                            ConcurrencyStamp = "4ed48ac6-17a5-47fe-8ee5-adc6b332af94",
                             Department = 0,
                             Email = "peter@abv.bg",
                             EmailConfirmed = false,
                             FirstName = "Peter",
                             LastName = "Petrov",
-                            LockoutEnabled = true,
-                            NormalizedEmail = "PETER@ABV.BG",
-                            NormalizedUserName = "PETER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPSqp2eatGa7KJVvwnC4gpKfWBn7TCsxMmAQ/MpziT8sITCEB/nbYtmZQesTWTL3xA==",
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKotrjDxQqrrzFbGMfxyodiWb6vPEA2HHouJkGusXg7nhyH9kf+sakDQ3ZzV08D1jQ==",
                             Phone = "+3596598665",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e314d2b1-de0c-4e10-916f-b4094822ac17",
+                            SecurityStamp = "26e9697f-d039-481c-9a34-5152541c3843",
                             Signature = "PP",
                             Title = 2,
                             TwoFactorEnabled = false,
@@ -213,7 +213,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 3,
                             AuthorSignature = "GG",
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3916),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7937),
                             Description = "Base support for hole construction",
                             DrawingNumber = "CW-001-00",
                             Image = "https://files.fm/thumb_show.php?i=e3en9mxbj",
@@ -223,7 +223,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 4,
                             AuthorSignature = "PP",
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3925),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7950),
                             Description = "Rotational casting is the best way to make hollow resin parts",
                             DrawingNumber = "CF-050-00",
                             Image = "https://files.fm/thumb_show.php?i=rcgp3g9nf",
@@ -233,7 +233,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 5,
                             AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3933),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7962),
                             Description = "Steam turbine 100 kW",
                             DrawingNumber = "WM-026-100-R",
                             Image = "https://files.fm/thumb_show.php?i=rafszmvtu",
@@ -243,7 +243,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 6,
                             AuthorSignature = "DD",
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3942),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7974),
                             Description = "Cooling system for industry",
                             DrawingNumber = "CS-125-TF58-000",
                             Image = "https://files.fm/thumb_show.php?i=zqg8235n3",
@@ -253,7 +253,7 @@ namespace MachineBuildingFactory.Migrations
                         {
                             Id = 7,
                             AuthorSignature = "TT",
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3951),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7985),
                             Description = "High pressure reciprocating compressor",
                             DrawingNumber = "CM-300-RF98-700",
                             Image = "https://files.fm/thumb_show.php?i=8ug7rbkqh",
@@ -474,7 +474,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 5,
                             AuthorSignature = "PP",
                             ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3677),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7482),
                             Description = "This is just a probe part.",
                             DrawingNumber = "CL-025-001",
                             Image = "https://files.fm/thumb_show.php?i=wuvwwvyyu",
@@ -492,7 +492,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 6,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3693),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7504),
                             Description = "Shaft for all target.",
                             DrawingNumber = "CL-025-002",
                             Image = "https://files.fm/thumb_show.php?i=yanftmubg",
@@ -510,7 +510,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 7,
                             AuthorSignature = "DD",
                             ColorOfPaintRal = 3,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3703),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7520),
                             Description = "For all type of construction",
                             DrawingNumber = "BP-080-008",
                             Image = "https://files.fm/thumb_show.php?i=avqbb8jgk",
@@ -528,7 +528,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 8,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3713),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7533),
                             Description = "Gear for gearbox",
                             DrawingNumber = "GB-200-036",
                             Image = "https://files.fm/thumb_show.php?i=n62awsh2s",
@@ -546,7 +546,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 9,
                             AuthorSignature = "TT",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3724),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7550),
                             Description = "Brackets for Frame",
                             DrawingNumber = "GB-200-036",
                             Image = "https://files.fm/thumb_show.php?i=qjugekfuf",
@@ -564,7 +564,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 10,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3734),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7562),
                             Description = "Frame big size",
                             DrawingNumber = "FBS-2365-078",
                             Image = "https://files.fm/thumb_show.php?i=2y4zzx6pb",
@@ -582,7 +582,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 11,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3744),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7575),
                             Description = "Toot 45, M=7, TRE-89",
                             DrawingNumber = "RW-859-026",
                             Image = "https://files.fm/thumb_show.php?i=8a2t5t9z9",
@@ -600,7 +600,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 12,
                             AuthorSignature = "GG",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3754),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7678),
                             Description = "Toot 65, M=4, SPG-05",
                             DrawingNumber = "RW-859-026",
                             Image = "https://files.fm/thumb_show.php?i=2gqgfmt48",
@@ -618,7 +618,7 @@ namespace MachineBuildingFactory.Migrations
                             Id = 13,
                             AuthorSignature = "DD",
                             ColorOfPaintRal = 1,
-                            CreatedOn = new DateTime(2022, 11, 29, 22, 55, 21, 208, DateTimeKind.Local).AddTicks(3764),
+                            CreatedOn = new DateTime(2022, 11, 29, 22, 43, 25, 580, DateTimeKind.Local).AddTicks(7693),
                             Description = "Thsi Part breaks the DetailView",
                             DrawingNumber = "BV-000-001",
                             Image = "https://files.fm/thumb_show.php?i=wzjth76ag",

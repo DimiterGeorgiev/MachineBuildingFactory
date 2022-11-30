@@ -1,4 +1,5 @@
-﻿using MachineBuildingFactory.Models;
+﻿using MachineBuildingFactory.Data.Models;
+using MachineBuildingFactory.Models;
 
 namespace MachineBuildingFactory.Contracts
 {
@@ -24,11 +25,11 @@ namespace MachineBuildingFactory.Contracts
 
         Task<AssemblyViewModel> GetWorkingAssemblyAsync(string userId);
 
+        Task<IEnumerable<AssemblyViewModel>> GetWhereUsedAssembliesAsync(int partId);
 
-
-
-        //не работи
         Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId);
+
+        Task<Assembly> GetAssemblyById(int assemblyId);
 
     }
 }

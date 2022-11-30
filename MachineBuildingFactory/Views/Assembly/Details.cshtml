@@ -5,7 +5,7 @@
 
 <h1 class="text-primary">Details Assembly</h1>
 <hr />
-
+<partial name="_Notification" />
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
 
@@ -18,7 +18,7 @@
 
              <div class="mb-3">
                 <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
-                    Back to List
+                    All Assembly
                 </a>
                 @* <a asp-controller="ProductionPart" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> 
@@ -40,7 +40,7 @@
 
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description</label>
-                <textarea asp-for="@Model.Description" disabled class="form-control" aria-required="true" rows="5"></textarea>
+                <textarea asp-for="@Model.Description" disabled class="form-control" aria-required="true" rows="3"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
@@ -58,8 +58,15 @@
 
             <div class="mb-3">
                 @*<input class="btn btn-warning" type="submit" value="Save Changes" />*@
-                <a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
+                @*<a asp-controller="Assembly" asp-action="AllAssemblies" class="btn btn-secondary" style="width:150px">
                     Back to List
+                </a>*@
+                <a asp-controller="Assembly" asp-action="AssemblyProductionPartList" asp-route-id="@Model.Id"
+                   class="btn btn-success mx-2"> <i class="bi bi-list"></i> Show list of Productin Parts
+                </a>
+                <a asp-controller="Assembly" asp-action="AssemblyPurchasedPartList" asp-route-id="@Model.Id"
+                   class="btn btn-success mx-2">
+                    <i class="bi bi-list"></i> Show list of Purchased Parts
                 </a>
                 <a asp-controller="Assembly" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MachineBuildingFactory.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -57,14 +58,17 @@ namespace MachineBuildingFactory.Controllers
                 Signature = model.Signature
             };
 
+
+
             var result = await userManager.CreateAsync(user, model.Password);
+
 
             if (result.Succeeded)
             {
-                //await signInManager.SignInAsync(user, isPersistent: false);
-                // след регистрация не се логва потребителя
-                //след регистрация птребителя отива на логин
-
+                if (user.Department.ToString() == "Management")
+                {
+                    await userManager.AddToRoleAsync(user, "management");
+                }
                 return RedirectToAction("Login", "User");
             }
 

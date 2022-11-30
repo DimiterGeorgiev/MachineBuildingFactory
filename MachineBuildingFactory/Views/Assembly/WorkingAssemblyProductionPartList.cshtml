@@ -11,7 +11,7 @@
 
             @if (Model.Any())
             {
-                <h2 class="text-primary">Assembly Production Part List</h2>
+                <h2 class="text-primary">Working Assembly Production Part List</h2>
             }
             else
             {
@@ -86,10 +86,10 @@
                            class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
                                 <a asp-controller="Assembly" asp-action="WhereUsed" asp-route-id="@obj.Id"
                            class="btn btn-info mx-2"> <i class="bi bi-diagram-3"></i> Where Used</a>
-                               @* <a asp-controller="ProductionPart" asp-action="EditQuantity" asp-route-id="@obj.Id"
+                                <a asp-controller="ProductionPart" asp-action="EditQuantity" asp-route-id="@obj.Id"
                            class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edit Quantity</a>
                                 <a asp-controller="ProductionPart" asp-action="RemoveProductionPartFromAssembly" asp-route-id="@obj.Id"
-                           class="btn btn-secondary mx-2"> <i class="bi bi-node-minus"></i> Remove</a>*@
+                           class="btn btn-secondary mx-2"> <i class="bi bi-node-minus"></i> Remove</a>
                             </div>
                         </td>
                     </tr>

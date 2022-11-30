@@ -24,14 +24,14 @@ namespace MachineBuildingFactory.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Imvalid userId");
+                throw new ArgumentException("Invalid userId");
             }
 
             var assembly = await context.Assemblies.FirstOrDefaultAsync(a => a.Id == id);
 
             if (assembly == null)
             {
-                throw new ArgumentException("Imvalid AssemblyId");
+                throw new ArgumentException("Invalid AssemblyId");
             }
 
             if (!user.ApplicationUserAssemblys.Any(a => a.AssemblyId == id)) //Ако го няма го добавяме
@@ -45,6 +45,11 @@ namespace MachineBuildingFactory.Services
                 });
 
                 await context.SaveChangesAsync();
+            }
+
+            else
+            {
+                throw new Exception();
             }
         }
 
@@ -152,11 +157,10 @@ namespace MachineBuildingFactory.Services
         }
 
 
-        //още не работи
-        public async Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId)
+        public async Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int id)
         {
             var assembly = await context.Assemblies
-                .Where(a => a.Id == assemblyId)
+                .Where(a => a.Id == id)
                 .Include(a => a.AssemblyProductionParts)
                 .ThenInclude(ap => ap.ProductionPart)
                 .ThenInclude(a => a.Material)
@@ -170,10 +174,37 @@ namespace MachineBuildingFactory.Services
             return assembly.AssemblyProductionParts
                 .Select(p => new ProductionPartViewModel()
                 {
+                    Id = p.ProductionPartId,
                     Name = p.ProductionPart.Name,
+                    Image = p.ProductionPart.Image,
                     DrawingNumber = p.ProductionPart.DrawingNumber,
                     Material = p.ProductionPart.Material.MaterialNumber,
-                    AuthorSignature = p.ProductionPart.AuthorSignature
+                    AuthorSignature = p.ProductionPart.AuthorSignature,
+                    TypeOfPaint = p.ProductionPart.TypeOfPaint.ToString(),
+                    CreatedOn = p.Quantity.ToString(),
+                    SurfaceArea = p.ProductionPart.SurfaceArea.ToString(),
+                    LaserCutLength = p.ProductionPart.LaserCutLength.ToString(),
+                    SurfaceTreatment = p.ProductionPart.SurfaceTreatment.ToString(),
+
+                });
+        }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedAssembliesAsync(int partId)
+        {
+            var entities = await context.Assemblies
+                .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPartId == partId))
+                .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
                 });
         }
 
@@ -191,6 +222,11 @@ namespace MachineBuildingFactory.Services
                 throw new ArgumentException("Invalid userId");
             }
 
+            if (!user.WorkingAssembly.Any())
+            {
+                throw new ArgumentException("No Working Assembly");
+            }
+
             var workingAssembly = user.WorkingAssembly
             .Select(a => new AssemblyViewModel()
             {
@@ -204,10 +240,7 @@ namespace MachineBuildingFactory.Services
 
             }).ToList().First();
 
-
-
             return workingAssembly;
-
         }
 
         public async Task RemoveAssemblyFromCollectionAsync(int id, string userId)
@@ -262,7 +295,18 @@ namespace MachineBuildingFactory.Services
             });
 
             await context.SaveChangesAsync();
+        }
 
+        public async Task<Assembly> GetAssemblyById(int assemblyId)
+        {
+            var assembly = await context.Assemblies.FindAsync(assemblyId);
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Imvalid AssemblyId");
+            }
+
+            return assembly;
         }
     }
 }

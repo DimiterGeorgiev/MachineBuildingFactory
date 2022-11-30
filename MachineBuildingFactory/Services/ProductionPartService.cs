@@ -17,7 +17,6 @@ namespace MachineBuildingFactory.Services
         }
 
 
-        //още не работи
         [HttpPost]
         public async Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity)
         {
@@ -77,10 +76,10 @@ namespace MachineBuildingFactory.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int productionPartId)
+        public async Task DeleteAsync(int id)
         {
             var productionPart = await context.ProductionParts
-                .Where(b => b.Id == productionPartId)
+                .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
 
             if (productionPart != null)
@@ -112,7 +111,52 @@ namespace MachineBuildingFactory.Services
             await context.SaveChangesAsync();
         }
 
+        [HttpPost]
+        public async Task EditQuantityOfProductionPartInAssemblyAsync(int productionPartId, int assemblyId, int quantity)
+        {
+            var assembly = await context.Assemblies
+               .Where(a => a.Id == assemblyId)
+               .Include(a => a.AssemblyProductionParts)
+               .FirstOrDefaultAsync();
 
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
+            var productionPart = await context.ProductionParts.FirstOrDefaultAsync(p => p.Id == productionPartId);
+
+            if (productionPart == null)
+            {
+                throw new ArgumentException("Invalid productionPartId");
+            }
+
+            if (assembly.AssemblyProductionParts.Any(p => p.ProductionPartId == productionPartId)) // Ако има такъв Production part променяме колиеството
+            {
+                var currAssemblyProductionPart = assembly.AssemblyProductionParts.Find(p => p.ProductionPart == productionPart);
+
+                currAssemblyProductionPart.Quantity = quantity;
+
+                //assembly.AssemblyProductionParts.Add(new AssemblyProductionPart()
+                //{
+                //    ProductionPartId = productionPart.Id,
+                //    AssemblyId = assembly.Id,
+                //    ProductionPart = productionPart,
+                //    Assembly = assembly,
+                //    Quantity = quantity
+                //});
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        //public async Task EditQuantityOfProductionPartInAssemblyAsync(AddProducitonPartToAssemblyViewModel model)
+        //{
+        //    var entity = await context.Assemblies.FindAsync(model.Quantity);
+
+        //    entity
+
+        //}
 
         public async Task<IEnumerable<ProductionPartViewModel>> GetAllProductionPartsAsync()
         {
@@ -141,6 +185,38 @@ namespace MachineBuildingFactory.Services
                     Material = p.Material.MaterialNumber
                 });
         }
+
+        public async Task<AddProducitonPartToAssemblyViewModel> GetForEditQuantityAsync(int productionPartId, int assemblyId)
+        {
+            var productionPart = await context.ProductionParts.FindAsync(productionPartId);
+
+            if (productionPart == null)
+            {
+                throw new ArgumentException("Invalid productionPartId");
+            }
+
+            var assembly = await context.Assemblies
+               .Where(a => a.Id == assemblyId)
+               .Include(a => a.AssemblyProductionParts)
+               .FirstOrDefaultAsync();
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
+            var quantity = assembly.AssemblyProductionParts.Find(p => p.ProductionPartId == productionPartId).Quantity;
+
+            var model = new AddProducitonPartToAssemblyViewModel()
+            {
+                Quantity = quantity
+            };
+
+            return model;
+
+        }
+
+
 
         public async Task<IEnumerable<Material>> GetMaterialsAsync()
         {
@@ -174,14 +250,41 @@ namespace MachineBuildingFactory.Services
             model.Materials = await GetMaterialsAsync();
 
             return model;
-
         }
-
 
 
         public async Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync()
         {
             return await context.TypeOfProductionParts.ToListAsync();
+        }
+
+
+
+        public async Task RemoveProductionPartFromAssemblyAsync(int productionPartId, int assemblyId)
+        {
+            var assembly = await context.Assemblies
+                .Where(a => a.Id == assemblyId)
+                .Include(a => a.AssemblyProductionParts)
+                .FirstOrDefaultAsync();
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
+            var productionPart = assembly.AssemblyProductionParts.FirstOrDefault(p => p.ProductionPartId == productionPartId);
+
+            if (productionPart == null)
+            {
+                throw new ArgumentException("Invalid productionPartId");
+            }
+
+            if (assembly.AssemblyProductionParts.Any(p => p.ProductionPartId == productionPartId)) // Ако има такъв Production part го махаме
+            {
+                assembly.AssemblyProductionParts.Remove(productionPart);
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

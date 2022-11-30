@@ -8,6 +8,7 @@ namespace MachineBuildingFactory.Models
     public class CreateProductionPartViewModel
     {
         [Required]
+        [DisplayName("Name")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Part Name must be between 5 and 50 characters")]
         public string Name { get; set; } = null!;
 
@@ -22,6 +23,7 @@ namespace MachineBuildingFactory.Models
 
         public int TypeOfProductionPartId { get; set; }
 
+        [DisplayName("Type of production part")]
         public IEnumerable<TypeOfProductionPart> TypeOfProductionParts { get; set; } = new List<TypeOfProductionPart>();
 
         [Required]
@@ -34,16 +36,18 @@ namespace MachineBuildingFactory.Models
 
         [Required]
         [DisplayName("Surface area")]
-        [Range(typeof(double), "0.0", "50.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Surface area must be between 0 and 50 square meters")]
+        [Range(typeof(double), "0.01", "50.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Surface area must be between 0.01 and 50 square meters")]
         public double SurfaceArea { get; set; }
 
         [Required]
+        [DisplayName("Drawing Number")]
         [StringLength(15, MinimumLength = 5, ErrorMessage = "Drawing Number must be between 5 and 15 characters")]
         public string DrawingNumber { get; set; } = null!;
 
         [Required]
-        [Range(typeof(double), "0.0", "500.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Weight must be between 0 and 500 kilograms")]
+        [Range(typeof(double), "0.01", "500.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Weight must be between 0.01 and 500 kilograms")]
         public double Weight { get; set; }
+
 
         public TypeOfSurfaceTreatment? SurfaceTreatment { get; set; }
 
@@ -59,5 +63,6 @@ namespace MachineBuildingFactory.Models
         public int? MaterialId { get; set; }
 
         public IEnumerable<Material> Materials { get; set; } = new List<Material>();
+
     }
 }

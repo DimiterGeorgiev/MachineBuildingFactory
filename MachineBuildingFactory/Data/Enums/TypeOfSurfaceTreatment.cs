@@ -4,7 +4,7 @@ namespace MachineBuildingFactory.Data.Enums
 {
     public enum TypeOfSurfaceTreatment
     {
-        [EnumMember(Value = "Untreated surfase")]
+        [EnumMember(Value = "Untreated surface")]
         UntreatedSurface,
 
         [EnumMember(Value = "Electrogalvanized")]
