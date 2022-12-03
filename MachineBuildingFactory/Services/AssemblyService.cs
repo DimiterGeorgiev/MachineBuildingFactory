@@ -215,6 +215,10 @@ namespace MachineBuildingFactory.Services
                 .Include(u => u.WorkingAssembly)
                 .ThenInclude(ua => ua.Assembly)
                 .ThenInclude(uaw => uaw.AssemblyProductionParts)
+
+                .Include(u => u.WorkingAssembly)
+                .ThenInclude(ua => ua.Assembly)
+                .ThenInclude(uaw => uaw.AssemblyPurchаsedParts)
                 .FirstOrDefaultAsync();
 
             if (user == null)
@@ -307,6 +311,53 @@ namespace MachineBuildingFactory.Services
             }
 
             return assembly;
+        }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedPurchasedPartAssembliesAsync(int partId)
+        {
+            var entities = await context.Assemblies
+               .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPartId == partId))
+               .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
+                });
+        }
+
+        public async Task<IEnumerable<PurchasedPartViewModel>> GetPurchasedPartListFromAssemblyAsync(int id)
+        {
+            var assembly = await context.Assemblies
+                .Where(a => a.Id == id)
+                .Include(a => a.AssemblyPurchаsedParts)
+                .ThenInclude(ap => ap.PurchasedPart)
+                .ThenInclude(a => a.Manufacturer)
+                .FirstOrDefaultAsync();
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
+            return assembly.AssemblyPurchаsedParts
+                .Select(p => new PurchasedPartViewModel()
+                {
+                    Id = p.PurchasedPartId,
+                    Name = p.PurchasedPart.Name,
+                    ItemNumber = p.PurchasedPart.ItemNumber,
+                    Image = p.PurchasedPart.Image,
+                    Manufacturer = p.PurchasedPart.Manufacturer.Name,
+                    Description = p.PurchasedPart.Description,
+                    Weight = p.PurchasedPart.Weight.ToString(),
+                    Standard = p.Quantity.ToString(),
+                });
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿@model CreatePurchasedPartViewModel
+﻿@model EditPurchasedPartViewModel
 @{
-    ViewData["Title"] = "CreateNewPurchasedPart";
+    ViewData["Title"] = "EditPurchasedPart";
 }
 
-<h1 class="text-primary">Create new purchased part</h1>
-
+<h1 class="text-primary">Edit purchased part</h1>
 <hr />
 
 <partial name="_Notification" />
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="CreateNewPurchasedPart" method="post">
+        <form asp-action="EditPurchasedPart" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Name" class="form-label">Part Name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
@@ -56,7 +55,7 @@
                 <input asp-for="@Model.Image" class="form-control" aria-required="true" value="https://files.fm/thumb_show.php?i=3zkghmf93" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
-            
+
             <div class="mb-3">
                 <label asp-for="@Model.Weight" class="form-label">Weight in kilograms</label>
                 <input asp-for="@Model.Weight" class="form-control" />
@@ -71,7 +70,7 @@
 
 
             <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="Create" />
+                <input class="btn btn-warning" type="submit" value="Save Changes" />
                 <a asp-controller="PurchasedPart" asp-action="AllPurchasedPart" class="btn btn-secondary" style="width:150px">
                     Cancel
                 </a>

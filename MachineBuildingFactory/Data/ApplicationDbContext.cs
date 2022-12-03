@@ -566,7 +566,6 @@ namespace MachineBuildingFactory.Data
             builder.Entity<ApplicationUser>().HasData(user);
         }
 
-
         private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(

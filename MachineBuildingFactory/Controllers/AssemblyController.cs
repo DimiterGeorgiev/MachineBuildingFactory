@@ -2,6 +2,7 @@
 using MachineBuildingFactory.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language.Extensions;
 using System.Security.Claims;
 
 namespace MachineBuildingFactory.Controllers
@@ -31,6 +32,14 @@ namespace MachineBuildingFactory.Controllers
         public async Task<IActionResult> WhereUsed(int id)
         {
             var model = await db.GetWhereUsedAssembliesAsync(id);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WhereUsedPurchasedPart(int id)
+        {
+            var model = await db.GetWhereUsedPurchasedPartAssembliesAsync(id);
 
             return View(model);
         }
@@ -86,6 +95,20 @@ namespace MachineBuildingFactory.Controllers
             var model = await db.GetProductionPartListFromAssemblyAsync(id);
 
             return View(nameof(WorkingAssemblyProductionPartList), model);
+        }
+
+        public async Task<IActionResult> AssemblyPurchasedPartList(int id)
+        {
+            var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
+
+            return View(nameof(AssemblyPurchasedPartList), model);
+        }
+
+        public async Task<IActionResult> WorkingAssemblyPurchasedPartList(int id)
+        {
+            var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
+
+            return View(nameof(WorkingAssemblyPurchasedPartList), model);
         }
 
 

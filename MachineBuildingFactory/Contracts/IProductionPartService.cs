@@ -19,9 +19,6 @@ namespace MachineBuildingFactory.Contracts
 
         Task DeleteAsync(int productionPartId);
 
-
-
-
         Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity);
 
         Task<AddProducitonPartToAssemblyViewModel> GetForEditQuantityAsync(int productionPartId, int assemblyId);
@@ -29,8 +26,6 @@ namespace MachineBuildingFactory.Contracts
         Task EditQuantityOfProductionPartInAssemblyAsync(int productionPartId, int assemblyId, int quantity);
 
         Task RemoveProductionPartFromAssemblyAsync(int productionPartId, int assemblyId);
-
-
 
 
 

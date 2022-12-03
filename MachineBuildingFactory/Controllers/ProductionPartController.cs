@@ -42,9 +42,6 @@ namespace MachineBuildingFactory.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNewProductionPart(CreateProductionPartViewModel model)
         {
-            //var listOfAllParts = (await db.GetAllProductionPartsAsync()).ToList();
-            //var listOfAssemblies = (await dbAssembly.GetAllAssembliesAsync()).ToList();
-
             var listOfAllParts = await db.GetAllProductionPartsAsync();
             var listOfAssemblies = await dbAssembly.GetAllAssembliesAsync();
 
@@ -94,7 +91,7 @@ namespace MachineBuildingFactory.Controllers
 
             var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
 
-            //TODO
+
             if (assembly == null)
             {
                 TempData["error"] = $"You have no Working Assembly yet";
@@ -215,6 +212,7 @@ namespace MachineBuildingFactory.Controllers
             var model = await db.GetProductionPartForEditAsync(id);
             if (model == null)
             {
+                TempData["error"] = $"Part with id='{id}' can not found";
                 return NotFound();
             }
 
@@ -250,8 +248,6 @@ namespace MachineBuildingFactory.Controllers
 
             TempData["success"] = $"You remove '{currentPartName}' from '{workingAssemblyName}' successfully";
             return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
-
-
         }
 
         [HttpGet]

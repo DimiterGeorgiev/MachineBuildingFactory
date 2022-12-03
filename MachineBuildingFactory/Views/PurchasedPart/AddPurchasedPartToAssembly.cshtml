@@ -1,0 +1,35 @@
+﻿@model AddPurchasedPartToAssemblyViewModel
+@{
+    ViewData["Title"] = "AddPurchasedPartToAssembly";
+}
+
+<h1 class="text-primary">Quantity of purchased part</h1>
+
+<hr />
+
+<partial name="_Notification" />
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="AddPurchasedPartToAssembly" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Quantity" class="form-label">Quantity</label>
+                <input asp-for="@Model.Quantity" class="form-control" aria-required="true" value="1" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            
+
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Add" />
+                <a asp-controller="ProductionPart" asp-action="AllProductionPart" class="btn btn-secondary" style="width:150px">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

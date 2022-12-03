@@ -7,7 +7,6 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            
 
             @if (Model.Any())
             {
@@ -15,7 +14,7 @@
             }
             else
             {
-                <h2 class="text-primary">This Assembly have no Parts yet</h2>
+                <h2 class="text-primary">This Assembly have no Producstion Parts yet</h2>
             }
 
         </div>
@@ -37,15 +36,6 @@
                     <th>
                         Drawing Number
                     </th>
-                    @* <th>
-                Material
-                </th>
-                <th>
-                Paint Type
-                </th>
-                <th>
-                Author
-                </th>*@
                     <th>
                         Quantity
                     </th>
@@ -68,15 +58,6 @@
                         <td width="10%">
                             @obj.DrawingNumber
                         </td>
-                        @* <td width="5%">
-                @obj.Material
-                </td>
-                <td width="8%">
-                @obj.TypeOfPaint
-                </td>
-                <td width="2%">
-                @obj.AuthorSignature
-                </td>*@
                         <td width="5%">
                             @obj.CreatedOn
                         </td>

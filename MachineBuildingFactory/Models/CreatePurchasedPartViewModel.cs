@@ -34,7 +34,7 @@ namespace MachineBuildingFactory.Models
         public double Weight { get; set; }
 
 
-        [StringLength(50, MinimumLength = 0, ErrorMessage = "Item Number must be between 0 and 50 characters")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Item Number must be between 3 and 50 characters")]
         public string? Standard { get; set; }
 
     }

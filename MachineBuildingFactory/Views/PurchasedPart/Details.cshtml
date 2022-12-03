@@ -1,4 +1,4 @@
-﻿@model EditProductionPartViewModel
+﻿@model EditPurchasedPartViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -19,7 +19,7 @@
             
 
             <div class="mb-3">
-                <a asp-controller="ProductionPart" asp-action="AllProductionPart" class="btn btn-secondary" style="width:150px">
+                <a asp-controller="PurchasedPart" asp-action="AllPurchasedPart" class="btn btn-secondary" style="width:150px">
                     Back to List
                 </a>
             </div>
@@ -42,18 +42,29 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="@Model.TypeOfProductionPartId" class="form-label">Type of production part</label>
-                <select asp-for="@Model.TypeOfProductionPartId" disabled class="form-control">
-                    @foreach (var type in Model.TypeOfProductionParts)
+                <label asp-for="@Model.SupplierId" class="form-label">Supplier</label>
+                <select asp-for="@Model.SupplierId" disabled class="form-control">
+                    @foreach (var supplier in Model.Suppliers)
                     {
-                        <option value="@type.Id">@type.Name</option>
+                        <option value="@supplier.Id">@supplier.Name</option>
                     }
                 </select>
-                <span asp-validation-for="TypeOfProductionPartId" class="text-danger"></span>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ManufacturerId" class="form-label">Manifacturer</label>
+                <select asp-for="@Model.ManufacturerId" disabled class="form-control">
+                    @foreach (var manifacturer in Model.Manufacturers)
+                    {
+                        <option value="@manifacturer.Id">@manifacturer.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ManufacturerId" class="text-danger"></span>
             </div>
 
 
-            <div class="mb-3">
+            @*<div class="mb-3">
                 <label asp-for="@Model.AuthorSignature" class="form-label">Author signature</label>
                 <input asp-for="@Model.AuthorSignature" disabled class="form-control" value="@Model.AuthorSignature" />
                 <span asp-validation-for="AuthorSignature" class="text-danger"></span>
@@ -62,11 +73,11 @@
                 <label asp-for="@Model.SurfaceArea" class="form-label">Surface area in square meters</label>
                 <input asp-for="@Model.SurfaceArea" disabled class="form-control" value="@Model.SurfaceArea" />
                 <span asp-validation-for="SurfaceArea" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="mb-3">
-                <label asp-for="@Model.DrawingNumber" class="form-label">Drawing Number</label>
-                <input asp-for="@Model.DrawingNumber" disabled class="form-control" value="@Model.DrawingNumber" />
-                <span asp-validation-for="DrawingNumber" class="text-danger"></span>
+                <label asp-for="@Model.ItemNumber" class="form-label">Item Number</label>
+                <input asp-for="@Model.ItemNumber" disabled class="form-control" value="@Model.ItemNumber" />
+                <span asp-validation-for="ItemNumber" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Weight" class="form-label">Weight in kilograms</label>
@@ -74,7 +85,7 @@
                 <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            @*<div class="mb-3">
                 <label asp-for="@Model.SurfaceTreatment">Surface treatment</label>
 
                 <select disabled class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.SurfaceTreatment">
@@ -102,46 +113,21 @@
                 </select>
 
                 <span asp-validation-for="@Model.TypeOfPaint" class="text-danger"></span>
-            </div>
+            </div>*@
+
 
             <div class="mb-3">
-                <label asp-for="@Model.ColorOfPaintRal">Color of paint</label>
-
-                <select disabled class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.ColorOfPaintRal">
-
-                    <option value="@ColorOfPaintRal.RAL7035">RAL7035</option>
-                    <option value="@ColorOfPaintRal.RAL1023">RAL1023</option>
-                    <option value="@ColorOfPaintRal.RAL3000">RAL3000</option>
-                    <option value="@ColorOfPaintRal.RAL2560">RAL2560</option>
-                    <option value="@ColorOfPaintRal.RAL1056">RAL1056</option>
-
-                </select>
-
-                <span asp-validation-for="@Model.ColorOfPaintRal" class="text-danger"></span>
+                <label asp-for="@Model.Standard" class="form-label">Standard</label>
+                <input asp-for="@Model.Standard" disabled class="form-control" value="@Model.Standard" />
+                <span asp-validation-for="Standard" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="@Model.LaserCutLength" class="form-label">Lasercut length in meters</label>
-                <input asp-for="@Model.LaserCutLength" disabled class="form-control" value="@Model.LaserCutLength" />
-                <span asp-validation-for="LaserCutLength" class="text-danger"></span>
-            </div>
 
             <div class="mb-3">
-                <label asp-for="@Model.MaterialId" class="form-label">Material Number</label>
-                <select asp-for="@Model.MaterialId" disabled class="form-control">
-                    @foreach (var material in Model.Materials)
-                    {
-                        <option value="@material.Id">@material.MaterialNumber</option>
-                    }
-                </select>
-                <span asp-validation-for="MaterialId" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <a asp-controller="ProductionPart" asp-action="AllProductionPart" class="btn btn-secondary" style="width:150px">
+                <a asp-controller="PurchasedPart" asp-action="AllPurchasedPart" class="btn btn-secondary" style="width:150px">
                     Back to List
                 </a>
-                <a asp-controller="ProductionPart" asp-action="Delete" asp-route-id="@Model.Id"
+                <a asp-controller="PurchasedPart" asp-action="Delete" asp-route-id="@Model.Id"
                    class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
             </div>
 

@@ -12,5 +12,20 @@ namespace MachineBuildingFactory.Contracts
         Task<IEnumerable<Supplier>> GetSuppliersAsync();
 
         Task CreatePurchasedPartAsync(CreatePurchasedPartViewModel model);
+
+        Task<EditPurchasedPartViewModel> GetPurchasedPartForEditAsync(int purchasedPartId);
+
+        Task EditPurchasedPartAsync(EditPurchasedPartViewModel model);
+
+        Task DeleteAsync(int productionPartId);
+
+        Task AddPurchasedPartToAssemblyAsync(int purchasedPartId, int assemblyId, int quantity);
+
+        Task<AddPurchasedPartToAssemblyViewModel> GetForEditQuantityAsync(int purchasedPartId, int assemblyId);
+
+        Task EditQuantityOfPurchasedPartInAssemblyAsync(int purchasedPartId, int assemblyId, int quantity);
+
+        Task RemovePurchasedPartFromAssemblyAsync(int purchasedPartId, int assemblyId);
+
     }
 }
