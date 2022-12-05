@@ -44,6 +44,22 @@ namespace MachineBuildingFactory.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> WhereUsedManufacturer(int id)
+        {
+            var model = await db.GetWhereUsedManufacturerAssembliesAsync(id);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WhereUsedSupplier(int id)
+        {
+            var model = await db.GetWhereUsedSupplierAssembliesAsync(id);
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult CreateNewAssembly()

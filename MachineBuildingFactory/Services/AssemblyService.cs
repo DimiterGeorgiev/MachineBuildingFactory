@@ -359,5 +359,83 @@ namespace MachineBuildingFactory.Services
                     Standard = p.Quantity.ToString(),
                 });
         }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedManufacturerAssembliesAsync(int manufacturerId)
+        {
+            var entities = await context.Assemblies
+               .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPart.Manufacturer.Id == manufacturerId))
+               .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
+                });
+        }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedSupplierAssembliesAsync(int supplierId)
+        {
+            var entities = await context.Assemblies
+               .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPart.Supplier.Id == supplierId))
+               .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
+                });
+        }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedMaterialAssembliesAsync(int materialId)
+        {
+            var entities = await context.Assemblies
+                .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPart.Material.Id == materialId))
+                .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
+                });
+
+        }
+
+        public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedTypeOfProductionPartAssembliesAsync(int TypeOfProductionPartId)
+        {
+            var entities = await context.Assemblies
+                .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPart.TypeOfProductionPart.Id == TypeOfProductionPartId))
+                .ToListAsync();
+
+            return entities
+                .Select(a => new AssemblyViewModel()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    DrawingNumber = a.DrawingNumber,
+                    Description = a.Description,
+                    AuthorSignature = a.AuthorSignature,
+                    CreatedOn = a.CreatedOn.ToString(),
+                    Image = a.Image,
+                });
+
+        }
     }
 }

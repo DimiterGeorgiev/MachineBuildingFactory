@@ -1,0 +1,51 @@
+﻿@model EditManufacturerViewModel
+@{
+    ViewData["Title"] = "EditManufacturer";
+}
+
+<h1 class="text-primary">Edit Manufacturer</h1>
+
+<hr />
+
+<partial name="_Notification" />
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="EditManufacturer" method="post">
+            @Html.HiddenFor(m => m.Id)
+
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Part Name</label>
+                <input asp-for="@Model.Name" disabled class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Email" class="form-label">Email</label>
+                <input asp-for="@Model.Email" disabled class="form-control" aria-required="true" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.UrlAddress" class="form-label">URL Address</label>
+                <input asp-for="@Model.UrlAddress" disabled class="form-control" aria-required="true" />
+                <span asp-validation-for="UrlAddress" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                @*<input class="btn btn-warning" type="submit" value="Edit" />*@
+                <a asp-area="Management" asp-controller="Manufacturer" asp-action="AllManufacturer" 
+                class="btn btn-secondary" style="width:150px">
+                    Cancel
+                </a>
+                <a asp-area="Management" asp-controller="Manufacturer" asp-action="Delete" asp-route-id="@Model.Id" 
+                class="btn btn-danger" style="width:150px">
+                    Delete
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

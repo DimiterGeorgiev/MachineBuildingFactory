@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ProductionPartViewModel>
+﻿@model IEnumerable<PurchasedPartViewModel>
 @{
-    ViewData["Title"] = "WorkingAssemblyProductionPartList";
+    ViewData["Title"] = "AssemblyPurchasedPartList";
 }
 
 <partial name="_Notification" />
@@ -10,11 +10,11 @@
 
             @if (Model.Any())
             {
-                <h2 class="text-primary">Working Assembly Production Part List</h2>
+                <h2 class="text-primary">Assembly Purchased Part List</h2>
             }
             else
             {
-                <h2 class="text-primary">This Assembly have no Producstion Parts yet</h2>
+                <h2 class="text-primary">This Assembly have no Purchased Parts yet</h2>
             }
 
         </div>
@@ -34,7 +34,7 @@
                         Part Name
                     </th>
                     <th>
-                        Drawing Number
+                        Item Number
                     </th>
                     <th>
                         Quantity
@@ -56,21 +56,21 @@
                             @obj.Name
                         </td>
                         <td width="10%">
-                            @obj.DrawingNumber
+                            @obj.ItemNumber
                         </td>
                         <td width="5%">
-                            @obj.CreatedOn
+                            @obj.Standard
                         </td>
                         <td width="32%">
                             <div class="w75 btn-group" role="group">
-                                <a asp-controller="ProductionPart" asp-action="Details" asp-route-id="@obj.Id"
+                                <a asp-controller="PurchasedPart" asp-action="Details" asp-route-id="@obj.Id"
                            class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
-                                <a asp-controller="Assembly" asp-action="WhereUsed" asp-route-id="@obj.Id"
+                                <a asp-controller="Assembly" asp-action="WhereUsedPurchasedPart" asp-route-id="@obj.Id"
                            class="btn btn-info mx-2"> <i class="bi bi-diagram-3"></i> Where Used</a>
-                                <a asp-controller="ProductionPart" asp-action="EditQuantity" asp-route-id="@obj.Id"
+                                @*<a asp-controller="PurchasedPart" asp-action="EditQuantity" asp-route-id="@obj.Id"
                            class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edit Quantity</a>
-                                <a asp-controller="ProductionPart" asp-action="RemoveProductionPartFromAssembly" asp-route-id="@obj.Id"
-                           class="btn btn-secondary mx-2"> <i class="bi bi-node-minus"></i> Remove</a>
+                                <a asp-controller="PurchasedPart" asp-action="RemovePurchasedPartFromAssembly" asp-route-id="@obj.Id"
+                           class="btn btn-secondary mx-2"> <i class="bi bi-node-minus"></i> Remove</a>*@
                             </div>
                         </td>
                     </tr>

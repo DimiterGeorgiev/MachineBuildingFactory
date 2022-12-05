@@ -1,3 +1,5 @@
+using MachineBuildingFactory.Areas.Management.Contracts;
+using MachineBuildingFactory.Areas.Management.Services;
 using MachineBuildingFactory.Contracts;
 using MachineBuildingFactory.Data;
 using MachineBuildingFactory.Data.Models;
@@ -35,6 +37,10 @@ builder.Services.AddScoped<IPurchasedPartService, PurchasedPartService>();
 
 builder.Services.AddScoped<IAssemblyService, AssemblyService>();
 
+builder.Services.AddScoped<IManufacturerServices, ManufacturerServices>();
+
+builder.Services.AddScoped<ISupplierServices, SupplierServices>();
+
 
 //builder.Services.AddControllersWithViews();
 
@@ -60,9 +66,25 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "MyArea",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapDefaultControllerRoute();
+});
+
+
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 app.MapRazorPages();
 
 app.Run();

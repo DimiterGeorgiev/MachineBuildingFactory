@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ManufacturerViewModel>
+@{
+    ViewData["Title"] = "AllManufacturer";
+}
+
+<partial name="_Notification" />
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Manufacturers List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-area="Management" asp-controller="Manufacturer" asp-action="CreateNewManufacturer" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create new Manufacturer
+            </a>
+        </div>
+    </div>
+    <br /><br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Manufacturer Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    URL Address
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td width="15%">
+                        @obj.Name
+                    </td>
+                    <td width="15%">
+                        @obj.Email
+                    </td>
+                    <td width="15%">
+                        @obj.UrlAddress
+                    </td>
+                    <td width="32%">
+                        <div class="w75 btn-group" role="group">
+                            <a asp-area="Management" asp-controller="Manufacturer" asp-action="Details" asp-route-id="@obj.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
+                            <a asp-area="" asp-controller="Assembly" asp-action="WhereUsedManufacturer" asp-route-id="@obj.Id"
+                           class="btn btn-info mx-2"> <i class="bi bi-diagram-3"></i> Where Used</a>
+                            <a asp-area="Management" asp-controller="Manufacturer" asp-action="EditManufacturer" asp-route-id="@obj.Id"
+                           class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                           @* <a asp-controller="ProductionPart" asp-action="AddProductionPartToAssembly" asp-route-id="@obj.Id"
+                           class="btn btn-success mx-2"> <i class="bi bi-node-plus"></i> Add</a>*@
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

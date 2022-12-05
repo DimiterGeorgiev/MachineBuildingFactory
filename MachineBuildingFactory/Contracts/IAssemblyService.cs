@@ -29,6 +29,14 @@ namespace MachineBuildingFactory.Contracts
 
         Task<IEnumerable<AssemblyViewModel>> GetWhereUsedPurchasedPartAssembliesAsync(int partId);
 
+        Task<IEnumerable<AssemblyViewModel>> GetWhereUsedManufacturerAssembliesAsync(int manufacturerId);
+
+        Task<IEnumerable<AssemblyViewModel>> GetWhereUsedSupplierAssembliesAsync(int supplierId);
+
+        Task<IEnumerable<AssemblyViewModel>> GetWhereUsedMaterialAssembliesAsync(int materialId);
+
+        Task<IEnumerable<AssemblyViewModel>> GetWhereUsedTypeOfProductionPartAssembliesAsync(int TypeOfProductionPartId);
+
         Task<IEnumerable<ProductionPartViewModel>> GetProductionPartListFromAssemblyAsync(int assemblyId);
 
         Task<IEnumerable<PurchasedPartViewModel>> GetPurchasedPartListFromAssemblyAsync(int assemblyId);

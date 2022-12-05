@@ -151,7 +151,6 @@ namespace MachineBuildingFactory.Controllers
                 TempData["alreadyDone"] = $"Production Part '{currentPartName}' is already added";
                 return RedirectToAction(nameof(AllPurchasedPart));
             }
-
         }
 
 
@@ -197,8 +196,6 @@ namespace MachineBuildingFactory.Controllers
 
             return View(model);
         }
-
-
 
 
         public async Task<IActionResult> Delete(int id)
