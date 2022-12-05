@@ -26,7 +26,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
-    //options.LogoutPath = "/User/Logout";
+    options.LogoutPath = "/User/Logout";
 });
 
 builder.Services.AddControllersWithViews();
@@ -40,6 +40,11 @@ builder.Services.AddScoped<IAssemblyService, AssemblyService>();
 builder.Services.AddScoped<IManufacturerServices, ManufacturerServices>();
 
 builder.Services.AddScoped<ISupplierServices, SupplierServices>();
+
+builder.Services.AddScoped<IMaterialService, MaterialServices>();
+
+builder.Services.AddScoped<ITypeOfProductionPartServices, TypeOfProductionPartServices>();
+
 
 
 //builder.Services.AddControllersWithViews();

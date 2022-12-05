@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace MachineBuildingFactory.Data.Enums
 {
     public enum TypeOfPaint
     {
+        [EnumMember(Value = "none")]
+        none,
+
         [EnumMember(Value = "Nitrocellulose")]
         Nitrocellulose,
 

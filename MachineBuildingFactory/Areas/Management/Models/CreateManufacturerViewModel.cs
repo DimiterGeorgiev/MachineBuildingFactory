@@ -17,6 +17,7 @@ namespace MachineBuildingFactory.Areas.Management.Models
         public string Email { get; set; } = null!;
 
         [Required]
+        [Url]
         [DisplayName("URL Address")]
         [StringLength(100, MinimumLength = 5, ErrorMessage = "URL Address must be between 5 and 100 characters")]
         public string UrlAddress { get; set; } = null!;

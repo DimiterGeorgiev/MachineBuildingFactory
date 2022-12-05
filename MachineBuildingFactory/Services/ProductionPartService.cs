@@ -16,7 +16,6 @@ namespace MachineBuildingFactory.Services
             context = _context;
         }
 
-
         [HttpPost]
         public async Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity)
         {
@@ -199,8 +198,6 @@ namespace MachineBuildingFactory.Services
             return model;
         }
 
-
-
         public async Task<IEnumerable<Material>> GetMaterialsAsync()
         {
             return await context.Materials.ToListAsync();
@@ -234,7 +231,6 @@ namespace MachineBuildingFactory.Services
 
             return model;
         }
-
 
         public async Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync()
         {

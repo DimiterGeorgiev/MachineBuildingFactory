@@ -18,8 +18,5 @@ namespace MachineBuildingFactory.Data.Models
         [Required]
         [StringLength(100, MinimumLength = 5)]
         public string UrlAddress { get; set; } = null!;
-
-
-
     }
 }

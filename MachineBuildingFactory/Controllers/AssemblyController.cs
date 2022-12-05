@@ -60,6 +60,22 @@ namespace MachineBuildingFactory.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> WhereUsedMaterial(int id)
+        {
+            var model = await db.GetWhereUsedMaterialAssembliesAsync(id);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WhereUsedTypeOfProductionPart(int id)
+        {
+            var model = await db.GetWhereUsedTypeOfProductionPartAssembliesAsync(id);
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult CreateNewAssembly()
@@ -98,7 +114,6 @@ namespace MachineBuildingFactory.Controllers
             }
         }
 
-
         public async Task<IActionResult> AssemblyProductionPartList(int id)
         {
             var model = await db.GetProductionPartListFromAssemblyAsync(id);
@@ -126,8 +141,6 @@ namespace MachineBuildingFactory.Controllers
 
             return View(nameof(WorkingAssemblyPurchasedPartList), model);
         }
-
-
         public async Task<IActionResult> AddAssemblyToMineCollection(int id)
         {
             try
@@ -145,7 +158,6 @@ namespace MachineBuildingFactory.Controllers
             TempData["success"] = $"You have added '{assembly}' to your Assemblies";
             return RedirectToAction(nameof(AllAssemblies));
         }
-
         public async Task<IActionResult> SetAssemblyAsWorking(int id)
         {
             try

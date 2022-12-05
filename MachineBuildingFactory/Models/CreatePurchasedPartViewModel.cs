@@ -26,11 +26,12 @@ namespace MachineBuildingFactory.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        [Url]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "Image link must be between 5 and 200 characters")]
         public string Image { get; set; } = null!;
 
         [Required]
-        [Range(typeof(double), "0.0", "500.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Weight must be between 0 and 500 kilograms")]
+        [Range(typeof(double), "0.01", "500.0", ConvertValueInInvariantCulture = true, ErrorMessage = "Weight must be between 0.01 and 500 kilograms")]
         public double Weight { get; set; }
 
 

@@ -26,7 +26,7 @@ namespace MachineBuildingFactory.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            //нерегистрираните потребители не виждат книгите
+            //нерегистрираните потребители не виждат нищо от самият сайт
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("All", "Parts");
@@ -58,10 +58,7 @@ namespace MachineBuildingFactory.Controllers
                 Signature = model.Signature
             };
 
-
-
             var result = await userManager.CreateAsync(user, model.Password);
-
 
             if (result.Succeeded)
             {
@@ -84,7 +81,7 @@ namespace MachineBuildingFactory.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            //не регистрираните потребители не виждат книгите
+            //нерегистрираните потребители не виждат нищо от самият сайт
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("AllProductionPart", "ProductionPart");
@@ -112,8 +109,6 @@ namespace MachineBuildingFactory.Controllers
 
                 if (result.Succeeded)
                 {
-                    //TO DO да разменя местата след като създам "All", "Parts"
-                    //return RedirectToAction("Index", "Home"); // само за началото
                     return RedirectToAction("AllProductionPart", "ProductionPart");
                 }
             }
@@ -129,8 +124,6 @@ namespace MachineBuildingFactory.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-
 
     }
 }

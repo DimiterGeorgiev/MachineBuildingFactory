@@ -1,0 +1,40 @@
+﻿@model EditTypeOfProductionPartViewModel
+@{
+    ViewData["Title"] = "DetailsTypeOfProductionPart";
+}
+
+<h1 class="text-primary">Details Type of Production Part</h1>
+
+<hr />
+
+<partial name="_Notification" />
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="EditTypeOfProductionPart" method="post">
+            @Html.HiddenFor(m => m.Id)
+
+            <div class="mb-3">
+                <label asp-for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="@Model.Name" disabled class="form-control" aria-required="true" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <a asp-area="Management" asp-controller="TypeOfProductionPart" asp-action="AllTypeOfProductionPart"
+                   class="btn btn-secondary" style="width:150px">
+                    Cancel
+                </a>
+                <a asp-area="Management" asp-controller="TypeOfProductionPart" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger" style="width:150px">
+                    Delete
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

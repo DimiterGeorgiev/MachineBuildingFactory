@@ -118,7 +118,6 @@ namespace MachineBuildingFactory.Controllers
                 TempData["alreadyDone"] = $"Production Part '{currentPartName}' is already added";
                 return RedirectToAction(nameof(AllProductionPart));
             }
-
         }
 
         [HttpPost]
@@ -298,7 +297,6 @@ namespace MachineBuildingFactory.Controllers
             TempData["success"] = $"You have changed Quantity of '{currentPart.Name}' successfully";
             return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
         }
-
 
     }
 }

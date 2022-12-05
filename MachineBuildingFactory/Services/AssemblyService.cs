@@ -266,8 +266,6 @@ namespace MachineBuildingFactory.Services
                 user.ApplicationUserAssemblys.Remove(assembly);
                 await context.SaveChangesAsync();
             }
-
-
         }
 
         public async Task SetAssemblyAsWorkingAsync(int id, string userId)

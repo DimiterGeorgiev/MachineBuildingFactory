@@ -7,7 +7,7 @@ namespace MachineBuildingFactory.Data.Models
         [Key]
         public int Id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 3)]
         [Required]
         public string Name { get; set; } = null!;
     }

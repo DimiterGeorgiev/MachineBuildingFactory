@@ -9,7 +9,7 @@ namespace MachineBuildingFactory.Models
         public string Name { get; set; } = null!;
 
         [Required]
-        [StringLength(15, MinimumLength = 5, ErrorMessage = "Drawing Number must be between 5 and 5000 characters")]
+        [StringLength(15, MinimumLength = 5, ErrorMessage = "Drawing Number must be between 5 and 15 characters")]
         public string DrawingNumber { get; set; } = null!;
 
         [Required]
@@ -17,6 +17,7 @@ namespace MachineBuildingFactory.Models
         public string Description { get; set; } = null!;
 
         [Required]
+        [Url]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "Image link must be between 5 and 200 characters")]
         public string Image { get; set; } = null!;
 

@@ -20,29 +20,3 @@ namespace MachineBuildingFactory.Data.Enums
         HR
     }
 }
-
-/*
-  [EnumMember(Value = "Managent")]
-        Management,
-
-        [EnumMember(Value = "Engineering")]
-        Engineering,
-
-        [EnumMember(Value = "Production")]
-        Production,
-
-        [EnumMember(Value = "IT")]
-        IT,
-
-        [EnumMember(Value = "HR")]
-        HR
-
-
-Management,
-        Engineering,
-        Production,
-        IT,
-        HR
-
-
-*/

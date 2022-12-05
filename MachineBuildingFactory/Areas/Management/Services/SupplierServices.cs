@@ -83,6 +83,5 @@ namespace MachineBuildingFactory.Areas.Management.Services
 
             return model;
         }
-
     }
 }

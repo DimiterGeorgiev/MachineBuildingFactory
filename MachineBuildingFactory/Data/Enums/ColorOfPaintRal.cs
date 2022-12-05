@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace MachineBuildingFactory.Data.Enums
 {
     public enum ColorOfPaintRal
     {
+        [EnumMember(Value = "none")]
+        none,
+
         [EnumMember(Value = "RAL7035")]
         RAL7035,
 

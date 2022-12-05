@@ -153,7 +153,6 @@ namespace MachineBuildingFactory.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddPurchasedPartToAssembly(int id, AddPurchasedPartToAssemblyViewModel model)
         {
@@ -196,7 +195,6 @@ namespace MachineBuildingFactory.Controllers
 
             return View(model);
         }
-
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -290,9 +288,6 @@ namespace MachineBuildingFactory.Controllers
             TempData["success"] = $"You have changed Quantity of '{currentPart.Name}' successfully";
             return Redirect($"/Assembly/WorkingAssemblyPurchasedPartList/{assemblyId}");
         }
-
-
-
 
     }
 }

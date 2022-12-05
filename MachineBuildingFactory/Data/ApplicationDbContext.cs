@@ -484,61 +484,6 @@ namespace MachineBuildingFactory.Data
                 );
 
 
-            //  builder.Entity<IdentityRole>().HasData(new List<IdentityRole>
-            //  {
-            //      new IdentityRole
-            //      {
-            //          Id = "1",
-            //          Name = "Management",
-            //          NormalizedName = "MANAGEMENT"
-            //      },
-
-            //      new IdentityRole
-            //      {
-            //          Id = "2",
-            //          Name = "IT",
-            //          NormalizedName = "IT"
-            //      }
-            //  });
-
-
-            //  var hasher = new PasswordHasher<ApplicationUser>();
-
-            //  builder
-            //      .Entity<ApplicationUser>()
-            //.HasData(
-            //    new ApplicationUser()
-            //    {
-            //        FirstName = "Peter",
-            //        LastName = "Petrov",
-            //        Title = Enums.Title.DI,
-            //        Phone = "+3596598665",
-            //        Department = Enums.Department.Engineering,
-            //        Signature = "PP",
-            //        UserName = "peter",
-            //        Email = "peter@abv.bg",
-            //        PasswordHash = hasher.HashPassword(null, "123aA!")
-            //    },
-
-            //    new ApplicationUser()
-            //    {
-            //        FirstName = "Todor",
-            //        LastName = "Todorv",
-            //        Title = Enums.Title.FU,
-            //        Phone = "+35963256584",
-            //        Department = Enums.Department.Production,
-            //        Signature = "TT",
-            //        UserName = "todor",
-            //        Email = "todor@abv.bg",
-            //        PasswordHash = hasher.HashPassword(null, "123aA!")
-            //    });
-
-            //  builder.Entity<IdentityUserRole>().HasData(
-            //      new IdentityRole
-            //      {
-
-            //      });
-
         }
 
         private void SeedUsers(ModelBuilder builder)

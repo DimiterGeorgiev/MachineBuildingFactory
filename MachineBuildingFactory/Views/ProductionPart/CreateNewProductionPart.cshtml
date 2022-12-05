@@ -80,6 +80,7 @@
 
                 <select class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.TypeOfPaint">
 
+                    <option value="@TypeOfPaint.none">none</option>
                     <option value="@TypeOfPaint.Nitrocellulose">Nitrocellulose</option>
                     <option value="@TypeOfPaint.Synthetic">Synthetic</option>
                     <option value="@TypeOfPaint.Epoxy">Epoxy</option>
@@ -95,6 +96,7 @@
 
                 <select class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.ColorOfPaintRal">
 
+                    <option value="@ColorOfPaintRal.none">none</option>
                     <option value="@ColorOfPaintRal.RAL7035">RAL7035</option>
                     <option value="@ColorOfPaintRal.RAL1023">RAL1023</option>
                     <option value="@ColorOfPaintRal.RAL3000">RAL3000</option>

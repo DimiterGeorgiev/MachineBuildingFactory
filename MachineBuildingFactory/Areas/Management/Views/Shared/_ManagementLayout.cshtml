@@ -14,7 +14,6 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Machine Building Factory</a>*@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,43 +35,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Management" asp-controller="TypeOfProductionPart" asp-action="AllTypeOfProductionPart">Type Of Parts</a>
                         </li>
-                       @* @if (User?.Identity?.IsAuthenticated ?? false)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ProductionPart" asp-action="AllProductionPart">Production Parts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="PurchasedPart" asp-action="AllPurchasedPart">Purchesed Parts</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="AllAssemblies">Assemblies</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="MineAssemblies">Mine Assemblies</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="WorkingAssembly">Working Assembliy</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Management"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Management" asp-controller="Home" asp-action="Index">Management</a>
-                            </li>
-                        }*@
-
-                       @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductionPart" asp-action="AllProductionPart">Production Part</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PurchasedPart" asp-action="AllPurchasedPart">Purchesed Part</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="AllAssemblies">Assembly</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="MineAssemblies">Mine Assembly</a>
-                        </li>*@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -91,7 +53,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year - MachineBuildingFactory @*- <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            &copy; @DateTime.UtcNow.Year - MachineBuildingFactory
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

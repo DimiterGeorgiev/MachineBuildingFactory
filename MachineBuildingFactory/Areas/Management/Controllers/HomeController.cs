@@ -10,7 +10,6 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         public IActionResult Index()
         {
             return RedirectToAction("AllManufacturer", "Manufacturer");
-            //return View();
         }
     }
 }

@@ -1,0 +1,37 @@
+﻿@model CreateMaterialViewModel
+@{
+    ViewData["Title"] = "CreateNewMaterial";
+}
+
+
+<h1 class="text-primary">Create new Material</h1>
+
+<hr />
+
+<partial name="_Notification" />
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="CreateNewMaterial" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.MaterialNumber" class="form-label">Material Number</label>
+                <input asp-for="@Model.MaterialNumber" class="form-control" aria-required="true" />
+                <span asp-validation-for="MaterialNumber" class="text-danger"></span>
+            </div>
+            
+
+
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Create" />
+                <a asp-area="Management" asp-controller="Material" asp-action="AllMaterial" class="btn btn-secondary" style="width:150px">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

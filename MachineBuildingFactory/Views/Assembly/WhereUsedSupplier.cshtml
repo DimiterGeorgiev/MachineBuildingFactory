@@ -76,12 +76,8 @@
                            class="btn btn-primary mx-2"> <i class="bi bi-card-checklist"></i> Details</a>
                                 <a asp-controller="Assembly" asp-action="EditAssembly" asp-route-id="@obj.Id"
                            class="btn btn-warning mx-2"> <i class="bi bi-pencil-square"></i> Edti</a>
-                                @*<a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
-                        class="btn btn-primary mx-2"> <i class="bi bi-plus-square"></i> Add Part</a>*@
                                 <a asp-controller="Assembly" asp-action="AddAssemblyToMineCollection" asp-route-id="@obj.Id"
                            class="btn btn-primary mx-2"> <i class="bi bi-plus-square"></i> Add Mine</a>
-                                @*  <a asp-controller="Assembly" asp-action="Delete" asp-route-id="@obj.Id"
-                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>*@
                             </div>
                         </td>
                     </tr>
