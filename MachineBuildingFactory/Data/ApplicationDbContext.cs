@@ -7,10 +7,19 @@ namespace MachineBuildingFactory.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        //private bool seedDb;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options/*, bool seed = true*/)
             : base(options)
         {
-
+            //if (this.Database.IsRelational())
+            //{
+            //    this.Database.Migrate();
+            //}
+            //else
+            //{
+            //    this.Database.EnsureCreated();
+            //}
+            //this.seedDb = seed;
         }
 
         public DbSet<Assembly> Assemblies { get; set; } = null!;
@@ -38,13 +47,13 @@ namespace MachineBuildingFactory.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             base.OnModelCreating(builder);
 
 
             this.SeedUsers(builder);
             this.SeedRoles(builder);
             this.SeedUserRoles(builder);
-
 
 
 
@@ -482,8 +491,6 @@ namespace MachineBuildingFactory.Data
                      Standard = "ISO 36958"
                  }
                 );
-
-
         }
 
         private void SeedUsers(ModelBuilder builder)
@@ -509,20 +516,46 @@ namespace MachineBuildingFactory.Data
             user.PasswordHash = passwordHasher.HashPassword(user, "123aA!");
 
             builder.Entity<ApplicationUser>().HasData(user);
+
+            ApplicationUser user2 = new ApplicationUser()
+            {
+                Id = "a6fdd00e-8d80-4b98-894e-0fabfb3bab41",
+                FirstName = "Georgi",
+                LastName = "Georgiev",
+                Title = Enums.Title.FU,
+                Phone = "+3596578569",
+                Department = Enums.Department.HR,
+                Signature = "GG",
+                UserName = "georgi",
+                NormalizedUserName = "GEORGI",
+                Email = "georgi@abv.bg",
+                NormalizedEmail = "GEORGI@ABV.BG",
+                LockoutEnabled = true,
+            };
+
+            PasswordHasher<ApplicationUser> passwordHasher2 = new PasswordHasher<ApplicationUser>();
+
+            user2.PasswordHash = passwordHasher2.HashPassword(user2, "123aA!");
+
+            builder.Entity<ApplicationUser>().HasData(user2);
+
         }
 
         private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
             new IdentityRole() { Id = "236787a2-4edc-492e-acb2-5f4a00ade9e3", Name = "Management", ConcurrencyStamp = "1", NormalizedName = "Management" },
-            new IdentityRole() { Id = "cadc8910-5d74-4791-aad9-3523e2fd2468", Name = "IT", ConcurrencyStamp = "2", NormalizedName = "IT" }
+            new IdentityRole() { Id = "cadc8910-5d74-4791-aad9-3523e2fd2468", Name = "Admin", ConcurrencyStamp = "2", NormalizedName = "Admin" },
+            new IdentityRole() { Id = "5602dd52-6eb5-46b5-8e80-c9f88650067e", Name = "User", ConcurrencyStamp = "3", NormalizedName = "User" }
             );
         }
 
         private void SeedUserRoles(ModelBuilder builder)
         {
-            builder.Entity<IdentityUserRole<string>>().HasData(
-            new IdentityUserRole<string>() { RoleId = "236787a2-4edc-492e-acb2-5f4a00ade9e3", UserId = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b" }
+            builder.Entity<IdentityUserRole<string>>()
+                .HasData(
+            new IdentityUserRole<string>() { RoleId = "236787a2-4edc-492e-acb2-5f4a00ade9e3", UserId = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b" },
+            new IdentityUserRole<string>() { RoleId = "cadc8910-5d74-4791-aad9-3523e2fd2468", UserId = "a6fdd00e-8d80-4b98-894e-0fabfb3bab41" }
             );
         }
 

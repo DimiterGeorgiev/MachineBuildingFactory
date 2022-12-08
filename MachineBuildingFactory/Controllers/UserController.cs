@@ -14,6 +14,8 @@ namespace MachineBuildingFactory.Controllers
 
         private readonly SignInManager<ApplicationUser> signInManager;
 
+
+
         public UserController(
             UserManager<ApplicationUser> _userManager,
             SignInManager<ApplicationUser> _signInManager)
@@ -65,6 +67,10 @@ namespace MachineBuildingFactory.Controllers
                 if (user.Department.ToString() == "Management")
                 {
                     await userManager.AddToRoleAsync(user, "management");
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user, "user");
                 }
                 return RedirectToAction("Login", "User");
             }

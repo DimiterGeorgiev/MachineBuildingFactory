@@ -11,6 +11,7 @@ namespace MachineBuildingFactory.Services
     {
         private readonly ApplicationDbContext context;
 
+
         public ProductionPartService(ApplicationDbContext _context)
         {
             context = _context;
