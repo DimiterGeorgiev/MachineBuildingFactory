@@ -5,6 +5,7 @@ using MachineBuildingFactory.Models;
 using MachineBuildingFactory.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -109,10 +110,10 @@ namespace MachineBuildingFactoryTests.Service
         [Fact]
         public async void ProductionPartService_CreatProductionPart_ReturnsSuccess()
         {
+            //Arrange
             var databaseContext = await GetDbContext();
             var countBefor = await databaseContext.ProductionParts.CountAsync();
 
-            //Arrange
             var productionPartViewModel = new CreateProductionPartViewModel()
             {
                 Name = "Brackets",
@@ -141,5 +142,25 @@ namespace MachineBuildingFactoryTests.Service
             //Assert
             coutn.Should().Be(countBefor + 1);
         }
+
+        [Fact]
+        public async void ProductionPartService_AddProductionPartToAssemblyAsync_Success()
+        {
+            //Arrange
+            var databaseContext = await GetDbContext();
+            var productionPartService = new ProductionPartService(databaseContext);
+            var countBefor = databaseContext.Assemblies.FindAsync(5).Result?.AssemblyProductionParts.Count();
+
+            //Act
+            _ = productionPartService.AddProductionPartToAssemblyAsync(6, 5, 1);
+
+            var count = databaseContext.Assemblies.FindAsync(5).Result?.AssemblyProductionParts.Count();
+
+            //Assert
+            count.Should().Be(countBefor + 1);
+        }
+
+
+
     }
 }

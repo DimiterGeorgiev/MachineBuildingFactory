@@ -495,7 +495,7 @@ namespace MachineBuildingFactory.Data
 
         private void SeedUsers(ModelBuilder builder)
         {
-            ApplicationUser user = new ApplicationUser()
+            ApplicationUser userManagement = new ApplicationUser()
             {
                 Id = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b",
                 FirstName = "Peter",
@@ -513,11 +513,11 @@ namespace MachineBuildingFactory.Data
 
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
 
-            user.PasswordHash = passwordHasher.HashPassword(user, "123aA!");
+            userManagement.PasswordHash = passwordHasher.HashPassword(userManagement, "123aA!");
 
-            builder.Entity<ApplicationUser>().HasData(user);
+            builder.Entity<ApplicationUser>().HasData(userManagement);
 
-            ApplicationUser user2 = new ApplicationUser()
+            ApplicationUser userAdmin = new ApplicationUser()
             {
                 Id = "a6fdd00e-8d80-4b98-894e-0fabfb3bab41",
                 FirstName = "Georgi",
@@ -535,9 +535,32 @@ namespace MachineBuildingFactory.Data
 
             PasswordHasher<ApplicationUser> passwordHasher2 = new PasswordHasher<ApplicationUser>();
 
-            user2.PasswordHash = passwordHasher2.HashPassword(user2, "123aA!");
+            userAdmin.PasswordHash = passwordHasher2.HashPassword(userAdmin, "123aA!");
 
-            builder.Entity<ApplicationUser>().HasData(user2);
+            builder.Entity<ApplicationUser>().HasData(userAdmin);
+
+
+            ApplicationUser userUser = new ApplicationUser()
+            {
+                Id = "3a36e169-5bc9-43c4-a3d1-72ed8aa46bc6",
+                FirstName = "Todor",
+                LastName = "Todorov",
+                Title = Enums.Title.DI,
+                Phone = "+3596573322",
+                Department = Enums.Department.Engineering,
+                Signature = "TT",
+                UserName = "todor",
+                NormalizedUserName = "TODOR",
+                Email = "todor@abv.bg",
+                NormalizedEmail = "TODOR@ABV.BG",
+                LockoutEnabled = true,
+            };
+
+            PasswordHasher<ApplicationUser> passwordHasher3 = new PasswordHasher<ApplicationUser>();
+
+            userUser.PasswordHash = passwordHasher3.HashPassword(userUser, "123aA!");
+
+            builder.Entity<ApplicationUser>().HasData(userUser);
 
         }
 
@@ -555,7 +578,8 @@ namespace MachineBuildingFactory.Data
             builder.Entity<IdentityUserRole<string>>()
                 .HasData(
             new IdentityUserRole<string>() { RoleId = "236787a2-4edc-492e-acb2-5f4a00ade9e3", UserId = "a719be14-6ee5-4a10-a1b6-382fc43c4d0b" },
-            new IdentityUserRole<string>() { RoleId = "cadc8910-5d74-4791-aad9-3523e2fd2468", UserId = "a6fdd00e-8d80-4b98-894e-0fabfb3bab41" }
+            new IdentityUserRole<string>() { RoleId = "cadc8910-5d74-4791-aad9-3523e2fd2468", UserId = "a6fdd00e-8d80-4b98-894e-0fabfb3bab41" },
+            new IdentityUserRole<string>() { RoleId = "5602dd52-6eb5-46b5-8e80-c9f88650067e", UserId = "3a36e169-5bc9-43c4-a3d1-72ed8aa46bc6" }
             );
         }
 
