@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MachineBuildingFactory.Data.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MachineBuildingFactory.Controllers
 {
@@ -9,7 +10,7 @@ namespace MachineBuildingFactory.Controllers
             //ако потребителя е регистриран ще виждаме директно всичк ProductionParts иначе HomePage
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("AllProductionPart", "ProductionPart");
+                return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(ProductionPart));
             }
             return View();
         }

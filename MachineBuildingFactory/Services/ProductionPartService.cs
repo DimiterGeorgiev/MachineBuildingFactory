@@ -2,7 +2,6 @@
 using MachineBuildingFactory.Data;
 using MachineBuildingFactory.Data.Models;
 using MachineBuildingFactory.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MachineBuildingFactory.Services
@@ -17,7 +16,7 @@ namespace MachineBuildingFactory.Services
             context = _context;
         }
 
-        [HttpPost]
+
         public async Task AddProductionPartToAssemblyAsync(int productionPartId, int assemblyId, int quantity)
         {
             var assembly = await context.Assemblies
@@ -52,7 +51,7 @@ namespace MachineBuildingFactory.Services
             }
         }
 
-        [HttpPost]
+
         public async Task CreateProductionPartAsync(CreateProductionPartViewModel model)
         {
             var entity = new ProductionPart()
@@ -111,7 +110,7 @@ namespace MachineBuildingFactory.Services
             await context.SaveChangesAsync();
         }
 
-        [HttpPost]
+
         public async Task EditQuantityOfProductionPartInAssemblyAsync(int productionPartId, int assemblyId, int quantity)
         {
             var assembly = await context.Assemblies
@@ -133,9 +132,9 @@ namespace MachineBuildingFactory.Services
 
             if (assembly.AssemblyProductionParts.Any(p => p.ProductionPartId == productionPartId)) // Ако има такъв Production part променяме колиеството
             {
-                var currAssemblyProductionPart = assembly.AssemblyProductionParts.Find(p => p.ProductionPart == productionPart);
+                var currAssemblyProductionPart = assembly.AssemblyProductionParts.Find(p => p.ProductionPartId == productionPartId);
 
-                currAssemblyProductionPart.Quantity = quantity;
+                currAssemblyProductionPart!.Quantity = quantity;
 
                 await context.SaveChangesAsync();
             }
@@ -189,7 +188,7 @@ namespace MachineBuildingFactory.Services
                 throw new ArgumentException("Invalid assemblyId");
             }
 
-            var quantity = assembly.AssemblyProductionParts.Find(p => p.ProductionPartId == productionPartId).Quantity;
+            var quantity = assembly.AssemblyProductionParts!.Find(p => p.ProductionPartId == productionPartId)!.Quantity;
 
             var model = new AddProducitonPartToAssemblyViewModel()
             {
@@ -211,7 +210,7 @@ namespace MachineBuildingFactory.Services
             var model = new EditProductionPartViewModel()
             {
                 Id = id,
-                Name = productionPart.Name,
+                Name = productionPart!.Name,
                 Description = productionPart.Description,
                 Image = productionPart.Image,
                 TypeOfProductionPartId = productionPart.TypeOfProductionPartId,    // ?? -1, // ако TypeOfProductionPartId e null тук ще бъде записано -1 ако не е null ще бъде записана стойността

@@ -121,7 +121,7 @@ namespace MachineBuildingFactory.Services
 
             if (assembly.AssemblyPurchаsedParts.Any(p => p.PurchasedPartId == purchasedPartId)) // Ако има такъв Purchased part променяме колиеството
             {
-                var currAssemblyPurchasedPart = assembly.AssemblyPurchаsedParts.Find(p => p.PurchasedPart == purchasedPart);
+                var currAssemblyPurchasedPart = assembly.AssemblyPurchаsedParts.Find(p => p.PurchasedPartId == purchasedPartId);
 
                 currAssemblyPurchasedPart.Quantity = quantity;
 

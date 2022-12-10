@@ -84,13 +84,12 @@ namespace MachineBuildingFactory.Controllers
             }
             catch (Exception)
             {
-
                 TempData["error"] = "You have no set Working Assembly yet";
-                return RedirectToAction(nameof(AllProductionPart));
+                //return RedirectToAction(nameof(AllProductionPart));
+                return RedirectToAction(nameof(AssemblyController.AllAssemblies));
             }
 
             var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
-
 
             if (assembly == null)
             {
@@ -102,7 +101,7 @@ namespace MachineBuildingFactory.Controllers
 
             var currentPartId = id;
 
-            if (!assemblyParts.Any(p => p.Id == currentPartId))
+            if (!assemblyParts.Any(p => p.Id == currentPartId)) // Ако няма такъв детайл вече добавен връщаме модел
             {
                 var model = new AddProducitonPartToAssemblyViewModel
                 {
