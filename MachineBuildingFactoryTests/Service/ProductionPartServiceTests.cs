@@ -138,10 +138,10 @@ namespace MachineBuildingFactoryTests.Service
             //Act
             _ = productionPartService.CreateProductionPartAsync(productionPartViewModel);
 
-            var coutn = await databaseContext.ProductionParts.CountAsync();
+            var coutnAfter = await databaseContext.ProductionParts.CountAsync();
 
             //Assert
-            coutn.Should().Be(countBefor + 1);
+            coutnAfter.Should().Be(countBefor + 1);
         }
 
         [Fact]

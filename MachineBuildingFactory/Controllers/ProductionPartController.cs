@@ -80,7 +80,7 @@ namespace MachineBuildingFactory.Controllers
 
             try
             {
-                await dbAssembly.GetWorkingAssemblyAsync(userId);
+                await dbAssembly.GetWorkingAssemblyAsync(userId!);
             }
             catch (Exception)
             {
@@ -89,7 +89,7 @@ namespace MachineBuildingFactory.Controllers
                 return RedirectToAction(nameof(AssemblyController.AllAssemblies));
             }
 
-            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
+            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             if (assembly == null)
             {
@@ -124,7 +124,7 @@ namespace MachineBuildingFactory.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
+            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             var assemblyId = assembly.Id;
 
@@ -235,7 +235,7 @@ namespace MachineBuildingFactory.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
+            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             var assemblyId = assembly.Id;
 
@@ -253,7 +253,7 @@ namespace MachineBuildingFactory.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
+            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             var assemblyId = assembly.Id;
 
@@ -269,7 +269,7 @@ namespace MachineBuildingFactory.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId);
+            var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             var assemblyId = assembly.Id;
 

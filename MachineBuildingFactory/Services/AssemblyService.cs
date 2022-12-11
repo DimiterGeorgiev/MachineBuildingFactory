@@ -86,7 +86,7 @@ namespace MachineBuildingFactory.Services
         {
             var entity = await context.Assemblies.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
             entity.Description = model.Description;
             entity.AuthorSignature = model.AuthorSignature;
             entity.DrawingNumber = model.DrawingNumber;
@@ -120,11 +120,11 @@ namespace MachineBuildingFactory.Services
             var model = new EditAssemblyViewModel()
             {
                 Id = id,
-                Name = assembly.Name,
-                Description = assembly.Description,
-                Image = assembly.Image,
-                DrawingNumber = assembly.DrawingNumber,
-                AuthorSignature = assembly.AuthorSignature
+                Name = assembly?.Name!,
+                Description = assembly?.Description!,
+                Image = assembly?.Image!,
+                DrawingNumber = assembly?.DrawingNumber!,
+                AuthorSignature = assembly?.AuthorSignature!
             };
 
             return model;
@@ -185,7 +185,6 @@ namespace MachineBuildingFactory.Services
                     SurfaceArea = p.ProductionPart.SurfaceArea.ToString(),
                     LaserCutLength = p.ProductionPart.LaserCutLength.ToString(),
                     SurfaceTreatment = p.ProductionPart.SurfaceTreatment.ToString(),
-
                 });
         }
 

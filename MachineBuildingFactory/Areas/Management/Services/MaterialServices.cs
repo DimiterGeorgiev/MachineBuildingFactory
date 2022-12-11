@@ -45,7 +45,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
         {
             var entity = await context.Materials.FindAsync(model.Id);
 
-            entity.MaterialNumber = model.MaterialNumber;
+            entity!.MaterialNumber = model.MaterialNumber;
 
             await context.SaveChangesAsync();
         }
@@ -70,7 +70,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
             var model = new EditMaterialViewModel()
             {
                 Id = id,
-                MaterialNumber = material.MaterialNumber
+                MaterialNumber = material!.MaterialNumber
             };
 
             return model;

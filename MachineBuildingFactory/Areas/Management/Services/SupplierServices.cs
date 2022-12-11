@@ -47,7 +47,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
         {
             var entity = await context.Suppliers.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
             entity.Email = model.Email;
             entity.UrlAddress = model.UrlAddress;
 
@@ -76,7 +76,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
             var model = new EditSupplierViewModel()
             {
                 Id = id,
-                Name = supplier.Name,
+                Name = supplier!.Name,
                 Email = supplier.Email,
                 UrlAddress = supplier.UrlAddress
             };

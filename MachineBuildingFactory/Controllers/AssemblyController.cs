@@ -141,12 +141,13 @@ namespace MachineBuildingFactory.Controllers
 
             return View(nameof(WorkingAssemblyPurchasedPartList), model);
         }
+
         public async Task<IActionResult> AddAssemblyToMineCollection(int id)
         {
             try
             {
                 var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                await db.AddAssemblyToCollectionAsync(id, userId);
+                await db.AddAssemblyToCollectionAsync(id, userId!);
             }
             catch (Exception)
             {
@@ -158,12 +159,13 @@ namespace MachineBuildingFactory.Controllers
             TempData["success"] = $"You have added '{assembly}' to your Assemblies";
             return RedirectToAction(nameof(AllAssemblies));
         }
+
         public async Task<IActionResult> SetAssemblyAsWorking(int id)
         {
             try
             {
                 var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                await db.SetAssemblyAsWorkingAsync(id, userId);
+                await db.SetAssemblyAsWorkingAsync(id, userId!);
             }
             catch (Exception)
             {
@@ -181,7 +183,7 @@ namespace MachineBuildingFactory.Controllers
             try
             {
                 var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                var model = await db.GetWorkingAssemblyAsync(userId);
+                var model = await db.GetWorkingAssemblyAsync(userId!);
 
                 var assemblmbyId = model.Id;
 
@@ -239,7 +241,7 @@ namespace MachineBuildingFactory.Controllers
         public async Task<IActionResult> RemoveAssemblyFromMineCollection(int id)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            await db.RemoveAssemblyFromCollectionAsync(id, userId);
+            await db.RemoveAssemblyFromCollectionAsync(id, userId!);
 
             var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
             TempData["success"] = $"You have remove '{assembly}' from your Assemblies";
@@ -250,7 +252,7 @@ namespace MachineBuildingFactory.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var model = await db.GetMineAssembliesAsync(userId);
+            var model = await db.GetMineAssembliesAsync(userId!);
 
             return View(nameof(MineAssemblies), model);
         }

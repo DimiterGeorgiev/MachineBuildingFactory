@@ -44,6 +44,7 @@ namespace MachineBuildingFactoryTests.Service
                 Image = "https://files.fm/thumb_show.php?i=a62t5h3r2",
                 Weight = 1.3,
                 Standard = "ISO 55629"
+
             };
 
             var purchasedPartService = new PurchasedPartService(databaseContext);
@@ -51,14 +52,14 @@ namespace MachineBuildingFactoryTests.Service
             //Act
             _ = purchasedPartService.CreatePurchasedPartAsync(purchasedPartViewModel);
 
-            var count = await databaseContext.PurchasedParts.CountAsync();
+            var countAfter = await databaseContext.PurchasedParts.CountAsync();
 
             //Assert
-            count.Should().Be(countBefor + 1);
+            countAfter.Should().Be(countBefor + 1);
         }
 
         [Fact]
-        public async void PurchasedPartService_AddProductionPartToAssembly_Success()
+        public async void PurchasedPartService_AddPurchasedPartToAssembly_Success()
         {
             //Arrange
             var databaseContext = await GetDbContext();

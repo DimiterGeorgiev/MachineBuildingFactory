@@ -45,7 +45,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
         {
             var entity = await context.TypeOfProductionParts.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
 
             await context.SaveChangesAsync();
         }
@@ -70,7 +70,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
             var model = new EditTypeOfProductionPartViewModel()
             {
                 Id = id,
-                Name = typeOfProductionPart.Name
+                Name = typeOfProductionPart!.Name
             };
 
             return model;

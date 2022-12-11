@@ -42,7 +42,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Assembly" asp-action="WorkingAssembly">Working Assembliy</a>
                             </li>
                         }
-                        @if (User.IsInRole("Management"))
+                        @if (User!.IsInRole("Management"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Management" asp-controller="Home" asp-action="Index">Management</a>

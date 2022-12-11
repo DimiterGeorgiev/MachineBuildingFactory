@@ -208,6 +208,134 @@ namespace MachineBuildingFactoryTests.Controller
             result.Should().BeOfType<Task<IActionResult>>();
         }
 
+        [Fact]
+        public void AddAssemblyToMineCollection_ReturnsTask()
+        {
+            //Arrange
+            var id = 2;
+
+            //Act
+            var result = assemblyController.AddAssemblyToMineCollection(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void SetAssemblyAsWorking_ReturnsTask()
+        {
+            //Arrange
+            var id = 2;
+
+            //Act
+            var result = assemblyController.SetAssemblyAsWorking(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void WorkingAssembly_ReturnsTask()
+        {
+            //Arrange
+
+            //Act
+            var result = assemblyController.WorkingAssembly();
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void RemoveAssemblyFromMineCollection_ReturnsTask()
+        {
+            //Arrange
+            var id = 2;
+
+            //Act
+            var result = assemblyController.RemoveAssemblyFromMineCollection(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void MineAssemblies_ReturnsTask()
+        {
+            //Arrange
+
+            //Act
+            var result = assemblyController.MineAssemblies();
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void EditAssembly_ReturnsModel()
+        {
+            //Arrenge
+            var id = 7;
+            var model = A.Fake<EditAssemblyViewModel>();
+            A.CallTo(() => db.GetAssemblyForEditAsync(id)).Returns(model);
+
+            //Act
+            var result = assemblyController.EditAssembly(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void EditAssembly_ReturnsSuccess()
+        {
+            //Arrenge
+            var model = A.Fake<EditAssemblyViewModel>();
+
+            //Act
+            var result = assemblyController.EditAssembly(model);
+
+            //Asert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void Details_ReturnsTask()
+        {
+            //Arrenge
+            var id = 7;
+            var model = A.Fake<EditAssemblyViewModel>();
+            A.CallTo(() => db.GetAssemblyForEditAsync(id)).Returns(model);
+
+            //Act
+            var result = assemblyController.Details(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+        [Fact]
+        public void Delete_ReturnsTask()
+        {
+            //Arrenge
+            var id = 7;
+            var model = A.Fake<EditAssemblyViewModel>();
+            A.CallTo(() => db.GetAssemblyForEditAsync(id)).Returns(model);
+
+            //Act
+            var result = assemblyController.Delete(id);
+
+            //Assert
+            result.Should().BeOfType<Task<IActionResult>>();
+        }
+
+
+
+
+
+
+
+
 
 
 

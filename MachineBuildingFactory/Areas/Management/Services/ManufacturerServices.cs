@@ -47,7 +47,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
         {
             var entity = await context.Manufacturers.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
             entity.Email = model.Email;
             entity.UrlAddress = model.UrlAddress;
 
@@ -76,7 +76,7 @@ namespace MachineBuildingFactory.Areas.Management.Services
             var model = new EditManufacturerViewModel()
             {
                 Id = id,
-                Name = manufacturer.Name,
+                Name = manufacturer!.Name,
                 Email = manufacturer.Email,
                 UrlAddress = manufacturer.UrlAddress
             };

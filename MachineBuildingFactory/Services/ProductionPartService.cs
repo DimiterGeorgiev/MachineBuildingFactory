@@ -92,7 +92,7 @@ namespace MachineBuildingFactory.Services
         {
             var entity = await context.ProductionParts.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
             entity.Description = model.Description;
             entity.Image = model.Image;
             entity.TypeOfProductionPartId = model.TypeOfProductionPartId;

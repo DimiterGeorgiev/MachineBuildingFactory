@@ -87,7 +87,7 @@ namespace MachineBuildingFactory.Services
         {
             var entity = await context.PurchasedParts.FindAsync(model.Id);
 
-            entity.Name = model.Name;
+            entity!.Name = model.Name;
             entity.ItemNumber = model.ItemNumber;
             entity.SupplierId = model.SupplierId;
             entity.ManufacturerId = model.ManufacturerId;
@@ -123,7 +123,7 @@ namespace MachineBuildingFactory.Services
             {
                 var currAssemblyPurchasedPart = assembly.AssemblyPurchаsedParts.Find(p => p.PurchasedPartId == purchasedPartId);
 
-                currAssemblyPurchasedPart.Quantity = quantity;
+                currAssemblyPurchasedPart!.Quantity = quantity;
 
                 await context.SaveChangesAsync();
             }
@@ -170,7 +170,7 @@ namespace MachineBuildingFactory.Services
                 throw new ArgumentException("Invalid assemblyId");
             }
 
-            var quantity = assembly.AssemblyPurchаsedParts.Find(p => p.PurchasedPartId == purchasedPartId).Quantity;
+            var quantity = assembly.AssemblyPurchаsedParts.Find(p => p.PurchasedPartId == purchasedPartId)!.Quantity;
 
             var model = new AddPurchasedPartToAssemblyViewModel()
             {
@@ -192,12 +192,12 @@ namespace MachineBuildingFactory.Services
             var model = new EditPurchasedPartViewModel()
             {
                 Id = id,
-                Name = purchasedPart.Name,
+                Name = purchasedPart!.Name,
                 ItemNumber = purchasedPart.ItemNumber,
                 SupplierId = purchasedPart.SupplierId,
                 ManufacturerId = purchasedPart.ManufacturerId,
-                Description = purchasedPart.Description,
-                Image = purchasedPart.Image,
+                Description = purchasedPart.Description!,
+                Image = purchasedPart.Image!,
                 Weight = purchasedPart.Weight,
                 Standard = purchasedPart.Standard,
             };
