@@ -66,8 +66,7 @@ namespace MachineBuildingFactoryTests.Controller
         public void CreteNewProductionPart_ReturnsSuccess()
         {
             //Arrange
-            var model = new CreateProductionPartViewModel();
-            //A.CallTo(() => db.CreateProductionPartAsync(model)).Returns(task);
+            var model = A.Fake<CreateProductionPartViewModel>();
 
             //Act
             var result = productionPartController.CreateNewProductionPart(model);
@@ -76,18 +75,6 @@ namespace MachineBuildingFactoryTests.Controller
             result.Should().BeOfType<Task<IActionResult>>();
         }
 
-        //[Fact]
-        //public void AddProductionPartToAssembly_ModelSuccess()
-        //{
-        //    //Arrange
-        //    var quantity = 1;
-        //    var id = 1;
-        //    //Act
-        //    var result = productionPartController.AddProductionPartToAssembly(id, quantity);
-
-        //    //Assert
-        //    result.Should().BeOfType<Task<IActionResult>>();
-        //}
 
         [Fact]
         public void AddProductionPartToAssembly_GetModel()

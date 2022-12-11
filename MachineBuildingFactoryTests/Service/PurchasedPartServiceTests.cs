@@ -21,7 +21,7 @@ namespace MachineBuildingFactoryTests.Service
                 .Options;
             var databaseContext = new ApplicationDbContext(options);
             databaseContext.Database.EnsureCreated();
-            //databaseContext.Database.EnsureDeleted(); // // Не трием базата. За улеснение ще използваме базата, която се сийдва през ApplicatioDbContext за тестовете
+            //databaseContext.Database.EnsureDeleted(); // Не трием базата. За улеснение ще използваме базата, която се сийдва през ApplicatioDbContext за тестовете
 
             await databaseContext.SaveChangesAsync();
             return databaseContext;
@@ -53,7 +53,7 @@ namespace MachineBuildingFactoryTests.Service
 
             var count = await databaseContext.PurchasedParts.CountAsync();
 
-            //
+            //Assert
             count.Should().Be(countBefor + 1);
         }
 
