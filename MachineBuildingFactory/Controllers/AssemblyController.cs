@@ -123,9 +123,19 @@ namespace MachineBuildingFactory.Controllers
 
         public async Task<IActionResult> WorkingAssemblyProductionPartList(int id)
         {
-            var model = await db.GetProductionPartListFromAssemblyAsync(id);
+            try
+            {
+                var model = await db.GetProductionPartListFromAssemblyAsync(id);
 
-            return View(nameof(WorkingAssemblyProductionPartList), model);
+                return View(nameof(WorkingAssemblyProductionPartList), model);
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "You have no Assembly with this Id";
+
+                return RedirectToAction(nameof(AllAssemblies));
+            }
+
         }
 
         public async Task<IActionResult> AssemblyPurchasedPartList(int id)

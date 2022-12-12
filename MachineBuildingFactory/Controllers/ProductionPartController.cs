@@ -85,8 +85,8 @@ namespace MachineBuildingFactory.Controllers
             catch (Exception)
             {
                 TempData["error"] = "You have no set Working Assembly yet";
-                //return RedirectToAction(nameof(AllProductionPart));
-                return RedirectToAction(nameof(AssemblyController.AllAssemblies));
+
+                return RedirectToAction(nameof(AllProductionPart));
             }
 
             var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
@@ -251,17 +251,28 @@ namespace MachineBuildingFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> EditQuantity(int id)
         {
+
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
 
             var assemblyId = assembly.Id;
 
-            var model = await db.GetForEditQuantityAsync(id, assemblyId);
+            try
+            {
+                var model = await db.GetForEditQuantityAsync(id, assemblyId);
 
-            model.currentProductionPartId = id;
+                model.currentProductionPartId = id;
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                TempData["error"] = "Your Working Assembly have no Part with this Id";
+
+                return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
+            }
+
         }
 
         [HttpPost]

@@ -276,14 +276,14 @@ namespace MachineBuildingFactory.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Imvalid userId");
+                throw new ArgumentException("Invalid userId");
             }
 
             var assembly = await context.Assemblies.FirstOrDefaultAsync(a => a.Id == id);
 
             if (assembly == null)
             {
-                throw new ArgumentException("Imvalid AssemblyId");
+                throw new ArgumentException("Invalid AssemblyId");
             }
 
             user.WorkingAssembly.Clear();
@@ -304,7 +304,7 @@ namespace MachineBuildingFactory.Services
 
             if (assembly == null)
             {
-                throw new ArgumentException("Imvalid AssemblyId");
+                throw new ArgumentException("Invalid AssemblyId");
             }
 
             return assembly;

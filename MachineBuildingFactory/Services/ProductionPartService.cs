@@ -188,6 +188,11 @@ namespace MachineBuildingFactory.Services
                 throw new ArgumentException("Invalid assemblyId");
             }
 
+            if (assembly.AssemblyProductionParts.Find(a => a.ProductionPartId == productionPartId) == null)
+            {
+                throw new ArgumentException("Working assembly contains no Part with this id");
+            }
+
             var quantity = assembly.AssemblyProductionParts!.Find(p => p.ProductionPartId == productionPartId)!.Quantity;
 
             var model = new AddProducitonPartToAssemblyViewModel()
