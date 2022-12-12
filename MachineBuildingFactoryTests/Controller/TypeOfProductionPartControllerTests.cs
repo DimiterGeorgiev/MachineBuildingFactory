@@ -119,7 +119,5 @@ namespace MachineBuildingFactoryTests.Controller
             //Assert
             result.Should().BeOfType<Task<IActionResult>>();
         }
-
-
     }
 }

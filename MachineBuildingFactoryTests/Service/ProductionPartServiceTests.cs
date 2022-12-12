@@ -179,10 +179,10 @@ namespace MachineBuildingFactoryTests.Service
             //Act
             _ = productionPartService.DeleteAsync(id);
 
-            var count = databaseContext.ProductionParts.Count();
+            var countAfterDelete = databaseContext.ProductionParts.Count();
 
             //Assert
-            count.Should().Be(countBeforDelete - 1);
+            countAfterDelete.Should().Be(countBeforDelete - 1);
         }
 
         [Fact]
@@ -257,7 +257,7 @@ namespace MachineBuildingFactoryTests.Service
         }
 
         [Fact]
-        public async void GetAllProductionPartsAsync_Success()
+        public async void GetAllProductionPartsAsync_ReturnsViewModel()
         {
             //Arrange
             var databaseContext = await GetDbContext();

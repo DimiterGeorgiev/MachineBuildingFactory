@@ -140,9 +140,9 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
             }
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
     }
 }

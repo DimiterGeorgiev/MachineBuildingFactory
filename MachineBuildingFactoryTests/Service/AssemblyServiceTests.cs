@@ -413,6 +413,44 @@ namespace MachineBuildingFactoryTests.Service
         }
 
 
+        [Fact]
+        public async void AssemblyService_DeleteAsync_Success()
+        {
+            //Arrange
+            var id = 5;
+            var databaseContext = await GetDbContext();
+            var assebmlyService = new AssemblyService(databaseContext);
+            var countBeforDelete = await databaseContext.Assemblies.CountAsync();
+
+            //Act
+            _ = assebmlyService.DeleteAsync(id);
+
+            var countAfterDelete = await databaseContext.Assemblies.CountAsync();
+
+            //Assert
+            countAfterDelete.Should().Be(countBeforDelete - 1);
+        }
+
+        [Fact]
+        public async void AssemblyService_GetAllAssembliesAsync_ReturnsViewModel()
+        {
+            //Arrange
+            var databaseContext = await GetDbContext();
+            var assebmlyService = new AssemblyService(databaseContext);
+            var countAll = await databaseContext.Assemblies.CountAsync();
+
+            //Act
+            var result = await assebmlyService.GetAllAssembliesAsync();
+
+            var count = result.Count();
+
+            //Assert
+            count.Should().Be(countAll);
+        }
+
+
+
+
 
     }
 }
