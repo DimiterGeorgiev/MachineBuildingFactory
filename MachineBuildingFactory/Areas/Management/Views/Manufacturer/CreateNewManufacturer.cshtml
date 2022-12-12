@@ -13,7 +13,7 @@
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form asp-action="CreateNewManufacturer" method="post">
             <div class="mb-3">
-                <label asp-for="@Model.Name" class="form-label">Part Name</label>
+                <label asp-for="@Model.Name" class="form-label">Name</label>
                 <input asp-for="@Model.Name" class="form-control" aria-required="true" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -23,7 +23,7 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.UrlAddress" class="form-label">URL Address</label>
+                <label asp-for="@Model.UrlAddress" class="form-label">Home page</label>
                 <input asp-for="@Model.UrlAddress" class="form-control" aria-required="true" />
                 <span asp-validation-for="UrlAddress" class="text-danger"></span>
             </div>

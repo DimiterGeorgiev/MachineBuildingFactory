@@ -7,7 +7,7 @@ namespace MachineBuildingFactory.Controllers
     {
         public IActionResult Index()
         {
-            //ако потребителя е регистриран ще виждаме директно всичк ProductionParts иначе HomePage
+            //ако потребителя е регистриран ще виждаме директно всички ProductionParts иначе HomePage
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(ProductionPart));

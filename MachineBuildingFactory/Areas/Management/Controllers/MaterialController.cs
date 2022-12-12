@@ -28,7 +28,7 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateNewMaterial()
+        public ViewResult CreateNewMaterial()
         {
             var model = new CreateMaterialViewModel();
             return View(model);

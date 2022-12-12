@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace MachineBuildingFactory.Controllers
 {
     [Authorize]
@@ -13,8 +14,6 @@ namespace MachineBuildingFactory.Controllers
         private readonly UserManager<ApplicationUser> userManager;
 
         private readonly SignInManager<ApplicationUser> signInManager;
-
-
 
         public UserController(
             UserManager<ApplicationUser> _userManager,
@@ -31,13 +30,12 @@ namespace MachineBuildingFactory.Controllers
             //нерегистрираните потребители не виждат нищо от самият сайт
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Parts");
+                return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(ProductionPart)); //"AllProductionPart", "ProductionPart"
             }
             var model = new RegisterViewModel();
 
             return View(model);
         }
-
 
         [HttpPost]
         [AllowAnonymous]
@@ -64,7 +62,7 @@ namespace MachineBuildingFactory.Controllers
 
             if (result.Succeeded)
             {
-                if (user.Department.ToString() == "Management")
+                if (user.Department == Department.Management)
                 {
                     await userManager.AddToRoleAsync(user, "management");
                 }
@@ -72,7 +70,7 @@ namespace MachineBuildingFactory.Controllers
                 {
                     await userManager.AddToRoleAsync(user, "user");
                 }
-                return RedirectToAction("Login", "User");
+                return RedirectToAction(nameof(Login), nameof(User)); //"Login", "User"
             }
 
             foreach (var item in result.Errors)
@@ -90,7 +88,7 @@ namespace MachineBuildingFactory.Controllers
             //нерегистрираните потребители не виждат нищо от самият сайт
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("AllProductionPart", "ProductionPart");
+                return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(ProductionPart)); //"AllProductionPart", "ProductionPart"
             }
 
             var model = new LoginViewModel();
@@ -115,7 +113,7 @@ namespace MachineBuildingFactory.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("AllProductionPart", "ProductionPart");
+                    return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(ProductionPart)); //"AllProductionPart", "ProductionPart"
                 }
             }
 
@@ -128,7 +126,7 @@ namespace MachineBuildingFactory.Controllers
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home"); //"Index", "Home"
         }
 
     }

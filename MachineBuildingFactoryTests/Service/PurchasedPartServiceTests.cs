@@ -93,10 +93,10 @@ namespace MachineBuildingFactoryTests.Service
             //Act
             _ = purchasedPartService.DeleteAsync(id);
 
-            var count = databaseContext.PurchasedParts.Count();
+            var countAfterDelete = databaseContext.PurchasedParts.Count();
 
             //Assert
-            count.Should().Be(countBeforDelete - 1);
+            countAfterDelete.Should().Be(countBeforDelete - 1);
         }
 
         [Fact]
@@ -163,7 +163,7 @@ namespace MachineBuildingFactoryTests.Service
         }
 
         [Fact]
-        public async void GetAllPurchasedPartsAsync_Success()
+        public async void PurchasedPartService_GetAllPurchasedPartsAsync_ReturnsViewModel()
         {
             //Arrange
             var databaseContext = await GetDbContext();

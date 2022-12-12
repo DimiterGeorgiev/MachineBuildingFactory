@@ -26,21 +26,21 @@ namespace MachineBuildingFactoryTests.Controller
         }
 
         [Fact]
-        public void AllPurchasedPart_ReturnsSucceess()
+        public async void Controller_AllPurchasedPart_ReturnsVeiwResult()
         {
             //Arrange
             var model = A.Fake<IEnumerable<PurchasedPartViewModel>>();
             A.CallTo(() => db.GetAllPurchasedPartsAsync()).Returns(model);
 
             //Act
-            var result = purchasedPartController.AllPurchasedPart();
+            var result = await purchasedPartController.AllPurchasedPart();
 
             //Assert
-            result.Should().BeOfType<Task<IActionResult>>();
+            result.Should().BeOfType<ViewResult>();
         }
 
         [Fact]
-        public void Details_ReturnsSuccess()
+        public async void Details_ReturnsSuccess()
         {
             //Arrange
             var id = 1;
@@ -48,10 +48,10 @@ namespace MachineBuildingFactoryTests.Controller
             A.CallTo(() => db.GetPurchasedPartForEditAsync(id)).Returns(model);
 
             //Act
-            var result = purchasedPartController.Details(id);
+            var result = await purchasedPartController.Details(id);
 
             //Assert
-            result.Should().BeOfType<Task<IActionResult>>();
+            result.Should().BeOfType<ViewResult>();
         }
 
         [Fact]

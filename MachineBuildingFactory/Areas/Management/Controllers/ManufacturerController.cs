@@ -28,7 +28,7 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateNewManufacturer()
+        public ViewResult CreateNewManufacturer()
         {
             var model = new CreateManufacturerViewModel();
             return View(model);

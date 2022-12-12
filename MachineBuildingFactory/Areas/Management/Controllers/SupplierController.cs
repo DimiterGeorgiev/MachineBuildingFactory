@@ -29,7 +29,7 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> CreateNewSupplier()
+        public ViewResult CreateNewSupplier()
         {
             var model = new CreateSupplierViewModel();
             return View(model);

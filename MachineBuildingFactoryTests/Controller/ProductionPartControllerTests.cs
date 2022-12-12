@@ -12,9 +12,9 @@ namespace MachineBuildingFactoryTests.Controller
 {
     public class ProductionPartControllerTests
     {
-        private ProductionPartController productionPartController;
-        private IProductionPartService db;
-        private IAssemblyService dbAssembly;
+        private readonly ProductionPartController productionPartController;
+        private readonly IProductionPartService db;
+        private readonly IAssemblyService dbAssembly;
 
         public ProductionPartControllerTests()
         {
