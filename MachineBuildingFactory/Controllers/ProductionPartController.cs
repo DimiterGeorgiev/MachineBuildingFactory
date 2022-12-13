@@ -68,7 +68,7 @@ namespace MachineBuildingFactory.Controllers
             catch (Exception)
             {
                 ModelState.AddModelError("", "Something went wrong");
-                TempData["errror"] = "Something went wrong";
+                TempData["error"] = "Something went wrong";
                 return View(model);
             }
         }
@@ -132,6 +132,7 @@ namespace MachineBuildingFactory.Controllers
 
             if (!ModelState.IsValid)
             {
+                TempData["error"] = "Something went wrong";
                 return View(model);
             }
 
@@ -141,7 +142,10 @@ namespace MachineBuildingFactory.Controllers
             }
             catch (Exception)
             {
-                throw;
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return View(model);
+                //return RedirectToAction(nameof(AllProductionPart));
             }
             var workingAssemblyName = dbAssembly.GetAssemblyById(assemblyId).Result.Name;
             var currrentPartName = db.GetProductionPartForEditAsync(id).Result.Name;
@@ -153,99 +157,145 @@ namespace MachineBuildingFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProductionPart(int id)
         {
-            var model = await db.GetProductionPartForEditAsync(id);
+            try
+            {
+                var model = await db.GetProductionPartForEditAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllProductionPart));
+            }
 
-            return View(model);
         }
 
 
         [HttpPost]
         public async Task<IActionResult> EditProductionPart(EditProductionPartViewModel model)
         {
-            var listOfAllParts = (await db.GetAllProductionPartsAsync()).ToList();
-            var listOfAssemblies = (await dbAssembly.GetAllAssembliesAsync()).ToList();
-
-            var currentPart = listOfAllParts.Find(p => p.Id == model.Id);
-
-            if (currentPart != null)
+            try
             {
-                listOfAllParts.Remove(currentPart);
+                var listOfAllParts = (await db.GetAllProductionPartsAsync()).ToList();
+                var listOfAssemblies = (await dbAssembly.GetAllAssembliesAsync()).ToList();
+
+                var currentPart = listOfAllParts.Find(p => p.Id == model.Id);
+
+                if (currentPart != null)
+                {
+                    listOfAllParts.Remove(currentPart);
+                }
+
+                if (listOfAllParts.Any(p => p.DrawingNumber == model.DrawingNumber) ||
+                    listOfAssemblies.Any(a => a.DrawingNumber == model.DrawingNumber))
+                {
+                    TempData["error"] = $"Drawing Number '{model.DrawingNumber}' already exist.";
+                    ModelState.AddModelError("DrawingNumber", "The Drawing Number already exist.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    model.TypeOfProductionParts = await db.GetTypeOfProductionPartAsync();
+                    model.Materials = await db.GetMaterialsAsync();
+                    return View(model);
+                }
+
+                await db.EditProductionPartAsync(model);
+                TempData["success"] = $"Production Part '{model.Name}' is edited successfully";
+                return RedirectToAction(nameof(AllProductionPart));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllProductionPart));
             }
 
-            if (listOfAllParts.Any(p => p.DrawingNumber == model.DrawingNumber) ||
-                listOfAssemblies.Any(a => a.DrawingNumber == model.DrawingNumber))
-            {
-                TempData["error"] = $"Drawing Number '{model.DrawingNumber}' already exist.";
-                ModelState.AddModelError("DrawingNumber", "The Drawing Number already exist.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                model.TypeOfProductionParts = await db.GetTypeOfProductionPartAsync();
-                model.Materials = await db.GetMaterialsAsync();
-                return View(model);
-            }
-
-            await db.EditProductionPartAsync(model);
-            TempData["success"] = $"Production Part '{model.Name}' is edited successfully";
-            return RedirectToAction(nameof(AllProductionPart));
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await db.GetProductionPartForEditAsync(id);
-
-            if (!ModelState.IsValid)
+            try
             {
+                var model = await db.GetProductionPartForEditAsync(id);
+
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(AllProductionPart));
+                }
+
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllProductionPart));
             }
 
-            return View(model);
         }
 
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await db.GetProductionPartForEditAsync(id);
-            if (model == null)
+            try
             {
-                TempData["error"] = $"Part with id='{id}' can not found";
-                return NotFound();
+                var model = await db.GetProductionPartForEditAsync(id);
+                if (model == null)
+                {
+                    TempData["error"] = $"Part with id='{id}' can not found";
+                    return NotFound();
+                }
+
+                var partName = model.Name;
+
+                var assemblyModel = await dbAssembly.GetWhereUsedAssembliesAsync(id);
+
+                if (assemblyModel.Any())
+                {
+                    TempData["error"] = $"'{partName}' can not be Deleted because it is currently used in somes Assemblies";
+                    return RedirectToAction(nameof(AllProductionPart));
+                }
+                else
+                {
+                    await db.DeleteAsync(id);
+                    TempData["success"] = $"You have deleted '{partName}' successfully";
+                    return RedirectToAction(nameof(AllProductionPart));
+                }
             }
-
-            var partName = model.Name;
-
-            var assemblyModel = await dbAssembly.GetWhereUsedAssembliesAsync(id);
-
-            if (assemblyModel.Any())
+            catch (Exception)
             {
-                TempData["error"] = $"'{partName}' can not be Deleted because it is currently used in somes Assemblies";
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllProductionPart));
             }
-            else
-            {
-                await db.DeleteAsync(id);
-                TempData["success"] = $"You have deleted '{partName}' successfully";
-                return RedirectToAction(nameof(AllProductionPart));
-            }
+
         }
 
         public async Task<IActionResult> RemoveProductionPartFromAssembly(int id)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
             var assembly = await dbAssembly.GetWorkingAssemblyAsync(userId!);
-
             var assemblyId = assembly.Id;
 
-            await db.RemoveProductionPartFromAssemblyAsync(id, assemblyId);
+            try
+            {
+                await db.RemoveProductionPartFromAssemblyAsync(id, assemblyId);
+                var currentPartName = db.GetProductionPartForEditAsync(id).Result.Name;
+                var workingAssemblyName = dbAssembly.GetAssemblyById(assemblyId).Result.Name;
 
-            var currentPartName = db.GetProductionPartForEditAsync(id).Result.Name;
-            var workingAssemblyName = dbAssembly.GetAssemblyById(assemblyId).Result.Name;
+                TempData["success"] = $"You remove '{currentPartName}' from '{workingAssemblyName}' successfully";
+                return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
+            }
 
-            TempData["success"] = $"You remove '{currentPartName}' from '{workingAssemblyName}' successfully";
-            return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
         }
 
         [HttpGet]
@@ -269,7 +319,6 @@ namespace MachineBuildingFactory.Controllers
             catch (Exception)
             {
                 TempData["error"] = "Your Working Assembly have no Part with this Id";
-
                 return Redirect($"/Assembly/WorkingAssemblyProductionPartList/{assemblyId}");
             }
 

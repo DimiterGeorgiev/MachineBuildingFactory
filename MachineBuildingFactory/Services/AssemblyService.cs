@@ -190,6 +190,11 @@ namespace MachineBuildingFactory.Services
 
         public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedAssembliesAsync(int partId)
         {
+            if (await context.ProductionParts.FindAsync(partId) == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
             var entities = await context.Assemblies
                 .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPartId == partId))
                 .ToListAsync();
@@ -312,6 +317,11 @@ namespace MachineBuildingFactory.Services
 
         public async Task<IEnumerable<AssemblyViewModel>> GetWhereUsedPurchasedPartAssembliesAsync(int partId)
         {
+            if (await context.PurchasedParts.FindAsync(partId) == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
+
             var entities = await context.Assemblies
                .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPartId == partId))
                .ToListAsync();

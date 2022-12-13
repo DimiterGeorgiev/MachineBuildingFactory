@@ -81,6 +81,8 @@ namespace MachineBuildingFactory.Services
                 context.PurchasedParts.Remove(purchasedPart);
                 await context.SaveChangesAsync();
             }
+
+            throw new ArgumentException("Invalid PartId");
         }
 
         public async Task EditPurchasedPartAsync(EditPurchasedPartViewModel model)
@@ -188,6 +190,11 @@ namespace MachineBuildingFactory.Services
         public async Task<EditPurchasedPartViewModel> GetPurchasedPartForEditAsync(int id)
         {
             var purchasedPart = await context.PurchasedParts.FindAsync(id); //когато търсим по PrimaryKey търсим с FindAsync
+
+            if (purchasedPart == null)
+            {
+                throw new ArgumentException("Invalid Part Id");
+            }
 
             var model = new EditPurchasedPartViewModel()
             {

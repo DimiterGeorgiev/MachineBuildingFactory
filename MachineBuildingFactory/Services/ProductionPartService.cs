@@ -212,6 +212,11 @@ namespace MachineBuildingFactory.Services
         {
             var productionPart = await context.ProductionParts.FindAsync(id); //когато търсим по PrimaryKey търсим с FindAsync
 
+            if (productionPart == null)
+            {
+                throw new ArgumentException("Invalid Part Id");
+            }
+
             var model = new EditProductionPartViewModel()
             {
                 Id = id,
@@ -235,6 +240,7 @@ namespace MachineBuildingFactory.Services
             model.Materials = await GetMaterialsAsync();
 
             return model;
+
         }
 
         public async Task<IEnumerable<TypeOfProductionPart>> GetTypeOfProductionPartAsync()

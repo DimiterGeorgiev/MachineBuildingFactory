@@ -31,17 +31,35 @@ namespace MachineBuildingFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> WhereUsed(int id)
         {
-            var model = await db.GetWhereUsedAssembliesAsync(id);
+            try
+            {
+                var model = await db.GetWhereUsedAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(Data.Models.ProductionPart));
+            }
 
-            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> WhereUsedPurchasedPart(int id)
         {
-            var model = await db.GetWhereUsedPurchasedPartAssembliesAsync(id);
+            try
+            {
+                var model = await db.GetWhereUsedPurchasedPartAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(PurchasedPartController.AllPurchasedPart), nameof(Data.Models.PurchasedPart));
+            }
 
-            return View(model);
         }
 
         [HttpGet]
