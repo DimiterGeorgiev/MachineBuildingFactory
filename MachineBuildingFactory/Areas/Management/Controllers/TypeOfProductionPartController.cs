@@ -68,9 +68,18 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> EditTypeOfProductionPart(int id)
         {
-            var model = await db.GetTypeOfProductionPartForEditAsync(id);
+            try
+            {
+                var model = await db.GetTypeOfProductionPartForEditAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllTypeOfProductionPart));
+            }
 
-            return View(model);
         }
 
         [HttpPost]
@@ -104,45 +113,57 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await db.GetTypeOfProductionPartForEditAsync(id);
-
-            if (!ModelState.IsValid)
+            try
             {
+                var model = await db.GetTypeOfProductionPartForEditAsync(id);
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(AllTypeOfProductionPart));
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllTypeOfProductionPart));
             }
 
-            return View(model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await db.GetTypeOfProductionPartForEditAsync(id);
-            if (model == null)
+            try
             {
-                TempData["error"] = $"Type of Production Part with id='{id}' can not found";
-                return NotFound();
+                var model = await db.GetTypeOfProductionPartForEditAsync(id);
+                if (model == null)
+                {
+                    TempData["error"] = $"Type of Production Part with id='{id}' can not found";
+                    return NotFound();
+                }
+
+                var name = model.Name;
+                var assemblyModel = await dbAssembly.GetWhereUsedTypeOfProductionPartAssembliesAsync(id);
+
+                if (assemblyModel.Any())
+                {
+                    TempData["error"] = $"Type of Prouction Part :'{name}' can not be Deleted because it is currently used in somes Assemblies";
+                    return RedirectToAction(nameof(AllTypeOfProductionPart));
+                }
+                else
+                {
+                    await db.DeleteAsync(id);
+                    TempData["success"] = $"You have deleted Type of Production Part:'{name}' successfully";
+                    return RedirectToAction(nameof(AllTypeOfProductionPart));
+                }
             }
-
-            var name = model.Name;
-
-            var assemblyModel = await dbAssembly.GetWhereUsedTypeOfProductionPartAssembliesAsync(id);
-
-            if (assemblyModel.Any())
+            catch (Exception)
             {
-                TempData["error"] = $"Type of Prouction Part :'{name}' can not be Deleted because it is currently used in somes Assemblies";
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllTypeOfProductionPart));
             }
-            else
-            {
-                await db.DeleteAsync(id);
-                TempData["success"] = $"You have deleted Type of Production Part:'{name}' successfully";
-                return RedirectToAction(nameof(AllTypeOfProductionPart));
-            }
+
         }
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
     }
 }

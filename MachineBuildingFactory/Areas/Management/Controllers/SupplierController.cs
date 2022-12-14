@@ -68,9 +68,17 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> EditSupplier(int id)
         {
-            var model = await db.GetSupplierForEditAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetSupplierForEditAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllSupplier));
+            }
         }
 
         [HttpPost]
@@ -104,45 +112,53 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await db.GetSupplierForEditAsync(id);
-
-            if (!ModelState.IsValid)
+            try
             {
+                var model = await db.GetSupplierForEditAsync(id);
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(AllSupplier));
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllSupplier));
             }
-
-            return View(model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await db.GetSupplierForEditAsync(id);
-            if (model == null)
+            try
             {
-                TempData["error"] = $"Supplier with id='{id}' can not found";
-                return NotFound();
+                var model = await db.GetSupplierForEditAsync(id);
+                if (model == null)
+                {
+                    TempData["error"] = $"Supplier with id='{id}' can not found";
+                    return NotFound();
+                }
+                var supplierName = model.Name;
+                var assemblyModel = await dbAssembly.GetWhereUsedSupplierAssembliesAsync(id);
+                if (assemblyModel.Any())
+                {
+                    TempData["error"] = $"'{supplierName}' can not be Deleted because it is currently used in somes Assemblies";
+                    return RedirectToAction(nameof(AllSupplier));
+                }
+                else
+                {
+                    await db.DeleteAsync(id);
+                    TempData["success"] = $"You have deleted '{supplierName}' successfully";
+                    return RedirectToAction(nameof(AllSupplier));
+                }
             }
-
-            var supplierName = model.Name;
-
-            var assemblyModel = await dbAssembly.GetWhereUsedSupplierAssembliesAsync(id);
-
-            if (assemblyModel.Any())
+            catch (Exception)
             {
-                TempData["error"] = $"'{supplierName}' can not be Deleted because it is currently used in somes Assemblies";
-                return RedirectToAction(nameof(AllSupplier));
-            }
-            else
-            {
-                await db.DeleteAsync(id);
-                TempData["success"] = $"You have deleted '{supplierName}' successfully";
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllSupplier));
             }
         }
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
     }
 }

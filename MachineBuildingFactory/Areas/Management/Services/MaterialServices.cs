@@ -34,6 +34,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
 
+            if (material == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
+
             if (material != null)
             {
                 context.Materials.Remove(material);
@@ -66,6 +71,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
         public async Task<EditMaterialViewModel> GetMaterialForEditAsync(int id)
         {
             var material = await context.Materials.FindAsync(id);
+
+            if (material == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
 
             var model = new EditMaterialViewModel()
             {

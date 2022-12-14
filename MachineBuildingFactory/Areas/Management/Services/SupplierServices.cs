@@ -36,6 +36,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
 
+            if (supplier == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
+
             if (supplier != null)
             {
                 context.Suppliers.Remove(supplier);
@@ -72,6 +77,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
         public async Task<EditSupplierViewModel> GetSupplierForEditAsync(int id)
         {
             var supplier = await context.Suppliers.FindAsync(id);
+
+            if (supplier == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
 
             var model = new EditSupplierViewModel()
             {

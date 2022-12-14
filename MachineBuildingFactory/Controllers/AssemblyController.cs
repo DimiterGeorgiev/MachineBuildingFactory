@@ -42,7 +42,6 @@ namespace MachineBuildingFactory.Controllers
                 TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(ProductionPartController.AllProductionPart), nameof(Data.Models.ProductionPart));
             }
-
         }
 
         [HttpGet]
@@ -59,41 +58,71 @@ namespace MachineBuildingFactory.Controllers
                 TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(PurchasedPartController.AllPurchasedPart), nameof(Data.Models.PurchasedPart));
             }
-
         }
 
         [HttpGet]
         public async Task<IActionResult> WhereUsedManufacturer(int id)
         {
-            var model = await db.GetWhereUsedManufacturerAssembliesAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetWhereUsedManufacturerAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> WhereUsedSupplier(int id)
         {
-            var model = await db.GetWhereUsedSupplierAssembliesAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetWhereUsedSupplierAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> WhereUsedMaterial(int id)
         {
-            var model = await db.GetWhereUsedMaterialAssembliesAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetWhereUsedMaterialAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> WhereUsedTypeOfProductionPart(int id)
         {
-            var model = await db.GetWhereUsedTypeOfProductionPartAssembliesAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetWhereUsedTypeOfProductionPartAssembliesAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
-
 
         [HttpGet]
         public IActionResult CreateNewAssembly()
@@ -134,9 +163,18 @@ namespace MachineBuildingFactory.Controllers
 
         public async Task<IActionResult> AssemblyProductionPartList(int id)
         {
-            var model = await db.GetProductionPartListFromAssemblyAsync(id);
+            try
+            {
+                var model = await db.GetProductionPartListFromAssemblyAsync(id);
 
-            return View(nameof(AssemblyProductionPartList), model);
+                return View(nameof(AssemblyProductionPartList), model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
 
         public async Task<IActionResult> WorkingAssemblyProductionPartList(int id)
@@ -144,30 +182,43 @@ namespace MachineBuildingFactory.Controllers
             try
             {
                 var model = await db.GetProductionPartListFromAssemblyAsync(id);
-
                 return View(nameof(WorkingAssemblyProductionPartList), model);
             }
             catch (Exception)
             {
                 TempData["error"] = "You have no Assembly with this Id";
-
                 return RedirectToAction(nameof(AllAssemblies));
             }
-
         }
 
         public async Task<IActionResult> AssemblyPurchasedPartList(int id)
         {
-            var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
-
-            return View(nameof(AssemblyPurchasedPartList), model);
+            try
+            {
+                var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
+                return View(nameof(AssemblyPurchasedPartList), model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(WorkingAssembly));
+            }
         }
 
         public async Task<IActionResult> WorkingAssemblyPurchasedPartList(int id)
         {
-            var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
-
-            return View(nameof(WorkingAssemblyPurchasedPartList), model);
+            try
+            {
+                var model = await db.GetPurchasedPartListFromAssemblyAsync(id);
+                return View(nameof(WorkingAssemblyPurchasedPartList), model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllAssemblies));
+            }
         }
 
         public async Task<IActionResult> AddAssemblyToMineCollection(int id)
@@ -183,9 +234,19 @@ namespace MachineBuildingFactory.Controllers
                 TempData["alreadyDone"] = $"You have already '{currAssembly}' in your Assemblies";
                 return RedirectToAction(nameof(AllAssemblies));
             }
-            var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
-            TempData["success"] = $"You have added '{assembly}' to your Assemblies";
-            return RedirectToAction(nameof(AllAssemblies));
+            try
+            {
+                var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
+                TempData["success"] = $"You have added '{assembly}' to your Assemblies";
+                return RedirectToAction(nameof(AllAssemblies));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllAssemblies));
+            }
+
         }
 
         public async Task<IActionResult> SetAssemblyAsWorking(int id)
@@ -194,16 +255,19 @@ namespace MachineBuildingFactory.Controllers
             {
                 var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 await db.SetAssemblyAsWorkingAsync(id, userId!);
+
+                var assembly = await db.GetAssemblyForEditAsync(id); //.Result.Name;
+                var assemblyName = assembly.Name;
+
+                TempData["success"] = $"You have set '{assemblyName}' as Working Assembly";
+                return RedirectToAction(nameof(MineAssemblies));
             }
             catch (Exception)
             {
-                throw;
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(MineAssemblies));
             }
-
-            var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
-
-            TempData["success"] = $"You have set '{assembly}' as Working Assembly";
-            return RedirectToAction(nameof(MineAssemblies));
         }
 
         public async Task<IActionResult> WorkingAssembly()
@@ -268,12 +332,22 @@ namespace MachineBuildingFactory.Controllers
 
         public async Task<IActionResult> RemoveAssemblyFromMineCollection(int id)
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            await db.RemoveAssemblyFromCollectionAsync(id, userId!);
+            try
+            {
+                var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await db.RemoveAssemblyFromCollectionAsync(id, userId!);
 
-            var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
-            TempData["success"] = $"You have remove '{assembly}' from your Assemblies";
-            return RedirectToAction(nameof(MineAssemblies));
+                var assembly = db.GetAssemblyForEditAsync(id).Result.Name;
+                TempData["success"] = $"You have remove '{assembly}' from your Assemblies";
+                return RedirectToAction(nameof(MineAssemblies));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(MineAssemblies));
+            }
+
         }
 
         public async Task<IActionResult> MineAssemblies()
@@ -288,9 +362,17 @@ namespace MachineBuildingFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> EditAssembly(int id)
         {
-            var model = await db.GetAssemblyForEditAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetAssemblyForEditAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(MineAssemblies));
+            }
         }
 
         [HttpPost]
@@ -327,29 +409,45 @@ namespace MachineBuildingFactory.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await db.GetAssemblyForEditAsync(id);
-
-            if (!ModelState.IsValid)
+            try
             {
+                var model = await db.GetAssemblyForEditAsync(id);
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(AllAssemblies));
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllAssemblies));
             }
 
-            return View(model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await db.GetAssemblyForEditAsync(id);
-
-            if (model == null)
+            try
             {
-                return NotFound();
+                var model = await db.GetAssemblyForEditAsync(id);
+                if (model == null)
+                {
+                    return NotFound();
+                }
+                await db.DeleteAsync(id);
+                var assembly = model.Name;
+                TempData["success"] = $"You have deleted '{assembly}' successfully";
+                return RedirectToAction(nameof(AllAssemblies));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(MineAssemblies));
             }
 
-            await db.DeleteAsync(id);
-            var assembly = model.Name;
-            TempData["success"] = $"You have deleted '{assembly}' successfully";
-            return RedirectToAction(nameof(AllAssemblies));
         }
     }
 }

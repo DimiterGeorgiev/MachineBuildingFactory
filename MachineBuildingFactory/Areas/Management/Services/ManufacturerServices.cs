@@ -36,6 +36,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
 
+            if (manufacturer == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
+
             if (manufacturer != null)
             {
                 context.Manufacturers.Remove(manufacturer);
@@ -72,6 +77,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
         public async Task<EditManufacturerViewModel> GetManufacturerForEditAsync(int id)
         {
             var manufacturer = await context.Manufacturers.FindAsync(id);
+
+            if (manufacturer == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
 
             var model = new EditManufacturerViewModel()
             {

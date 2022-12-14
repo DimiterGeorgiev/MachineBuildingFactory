@@ -67,9 +67,17 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> EditMaterial(int id)
         {
-            var model = await db.GetMaterialForEditAsync(id);
-
-            return View(model);
+            try
+            {
+                var model = await db.GetMaterialForEditAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
+                return RedirectToAction(nameof(AllMaterial));
+            }
         }
 
         [HttpPost]
@@ -103,45 +111,57 @@ namespace MachineBuildingFactory.Areas.Management.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await db.GetMaterialForEditAsync(id);
-
-            if (!ModelState.IsValid)
+            try
             {
+                var model = await db.GetMaterialForEditAsync(id);
+                if (!ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(AllMaterial));
+                }
+                return View(model);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllMaterial));
             }
 
-            return View(model);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var model = await db.GetMaterialForEditAsync(id);
-            if (model == null)
+            try
             {
-                TempData["error"] = $"Material with id='{id}' can not found";
-                return NotFound();
+                var model = await db.GetMaterialForEditAsync(id);
+                if (model == null)
+                {
+                    TempData["error"] = $"Material with id='{id}' can not found";
+                    return NotFound();
+                }
+
+                var materialNumber = model.MaterialNumber;
+
+                var assemblyModel = await dbAssembly.GetWhereUsedMaterialAssembliesAsync(id);
+
+                if (assemblyModel.Any())
+                {
+                    TempData["error"] = $"Material with Material Number: '{materialNumber}' can not be Deleted because it is currently used in somes Assemblies";
+                    return RedirectToAction(nameof(AllMaterial));
+                }
+                else
+                {
+                    await db.DeleteAsync(id);
+                    TempData["success"] = $"You have deleted Material with Material Number:'{materialNumber}' successfully";
+                    return RedirectToAction(nameof(AllMaterial));
+                }
             }
-
-            var materialNumber = model.MaterialNumber;
-
-            var assemblyModel = await dbAssembly.GetWhereUsedMaterialAssembliesAsync(id);
-
-            if (assemblyModel.Any())
+            catch (Exception)
             {
-                TempData["error"] = $"Material with Material Number: '{materialNumber}' can not be Deleted because it is currently used in somes Assemblies";
-                return RedirectToAction(nameof(AllMaterial));
-            }
-            else
-            {
-                await db.DeleteAsync(id);
-                TempData["success"] = $"You have deleted Material with Material Number:'{materialNumber}' successfully";
+                ModelState.AddModelError("", "Something went wrong");
+                TempData["error"] = "Something went wrong. Pleas try again.";
                 return RedirectToAction(nameof(AllMaterial));
             }
         }
-
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
     }
 }

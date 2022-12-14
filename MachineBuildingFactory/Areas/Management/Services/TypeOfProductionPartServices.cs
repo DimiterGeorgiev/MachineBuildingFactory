@@ -34,6 +34,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
 
+            if (typeOfProductionPart == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
+
             if (typeOfProductionPart != null)
             {
                 context.TypeOfProductionParts.Remove(typeOfProductionPart);
@@ -66,6 +71,11 @@ namespace MachineBuildingFactory.Areas.Management.Services
         public async Task<EditTypeOfProductionPartViewModel> GetTypeOfProductionPartForEditAsync(int id)
         {
             var typeOfProductionPart = await context.TypeOfProductionParts.FindAsync(id);
+
+            if (typeOfProductionPart == null)
+            {
+                throw new ArgumentException("Invalid Id");
+            }
 
             var model = new EditTypeOfProductionPartViewModel()
             {

@@ -80,6 +80,10 @@ namespace MachineBuildingFactory.Services
                 await context.SaveChangesAsync();
 
             }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public async Task EditAssemblyAsync(EditAssemblyViewModel model)
@@ -116,6 +120,11 @@ namespace MachineBuildingFactory.Services
         public async Task<EditAssemblyViewModel> GetAssemblyForEditAsync(int id)
         {
             var assembly = await context.Assemblies.FindAsync(id); //когато търсим по PrimaryKey търсим FindAsync
+
+            if (assembly == null)
+            {
+                throw new ArgumentException("Invalid assemblyId");
+            }
 
             var model = new EditAssemblyViewModel()
             {
@@ -373,6 +382,11 @@ namespace MachineBuildingFactory.Services
                .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPart.Manufacturer.Id == manufacturerId))
                .ToListAsync();
 
+            if (entities == null)
+            {
+                throw new ArgumentException("Invalid manufacturerId");
+            }
+
             return entities
                 .Select(a => new AssemblyViewModel()
                 {
@@ -391,6 +405,11 @@ namespace MachineBuildingFactory.Services
             var entities = await context.Assemblies
                .Where(a => a.AssemblyPurchаsedParts.Any(a => a.PurchasedPart.Supplier.Id == supplierId))
                .ToListAsync();
+
+            if (entities == null)
+            {
+                throw new ArgumentException("Invalid supplierId");
+            }
 
             return entities
                 .Select(a => new AssemblyViewModel()
@@ -411,6 +430,11 @@ namespace MachineBuildingFactory.Services
                 .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPart.Material.Id == materialId))
                 .ToListAsync();
 
+            if (entities == null)
+            {
+                throw new ArgumentException("Invalid materialId");
+            }
+
             return entities
                 .Select(a => new AssemblyViewModel()
                 {
@@ -430,6 +454,11 @@ namespace MachineBuildingFactory.Services
             var entities = await context.Assemblies
                 .Where(a => a.AssemblyProductionParts.Any(a => a.ProductionPart.TypeOfProductionPart.Id == TypeOfProductionPartId))
                 .ToListAsync();
+
+            if (entities == null)
+            {
+                throw new ArgumentException("Invalid TypeOfProductionPartId");
+            }
 
             return entities
                 .Select(a => new AssemblyViewModel()
