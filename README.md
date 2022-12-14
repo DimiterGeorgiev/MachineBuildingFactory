@@ -13,4 +13,5 @@ Full functionality you will have with peter.
 
 More for functionality you see in Product Documentation
 
-[Readme.docx](https://github.com/DimiterGeorgiev/MachineBuildingFactory/files/10230823/Readme.docx)
+[Product Documentation.docx](https://github.com/DimiterGeorgiev/MachineBuildingFactory/files/10230848/Product.Documentation.docx)
+
