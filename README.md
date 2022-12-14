@@ -11,7 +11,7 @@ UserNmae: todor        Password: 123aA!      role: User
 
 Full functionality you will have with peter.
 
-More for functionality you see in Product Documentation
+More for functionality you can see in Product Documentation
 
 [Product Documentation.docx](https://github.com/DimiterGeorgiev/MachineBuildingFactory/files/10230848/Product.Documentation.docx)
 
